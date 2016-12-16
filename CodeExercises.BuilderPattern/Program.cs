@@ -7,9 +7,8 @@ namespace CodeExercises.BuilderPattern
         private static void Main()
         {
             var computerShop = new ComputerShop();
-            ComputerBuilder computerBuilder;
 
-            computerBuilder = new LaptopBuilder();
+            ComputerBuilder computerBuilder = new LaptopBuilder();
             computerShop.ConstructComputer(computerBuilder);
             computerBuilder.Computer.DisplayConfiguration();
 

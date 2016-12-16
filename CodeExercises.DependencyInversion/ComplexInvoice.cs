@@ -8,7 +8,7 @@
 
         public decimal CalculateTax()
         {
-            return (Subtotal*TaxRate/100) + (Subtotal*SecondTaxRate/100);
+            return Subtotal*TaxRate/100 + Subtotal*SecondTaxRate/100;
         }
 
         public decimal CalculateTotal()

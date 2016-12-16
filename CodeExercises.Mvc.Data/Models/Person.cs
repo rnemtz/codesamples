@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-
 namespace CodeExercises.Mvc.Data.Models
 {
-    public partial class Person
+    public class Person
     {
         public int PersonId { get; set; }
         public string FirstName { get; set; }

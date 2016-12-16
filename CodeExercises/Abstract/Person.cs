@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CodeExercises.Abstract
+﻿namespace CodeExercises.Abstract
 {
     public abstract class Person
     {
@@ -14,7 +12,7 @@ namespace CodeExercises.Abstract
 
         public virtual string FullName()
         {
-            return String.Format("Full Name is: {0} {1}", Name, LastName);
+            return $"Full Name is: {Name} {LastName}";
         }
     }
 }

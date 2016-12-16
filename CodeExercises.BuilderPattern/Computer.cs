@@ -18,21 +18,19 @@ namespace CodeExercises.BuilderPattern
 
         public void DisplayConfiguration()
         {
-            string message;
-
-            message = string.Format("Computer: {0}", _computerType);
+            string message = $"Computer: {_computerType}";
             Console.WriteLine(message);
 
-            message = string.Format("Motherboard: {0}", MotherBoard);
+            message = $"Motherboard: {MotherBoard}";
             Console.WriteLine(message);
 
-            message = string.Format("Processor: {0}", Processor);
+            message = $"Processor: {Processor}";
             Console.WriteLine(message);
 
-            message = string.Format("Harddisk: {0}", HardDisk);
+            message = $"Harddisk: {HardDisk}";
             Console.WriteLine(message);
 
-            message = string.Format("Screen: {0}", Screen);
+            message = $"Screen: {Screen}";
             Console.WriteLine(message);
 
             Console.WriteLine();

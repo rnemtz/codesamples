@@ -1,4 +1,4 @@
-﻿namespace CodeExercises.LiskovSubstitution.Validation
+﻿namespace CodeExercises.InterfaceSegregation.Validation
 {
     public abstract class Validator
     {

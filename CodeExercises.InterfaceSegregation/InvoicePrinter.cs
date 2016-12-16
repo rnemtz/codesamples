@@ -1,6 +1,4 @@
-﻿using CodeExercises.LiskovSubstitution;
-
-namespace CodeExercises.InterfaceSegregation
+﻿namespace CodeExercises.InterfaceSegregation
 {
     public class InvoicePrinter : IInvoicePrinter
     {

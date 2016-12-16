@@ -1,4 +1,4 @@
-﻿namespace CodeExercises.LiskovSubstitution
+﻿namespace CodeExercises.InterfaceSegregation
 {
     public class ComplexInvoice
     {

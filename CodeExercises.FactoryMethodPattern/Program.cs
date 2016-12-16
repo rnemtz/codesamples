@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeExercises.FactoryMethodPattern
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var bookReaderList = new List<BookReader>
             {
@@ -28,7 +25,7 @@ namespace CodeExercises.FactoryMethodPattern
 
             // C# specific solution using generics
             var genericReader = new AdventureBookReader();
-            Book book = genericReader.BuyBook();
+            var book = genericReader.BuyBook();
             Console.WriteLine(book.GetType().ToString());
 
             Console.ReadKey();

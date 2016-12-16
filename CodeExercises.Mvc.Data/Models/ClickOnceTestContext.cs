@@ -5,14 +5,14 @@ namespace CodeExercises.Mvc.Data.Models
 {
     public class ClickOnceTestContext : DbContext
     {
-        public ClickOnceTestContext()
-            : base("Name=ClickOnceTestContext")
-        {
-        }
-
         static ClickOnceTestContext()
         {
             Database.SetInitializer<ClickOnceTestContext>(null);
+        }
+
+        public ClickOnceTestContext()
+            : base("Name=ClickOnceTestContext")
+        {
         }
 
         public DbSet<Person> People { get; set; }

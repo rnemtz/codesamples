@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Console", "CodeExercises\CodeExercises.Console.csproj", "{50F3407D-7C33-4788-860A-93FEE4DE4729}"
 EndProject
@@ -50,79 +50,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVVM", "MVVM", "{0989D1D6-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvvm.Wpf", "CodeExercises.Mvvm.Wpf\CodeExercises.Mvvm.Wpf.csproj", "{F7609E40-ECC4-4691-8A30-17B96C279D25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkEjs", "SparkEjs\SparkEjs.csproj", "{34C49A9E-4956-498F-93DF-23C042335BA5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Translator", "Translator", "{3D545133-EF12-4FE7-96E7-BB94B8DFBEA5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Structures", "Data Structures", "{17D2A19E-070C-4F55-B622-3BCA751B3134}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://nexfy.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = CodeExercises.Console.Tests\\CodeExercises.Console.Tests.csproj
-		SccProjectName1 = CodeExercises.Console.Tests
-		SccLocalPath1 = CodeExercises.Console.Tests
-		SccProjectUniqueName2 = CodeExercises\\CodeExercises.Console.csproj
-		SccProjectName2 = CodeExercises
-		SccLocalPath2 = CodeExercises
-		SccProjectUniqueName3 = CodeExercises.AbstractFactory\\CodeExercises.AbstractFactory.csproj
-		SccProjectTopLevelParentUniqueName3 = CodeExercises.sln
-		SccProjectName3 = CodeExercises.AbstractFactory
-		SccLocalPath3 = CodeExercises.AbstractFactory
-		SccProjectUniqueName4 = CodeExercises.BuilderPattern\\CodeExercises.BuilderPattern.csproj
-		SccProjectTopLevelParentUniqueName4 = CodeExercises.sln
-		SccProjectName4 = CodeExercises.BuilderPattern
-		SccLocalPath4 = CodeExercises.BuilderPattern
-		SccProjectUniqueName5 = CodeExercises.FactoryMethodPattern\\CodeExercises.FactoryMethodPattern.csproj
-		SccProjectTopLevelParentUniqueName5 = CodeExercises.sln
-		SccProjectName5 = CodeExercises.FactoryMethodPattern
-		SccLocalPath5 = CodeExercises.FactoryMethodPattern
-		SccProjectUniqueName6 = CodeExercises.SingleResponsability\\CodeExercises.SingleResponsability.csproj
-		SccProjectTopLevelParentUniqueName6 = CodeExercises.sln
-		SccProjectName6 = CodeExercises.SingleResponsability
-		SccLocalPath6 = CodeExercises.SingleResponsability
-		SccProjectUniqueName7 = CodeExercises.OpenClosed\\CodeExercises.OpenClosed.csproj
-		SccProjectTopLevelParentUniqueName7 = CodeExercises.sln
-		SccProjectName7 = CodeExercises.OpenClosed
-		SccLocalPath7 = CodeExercises.OpenClosed
-		SccProjectUniqueName8 = CodeExercises.LiskovSubstitution\\CodeExercises.LiskovSubstitution.csproj
-		SccProjectTopLevelParentUniqueName8 = CodeExercises.sln
-		SccProjectName8 = CodeExercises.LiskovSubstitution
-		SccLocalPath8 = CodeExercises.LiskovSubstitution
-		SccProjectUniqueName9 = CodeExercises.InterfaceSegregation\\CodeExercises.InterfaceSegregation.csproj
-		SccProjectTopLevelParentUniqueName9 = CodeExercises.sln
-		SccProjectName9 = CodeExercises.InterfaceSegregation
-		SccLocalPath9 = CodeExercises.InterfaceSegregation
-		SccProjectUniqueName10 = CodeExercises.DependencyInversion\\CodeExercises.DependencyInversion.csproj
-		SccProjectTopLevelParentUniqueName10 = CodeExercises.sln
-		SccProjectName10 = CodeExercises.DependencyInversion
-		SccLocalPath10 = CodeExercises.DependencyInversion
-		SccProjectUniqueName11 = CodeExercises.Mvc.Data\\CodeExercises.Mvc.Data.csproj
-		SccProjectTopLevelParentUniqueName11 = CodeExercises.sln
-		SccProjectName11 = CodeExercises.Mvc.Data
-		SccLocalPath11 = CodeExercises.Mvc.Data
-		SccProjectUniqueName12 = CodeExercises.Mvc.BusinessLogic\\CodeExercises.Mvc.BusinessLogic.csproj
-		SccProjectTopLevelParentUniqueName12 = CodeExercises.sln
-		SccProjectName12 = CodeExercises.Mvc.BusinessLogic
-		SccLocalPath12 = CodeExercises.Mvc.BusinessLogic
-		SccProjectUniqueName13 = CodeExercises.Mvc.Web\\CodeExercises.Mvc.Web.csproj
-		SccProjectTopLevelParentUniqueName13 = CodeExercises.sln
-		SccProjectName13 = CodeExercises.Mvc.Web
-		SccLocalPath13 = CodeExercises.Mvc.Web
-		SccProjectUniqueName14 = CodeExercises.Mvc.Web.Tests\\CodeExercises.Mvc.Web.Tests.csproj
-		SccProjectTopLevelParentUniqueName14 = CodeExercises.sln
-		SccProjectName14 = CodeExercises.Mvc.Web.Tests
-		SccLocalPath14 = CodeExercises.Mvc.Web.Tests
-		SccProjectUniqueName15 = CodeExercises.Mvvm.Wpf\\CodeExercises.Mvvm.Wpf.csproj
-		SccProjectTopLevelParentUniqueName15 = CodeExercises.sln
-		SccProjectName15 = CodeExercises.Mvvm.Wpf
-		SccLocalPath15 = CodeExercises.Mvvm.Wpf
-		SccProjectUniqueName16 = SparkEjs\\SparkEjs.csproj
-		SccProjectTopLevelParentUniqueName16 = CodeExercises.sln
-		SccProjectName16 = SparkEjs
-		SccLocalPath16 = SparkEjs
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -188,10 +118,6 @@ Global
 		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Release|Any CPU.Build.0 = Release|Any CPU
-		{34C49A9E-4956-498F-93DF-23C042335BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{34C49A9E-4956-498F-93DF-23C042335BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34C49A9E-4956-498F-93DF-23C042335BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34C49A9E-4956-498F-93DF-23C042335BA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +138,5 @@ Global
 		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9} = {0A15605C-897D-4FAC-97AB-F193FDA949EF}
 		{0989D1D6-A33B-4676-AF05-09132B422361} = {64ACD306-C130-4F49-BB6C-A02761D03A40}
 		{F7609E40-ECC4-4691-8A30-17B96C279D25} = {0989D1D6-A33B-4676-AF05-09132B422361}
-		{34C49A9E-4956-498F-93DF-23C042335BA5} = {3D545133-EF12-4FE7-96E7-BB94B8DFBEA5}
 	EndGlobalSection
 EndGlobal
