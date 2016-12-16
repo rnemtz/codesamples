@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CodeExercises.DependencyInversion.Validation.InvoiceSubtotalValidator" Collapsed="true">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\InvoiceSubtotalValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeExercises.DependencyInversion.Validation.InvoiceTaxRateCalculator" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\InvoiceTaxRateCalculator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeExercises.DependencyInversion.Validation.InvoiceTaxValidator" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\InvoiceTaxValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeExercises.DependencyInversion.Validation.InvoiceTotalValidator" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\InvoiceTotalValidator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CodeExercises.DependencyInversion.Validation.Validator">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Validation\Validator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="CodeExercises.DependencyInversion.IInvoicePrinter" Collapsed="true">
+    <Position X="10" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAgA=</HashCode>
+      <FileName>IInvoicePrinter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CodeExercises.DependencyInversion.ISomeOtherPrint" Collapsed="true">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISomeOtherPrint.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

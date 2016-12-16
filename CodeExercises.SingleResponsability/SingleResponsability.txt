@@ -1,0 +1,3 @@
+﻿Single Responsability Principle
+
+The principle is based to group a logic methods related to each other. Not only to have one method per class.

@@ -1,0 +1,4 @@
+﻿Open Closed Principle
+
+This principle really says that the class or functionality we are working should be open to extention but closed to modification
+All that means is that the class you are writing it should be easily extended or the functionality should be easily extended withouth modifying its current code.

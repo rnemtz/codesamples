@@ -1,0 +1,217 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Console", "CodeExercises\CodeExercises.Console.csproj", "{50F3407D-7C33-4788-860A-93FEE4DE4729}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Console.Tests", "CodeExercises.Console.Tests\CodeExercises.Console.Tests.csproj", "{9CA3EAEE-6FC4-400A-B5F0-F0B40101BEC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.AbstractFactory", "CodeExercises.AbstractFactory\CodeExercises.AbstractFactory.csproj", "{19806EDB-98BB-45AE-B7D8-107960419CE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.BuilderPattern", "CodeExercises.BuilderPattern\CodeExercises.BuilderPattern.csproj", "{87A326E2-B7DB-4D71-995E-755D970A6631}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.FactoryMethodPattern", "CodeExercises.FactoryMethodPattern\CodeExercises.FactoryMethodPattern.csproj", "{CC3240DF-7721-4ED7-A292-40AFCEE4D7B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesignPatterns", "DesignPatterns", "{ECD2274E-95BF-41DD-842D-18E8333C04FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solid", "Solid", "{918137CB-98E3-430E-8A3A-00F5D19274ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.SingleResponsability", "CodeExercises.SingleResponsability\CodeExercises.SingleResponsability.csproj", "{B007EEAF-A8BC-4D41-A05D-FE1D3B23D27A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.OpenClosed", "CodeExercises.OpenClosed\CodeExercises.OpenClosed.csproj", "{9EFFE28F-B8ED-4195-A28F-8EE7591C204E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.LiskovSubstitution", "CodeExercises.LiskovSubstitution\CodeExercises.LiskovSubstitution.csproj", "{2E25F074-E688-4593-9E8A-CE03F4563C08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.InterfaceSegregation", "CodeExercises.InterfaceSegregation\CodeExercises.InterfaceSegregation.csproj", "{E5A21BB9-29F3-439C-9D19-26932DE5C29C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.DependencyInversion", "CodeExercises.DependencyInversion\CodeExercises.DependencyInversion.csproj", "{98AD133A-91F9-4B4A-84BF-1ACF31CC7DF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArchitecturalPatterns", "ArchitecturalPatterns", "{64ACD306-C130-4F49-BB6C-A02761D03A40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvc.Data", "CodeExercises.Mvc.Data\CodeExercises.Mvc.Data.csproj", "{C7459568-9816-4117-957C-5A9808D76108}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{0A15605C-897D-4FAC-97AB-F193FDA949EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{BC4680B6-08A4-4B5F-ABB4-055B6287DB8B}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvc.BusinessLogic", "CodeExercises.Mvc.BusinessLogic\CodeExercises.Mvc.BusinessLogic.csproj", "{1803DA94-4F98-4107-8FF1-AB7C41B0F408}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvc.Web", "CodeExercises.Mvc.Web\CodeExercises.Mvc.Web.csproj", "{39E7C00F-49DD-43F7-894A-A4EE2901716F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvc.Web.Tests", "CodeExercises.Mvc.Web.Tests\CodeExercises.Mvc.Web.Tests.csproj", "{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVVM", "MVVM", "{0989D1D6-A33B-4676-AF05-09132B422361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvvm.Wpf", "CodeExercises.Mvvm.Wpf\CodeExercises.Mvvm.Wpf.csproj", "{F7609E40-ECC4-4691-8A30-17B96C279D25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkEjs", "SparkEjs\SparkEjs.csproj", "{34C49A9E-4956-498F-93DF-23C042335BA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Translator", "Translator", "{3D545133-EF12-4FE7-96E7-BB94B8DFBEA5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 17
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://nexfy.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CodeExercises.Console.Tests\\CodeExercises.Console.Tests.csproj
+		SccProjectName1 = CodeExercises.Console.Tests
+		SccLocalPath1 = CodeExercises.Console.Tests
+		SccProjectUniqueName2 = CodeExercises\\CodeExercises.Console.csproj
+		SccProjectName2 = CodeExercises
+		SccLocalPath2 = CodeExercises
+		SccProjectUniqueName3 = CodeExercises.AbstractFactory\\CodeExercises.AbstractFactory.csproj
+		SccProjectTopLevelParentUniqueName3 = CodeExercises.sln
+		SccProjectName3 = CodeExercises.AbstractFactory
+		SccLocalPath3 = CodeExercises.AbstractFactory
+		SccProjectUniqueName4 = CodeExercises.BuilderPattern\\CodeExercises.BuilderPattern.csproj
+		SccProjectTopLevelParentUniqueName4 = CodeExercises.sln
+		SccProjectName4 = CodeExercises.BuilderPattern
+		SccLocalPath4 = CodeExercises.BuilderPattern
+		SccProjectUniqueName5 = CodeExercises.FactoryMethodPattern\\CodeExercises.FactoryMethodPattern.csproj
+		SccProjectTopLevelParentUniqueName5 = CodeExercises.sln
+		SccProjectName5 = CodeExercises.FactoryMethodPattern
+		SccLocalPath5 = CodeExercises.FactoryMethodPattern
+		SccProjectUniqueName6 = CodeExercises.SingleResponsability\\CodeExercises.SingleResponsability.csproj
+		SccProjectTopLevelParentUniqueName6 = CodeExercises.sln
+		SccProjectName6 = CodeExercises.SingleResponsability
+		SccLocalPath6 = CodeExercises.SingleResponsability
+		SccProjectUniqueName7 = CodeExercises.OpenClosed\\CodeExercises.OpenClosed.csproj
+		SccProjectTopLevelParentUniqueName7 = CodeExercises.sln
+		SccProjectName7 = CodeExercises.OpenClosed
+		SccLocalPath7 = CodeExercises.OpenClosed
+		SccProjectUniqueName8 = CodeExercises.LiskovSubstitution\\CodeExercises.LiskovSubstitution.csproj
+		SccProjectTopLevelParentUniqueName8 = CodeExercises.sln
+		SccProjectName8 = CodeExercises.LiskovSubstitution
+		SccLocalPath8 = CodeExercises.LiskovSubstitution
+		SccProjectUniqueName9 = CodeExercises.InterfaceSegregation\\CodeExercises.InterfaceSegregation.csproj
+		SccProjectTopLevelParentUniqueName9 = CodeExercises.sln
+		SccProjectName9 = CodeExercises.InterfaceSegregation
+		SccLocalPath9 = CodeExercises.InterfaceSegregation
+		SccProjectUniqueName10 = CodeExercises.DependencyInversion\\CodeExercises.DependencyInversion.csproj
+		SccProjectTopLevelParentUniqueName10 = CodeExercises.sln
+		SccProjectName10 = CodeExercises.DependencyInversion
+		SccLocalPath10 = CodeExercises.DependencyInversion
+		SccProjectUniqueName11 = CodeExercises.Mvc.Data\\CodeExercises.Mvc.Data.csproj
+		SccProjectTopLevelParentUniqueName11 = CodeExercises.sln
+		SccProjectName11 = CodeExercises.Mvc.Data
+		SccLocalPath11 = CodeExercises.Mvc.Data
+		SccProjectUniqueName12 = CodeExercises.Mvc.BusinessLogic\\CodeExercises.Mvc.BusinessLogic.csproj
+		SccProjectTopLevelParentUniqueName12 = CodeExercises.sln
+		SccProjectName12 = CodeExercises.Mvc.BusinessLogic
+		SccLocalPath12 = CodeExercises.Mvc.BusinessLogic
+		SccProjectUniqueName13 = CodeExercises.Mvc.Web\\CodeExercises.Mvc.Web.csproj
+		SccProjectTopLevelParentUniqueName13 = CodeExercises.sln
+		SccProjectName13 = CodeExercises.Mvc.Web
+		SccLocalPath13 = CodeExercises.Mvc.Web
+		SccProjectUniqueName14 = CodeExercises.Mvc.Web.Tests\\CodeExercises.Mvc.Web.Tests.csproj
+		SccProjectTopLevelParentUniqueName14 = CodeExercises.sln
+		SccProjectName14 = CodeExercises.Mvc.Web.Tests
+		SccLocalPath14 = CodeExercises.Mvc.Web.Tests
+		SccProjectUniqueName15 = CodeExercises.Mvvm.Wpf\\CodeExercises.Mvvm.Wpf.csproj
+		SccProjectTopLevelParentUniqueName15 = CodeExercises.sln
+		SccProjectName15 = CodeExercises.Mvvm.Wpf
+		SccLocalPath15 = CodeExercises.Mvvm.Wpf
+		SccProjectUniqueName16 = SparkEjs\\SparkEjs.csproj
+		SccProjectTopLevelParentUniqueName16 = CodeExercises.sln
+		SccProjectName16 = SparkEjs
+		SccLocalPath16 = SparkEjs
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{50F3407D-7C33-4788-860A-93FEE4DE4729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F3407D-7C33-4788-860A-93FEE4DE4729}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F3407D-7C33-4788-860A-93FEE4DE4729}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F3407D-7C33-4788-860A-93FEE4DE4729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CA3EAEE-6FC4-400A-B5F0-F0B40101BEC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CA3EAEE-6FC4-400A-B5F0-F0B40101BEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CA3EAEE-6FC4-400A-B5F0-F0B40101BEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CA3EAEE-6FC4-400A-B5F0-F0B40101BEC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19806EDB-98BB-45AE-B7D8-107960419CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19806EDB-98BB-45AE-B7D8-107960419CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19806EDB-98BB-45AE-B7D8-107960419CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19806EDB-98BB-45AE-B7D8-107960419CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87A326E2-B7DB-4D71-995E-755D970A6631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87A326E2-B7DB-4D71-995E-755D970A6631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87A326E2-B7DB-4D71-995E-755D970A6631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87A326E2-B7DB-4D71-995E-755D970A6631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC3240DF-7721-4ED7-A292-40AFCEE4D7B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3240DF-7721-4ED7-A292-40AFCEE4D7B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC3240DF-7721-4ED7-A292-40AFCEE4D7B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC3240DF-7721-4ED7-A292-40AFCEE4D7B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B007EEAF-A8BC-4D41-A05D-FE1D3B23D27A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B007EEAF-A8BC-4D41-A05D-FE1D3B23D27A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B007EEAF-A8BC-4D41-A05D-FE1D3B23D27A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B007EEAF-A8BC-4D41-A05D-FE1D3B23D27A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EFFE28F-B8ED-4195-A28F-8EE7591C204E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EFFE28F-B8ED-4195-A28F-8EE7591C204E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EFFE28F-B8ED-4195-A28F-8EE7591C204E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EFFE28F-B8ED-4195-A28F-8EE7591C204E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E25F074-E688-4593-9E8A-CE03F4563C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E25F074-E688-4593-9E8A-CE03F4563C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E25F074-E688-4593-9E8A-CE03F4563C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E25F074-E688-4593-9E8A-CE03F4563C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5A21BB9-29F3-439C-9D19-26932DE5C29C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5A21BB9-29F3-439C-9D19-26932DE5C29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5A21BB9-29F3-439C-9D19-26932DE5C29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5A21BB9-29F3-439C-9D19-26932DE5C29C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98AD133A-91F9-4B4A-84BF-1ACF31CC7DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98AD133A-91F9-4B4A-84BF-1ACF31CC7DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98AD133A-91F9-4B4A-84BF-1ACF31CC7DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98AD133A-91F9-4B4A-84BF-1ACF31CC7DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7459568-9816-4117-957C-5A9808D76108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7459568-9816-4117-957C-5A9808D76108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7459568-9816-4117-957C-5A9808D76108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7459568-9816-4117-957C-5A9808D76108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1803DA94-4F98-4107-8FF1-AB7C41B0F408}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1803DA94-4F98-4107-8FF1-AB7C41B0F408}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1803DA94-4F98-4107-8FF1-AB7C41B0F408}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1803DA94-4F98-4107-8FF1-AB7C41B0F408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39E7C00F-49DD-43F7-894A-A4EE2901716F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39E7C00F-49DD-43F7-894A-A4EE2901716F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39E7C00F-49DD-43F7-894A-A4EE2901716F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39E7C00F-49DD-43F7-894A-A4EE2901716F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7609E40-ECC4-4691-8A30-17B96C279D25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34C49A9E-4956-498F-93DF-23C042335BA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34C49A9E-4956-498F-93DF-23C042335BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34C49A9E-4956-498F-93DF-23C042335BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34C49A9E-4956-498F-93DF-23C042335BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19806EDB-98BB-45AE-B7D8-107960419CE8} = {ECD2274E-95BF-41DD-842D-18E8333C04FD}
+		{87A326E2-B7DB-4D71-995E-755D970A6631} = {ECD2274E-95BF-41DD-842D-18E8333C04FD}
+		{CC3240DF-7721-4ED7-A292-40AFCEE4D7B2} = {ECD2274E-95BF-41DD-842D-18E8333C04FD}
+		{B007EEAF-A8BC-4D41-A05D-FE1D3B23D27A} = {918137CB-98E3-430E-8A3A-00F5D19274ED}
+		{9EFFE28F-B8ED-4195-A28F-8EE7591C204E} = {918137CB-98E3-430E-8A3A-00F5D19274ED}
+		{2E25F074-E688-4593-9E8A-CE03F4563C08} = {918137CB-98E3-430E-8A3A-00F5D19274ED}
+		{E5A21BB9-29F3-439C-9D19-26932DE5C29C} = {918137CB-98E3-430E-8A3A-00F5D19274ED}
+		{98AD133A-91F9-4B4A-84BF-1ACF31CC7DF0} = {918137CB-98E3-430E-8A3A-00F5D19274ED}
+		{C7459568-9816-4117-957C-5A9808D76108} = {0A15605C-897D-4FAC-97AB-F193FDA949EF}
+		{0A15605C-897D-4FAC-97AB-F193FDA949EF} = {64ACD306-C130-4F49-BB6C-A02761D03A40}
+		{1803DA94-4F98-4107-8FF1-AB7C41B0F408} = {0A15605C-897D-4FAC-97AB-F193FDA949EF}
+		{39E7C00F-49DD-43F7-894A-A4EE2901716F} = {0A15605C-897D-4FAC-97AB-F193FDA949EF}
+		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9} = {0A15605C-897D-4FAC-97AB-F193FDA949EF}
+		{0989D1D6-A33B-4676-AF05-09132B422361} = {64ACD306-C130-4F49-BB6C-A02761D03A40}
+		{F7609E40-ECC4-4691-8A30-17B96C279D25} = {0989D1D6-A33B-4676-AF05-09132B422361}
+		{34C49A9E-4956-498F-93DF-23C042335BA5} = {3D545133-EF12-4FE7-96E7-BB94B8DFBEA5}
+	EndGlobalSection
+EndGlobal
