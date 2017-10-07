@@ -10,9 +10,44 @@ namespace CodeExercises
         {
             var one = new[] { 1, 1, 0, 1, 1, 1 };
             var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
-            var result = FindMaxConsecutiveOnes(one);
+            var node = new TreeNode(5)
+            {
+                left = new TreeNode(4)
+                {
+                    left = new TreeNode(2),
+                    right = new TreeNode(3)
+                },
+                right = new TreeNode(6)
+                {
+                    left = new TreeNode(5),
+                    right = new TreeNode(3)
+                }
+            };
+            var result = MaxDepth(node);
 
             // Console.ReadLine();
+        }
+
+        //Max Depth in Binary Tree
+        public static int MaxDepth(TreeNode node)
+        {
+            if (node == null) return 0;
+            var leftDepth = MaxDepth(node.left);
+            var rightDepth = MaxDepth(node.right);
+
+            return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
+        }
+
+        public class TreeNode
+        {
+            public int val;
+            public TreeNode left;
+            public TreeNode right;
+
+            public TreeNode(int x)
+            {
+                val = x;
+            }
         }
 
         //Max Consecutive Ones
@@ -32,7 +67,7 @@ namespace CodeExercises
             }
             return max;
 
-            //Less efficient solution but quicker.
+            //Less efficient solution but quicker to implement.
             //var ones = string.Join(string.Empty, nums).Split('0');
             //var max = ones.OrderByDescending(x => x).First();
             //return max.Length;
