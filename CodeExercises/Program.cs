@@ -28,6 +28,18 @@ namespace CodeExercises
             // Console.ReadLine();
         }
 
+        //Add Digits
+        public static int AddDigits(int num)
+        {
+            var result = num.ToString();
+            for (var i = 5; i > 0; i--)
+            {
+                if (result.Length == 1) return int.Parse(result);
+                result = result.ToArray().Sum(x => int.Parse(x.ToString())).ToString();
+            }
+            return int.Parse(result);
+        }
+
         //Max Depth in Binary Tree
         public static int MaxDepth(TreeNode node)
         {
