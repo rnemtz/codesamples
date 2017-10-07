@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CodeExercises
 {
@@ -7,13 +8,19 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
-            var one = new[] { 4, 1, 2, 3 };
+            var one = new[] { 1, 1, 0, 1, 1, 1 };
             var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
-            var result = FizzBuzz(15);
+            var result = SingleNumber(one);
 
             // Console.ReadLine();
         }
 
+        //Single Number
+        public static int SingleNumber(int[] nums)
+        {
+            var num = nums.GroupBy(x => x).SingleOrDefault(y => y.Count() == 1).Key;
+            return num;
+        }
         //Fizz Buz
         public static IList<string> FizzBuzz(int n)
         {
