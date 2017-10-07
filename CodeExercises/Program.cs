@@ -10,9 +10,32 @@ namespace CodeExercises
         {
             var one = new[] { 1, 1, 0, 1, 1, 1 };
             var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
-            var result = SingleNumber(one);
+            var result = FindMaxConsecutiveOnes(one);
 
             // Console.ReadLine();
+        }
+
+        //Max Consecutive Ones
+        public static int FindMaxConsecutiveOnes(int[] nums)
+        {
+            //More efficient by more than 80%
+            var max = 0;
+            var current = 0;
+            foreach (var i in nums)
+            {
+                if (i == 1)
+                {
+                    current++;
+                    if (current > max) max = current;
+                }
+                else current = 0;
+            }
+            return max;
+
+            //Less efficient solution but quicker.
+            //var ones = string.Join(string.Empty, nums).Split('0');
+            //var max = ones.OrderByDescending(x => x).First();
+            //return max.Length;
         }
 
         //Single Number
