@@ -8,7 +8,7 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
-            //var one = new[] { 1, 1, 0, 1, 1, 1 };
+            var one = new[] { 10,50,5,1};
             //var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
             //var node = new TreeNode(1024)
             //{
@@ -24,8 +24,29 @@ namespace CodeExercises
             //    }
             //};
             //var result = BinaryGap(1376796946);
-            var result = CountDiv(0, 0, 1);
+            var result = Triangle(one);
+            //var result = CountDiv(0, 0, 1);
             // Console.ReadLine();
+        }
+
+        //Triangle
+        public static int Triangle(int[] a)
+        {
+
+            //Non optimal Solution
+            for (var p = 0; p < a.Length; p++)
+            {
+                for (var q = p; q < a.Length; q++)
+                {
+                    for (var r = q; r < a.Length; r++)
+                    {
+                        if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
+                            return 1;
+                    }
+                }
+            }
+
+            return 0;
         }
 
         //Count Div
