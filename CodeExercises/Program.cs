@@ -10,7 +10,7 @@ namespace CodeExercises
         {
             var one = new[] { 1, 1, 0, 1, 1, 1 };
             var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
-            var node = new TreeNode(5)
+            var node = new TreeNode(1024)
             {
                 left = new TreeNode(4)
                 {
@@ -23,9 +23,48 @@ namespace CodeExercises
                     right = new TreeNode(3)
                 }
             };
-            var result = MaxDepth(node);
+            var result = BinaryGap(1376796946);
 
             // Console.ReadLine();
+        }
+
+        //Binary Gap
+        public static int BinaryGap(int number)
+        {
+            var bin = Convert.ToString(number, 2);
+            if (!bin.Contains("0")) return 0;
+            var gap = 0;
+            var maxGap = 0;
+            var oneFlag = false;
+            for (var i = 0; i < bin.Length; i++)
+            {
+                if (bin[i] == '1')
+                {
+                    oneFlag = true;
+                    gap=0;
+                }
+                if (!oneFlag) continue;
+                if (bin[i] != '0' || i >= bin.Length) continue;
+
+                gap++;
+                if (gap > maxGap) maxGap = gap;
+            }
+
+            return maxGap;
+        }
+
+        //Detect Capital
+        public static bool DetectCapitalUse(string word)
+        {
+            var capitals = word.Count(c => c >= 65 && c <= 90);
+            if (capitals == word.Length) return true;
+
+            var lower = word.Count(c=> c >= 97 && c <= 122);
+            if (lower == word.Length) return true;
+
+            if (capitals != 1) return false;
+            var first = word.First(c => c >= 65 && c <= 90);
+            return word[0] == first;
         }
 
         //Add Digits
