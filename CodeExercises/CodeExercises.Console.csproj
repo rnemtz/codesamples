@@ -50,6 +50,8 @@
     <Compile Include="Arrays\ArrayList.cs" />
     <Compile Include="DataStructures\BinaryTree.cs" />
     <Compile Include="DataStructures\DoubleLinkedList.cs" />
+    <Compile Include="DataStructures\HashingAlgorithms.cs" />
+    <Compile Include="DataStructures\HashTable.cs" />
     <Compile Include="DataStructures\LinkedList.cs" />
     <Compile Include="DataStructures\Queue.cs" />
     <Compile Include="DataStructures\Stack.cs" />
