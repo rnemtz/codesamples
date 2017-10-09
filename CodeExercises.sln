@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Console", "CodeExercises\CodeExercises.Console.csproj", "{50F3407D-7C33-4788-860A-93FEE4DE4729}"
 EndProject
@@ -49,8 +49,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVVM", "MVVM", "{0989D1D6-A33B-4676-AF05-09132B422361}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeExercises.Mvvm.Wpf", "CodeExercises.Mvvm.Wpf\CodeExercises.Mvvm.Wpf.csproj", "{F7609E40-ECC4-4691-8A30-17B96C279D25}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Structures", "Data Structures", "{17D2A19E-070C-4F55-B622-3BCA751B3134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -138,5 +136,8 @@ Global
 		{BD2C94B1-4C8A-48FC-A983-0EA10F0B10D9} = {0A15605C-897D-4FAC-97AB-F193FDA949EF}
 		{0989D1D6-A33B-4676-AF05-09132B422361} = {64ACD306-C130-4F49-BB6C-A02761D03A40}
 		{F7609E40-ECC4-4691-8A30-17B96C279D25} = {0989D1D6-A33B-4676-AF05-09132B422361}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53FF86B4-EFBE-4AED-995D-5448037B44A8}
 	EndGlobalSection
 EndGlobal

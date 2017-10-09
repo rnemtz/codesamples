@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CodeExercises.DataStructures
 {
-    public class HashTable<T>
+    public class HashTable<TKey, TValue>
     {
+        
+
     }
 }
