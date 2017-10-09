@@ -9,29 +9,8 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
-            //var one = new[] { 0, 2 };
-            //var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
-            //var node = new TreeNode(1024)
-            //{
-            //    left = new TreeNode(4)
-            //    {
-            //        left = new TreeNode(2),
-            //        right = new TreeNode(3)
-            //    },
-            //    right = new TreeNode(6)
-            //    {
-            //        left = new TreeNode(5),
-            //        right = new TreeNode(3)
-            //    }
-            //};
-            //var result = BinaryGap(1376796946);
-            //var result = CanCross(one);
-            //var result = CountDiv(0, 0, 1);
-            //Console.ReadLine();
 
-            //Linked Lists
-            var print = new LinkedList();
-
+         
         }
 
         //Frog Jump
