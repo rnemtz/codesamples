@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeExercises.DataStructures;
 
 namespace CodeExercises
 {
@@ -8,7 +9,7 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
-            var one = new[] { 10,50,5,1};
+            //var one = new[] { 0, 2 };
             //var two = new[] { 1, 3, 4, 2, 6, 7, 9, 8 };
             //var node = new TreeNode(1024)
             //{
@@ -24,9 +25,34 @@ namespace CodeExercises
             //    }
             //};
             //var result = BinaryGap(1376796946);
-            var result = Triangle(one);
+            //var result = CanCross(one);
             //var result = CountDiv(0, 0, 1);
-            // Console.ReadLine();
+            //Console.ReadLine();
+
+            //Linked Lists
+            var print = new LinkedList();
+
+        }
+
+        //Frog Jump
+        public static bool CanCross(int[] stones)
+        {
+            if (stones[1] == 1) return true;
+            return stones[1] <= 1 && JumpFrog(stones, 1, 1);
+        }
+
+        private static bool JumpFrog(IReadOnlyList<int> stones, int index, int k)
+        {
+            var canCross = false;
+            if (index == stones.Count - 1) return true;
+            for (var r = index + 1; r < stones.Count; r++)
+            {
+                if (stones[r] <= stones[index] + k + 1 && stones[r] >= stones[index] + k - 1)
+                {
+                    canCross = canCross || JumpFrog(stones, r, stones[r] - stones[index]);
+                }
+            }
+            return canCross;
         }
 
         //Triangle
