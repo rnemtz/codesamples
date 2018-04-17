@@ -8,8 +8,57 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
-            var response = Accum("cwAt");
+            var response = Decode(".... . -.--   .--- ..- -.. .");
             Console.ReadLine();
+        }
+
+        //Decode Morse Code
+        public static string Decode(string morseCode)
+        {
+            if (string.IsNullOrWhiteSpace(morseCode)) return string.Empty;
+            if (morseCode.Count(x=> x != 46 || x!=45) > 0) return string.Empty;
+            var morse = new Dictionary<string, char>
+            {
+                {".-", 'A'},
+                {"-...", 'B'},
+                {"-.-.", 'C'},
+                {"-..", 'D'},
+                {".", 'E'},
+                {"..-.", 'F'},
+                {"--.", 'G'},
+                {"....", 'H'},
+                {"..", 'I'},
+                {".---", 'J'},
+                {"-.-", 'K'},
+                {".-..", 'L'},
+                {"--", 'M'},
+                {"-.", 'N'},
+                {"---", 'O'},
+                {".--.", 'P'},
+                {"--.-", 'Q'},
+                {".-.", 'R'},
+                {"...", 'S'},
+                {"-", 'T'},
+                {"..-", 'U'},
+                {"...-", 'V'},
+                {".--", 'W'},
+                {"-..-", 'X'},
+                {"-.--", 'Y'},
+                {"--..", 'Z'},
+                {".----", '1'},
+                {"..---", '2'},
+                {"...--", '3'},
+                {"....-", '4'},
+                {".....", '5'},
+                {"-....", '6'},
+                {"--...", '7'},
+                {"---..", '8'},
+                {"----.", '9'},
+                {"-----", '0'},
+                {".-.-.-", '.'},
+                {"--..--", ','}
+            };
+            return  string.Join(" ", morseCode.Split(new[] {"   "}, StringSplitOptions.None).Select(word => string.Join(string.Empty, word.Split(' ').Select(character => morse[character].ToString()))).ToList());
         }
 
         public static string Accum(string s)
@@ -24,7 +73,7 @@ namespace CodeExercises
                 {
                     response += s[i].ToString().ToLower();
                 }
-                if(i < s.Length -1) response += "-";
+                if (i < s.Length - 1) response += "-";
             }
             return response;
         }
