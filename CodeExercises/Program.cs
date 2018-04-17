@@ -8,7 +8,98 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
+            var response = Accum("cwAt");
             Console.ReadLine();
+        }
+
+        public static string Accum(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return s;
+            var response = string.Empty;
+            for (var i = 0; i < s.Length; i++)
+            {
+                if (string.IsNullOrEmpty(s[i].ToString())) continue;
+                response += s[i].ToString().ToUpper();
+                for (var r = 0; r < i; r++)
+                {
+                    response += s[i].ToString().ToLower();
+                }
+                if(i < s.Length -1) response += "-";
+            }
+            return response;
+        }
+
+        public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+        {
+            return GetList(GetNumber(l1) + GetNumber(l2));
+        }
+
+        public ListNode GetList(int number)
+        {
+            var reverseNumber = number.ToString().Reverse().ToList();
+            var node = new ListNode(reverseNumber[0]);
+            for (var i = 1; i < reverseNumber.Count(); i++)
+            {
+                node.next = new ListNode(reverseNumber[i]);
+                node = node.next;
+            }
+            return node;
+        }
+
+        public int GetNumber(ListNode l)
+        {
+            var number = new List<string>();
+            while (l != null)
+            {
+                number.Add(l.val.ToString());
+                l = l.next;
+            }
+            return int.Parse(number.ToArray().Reverse().ToString());
+        }
+
+        public static int CamelCase(string s)
+        {
+            var test = s.Count(x => x > 64 && x < 91) + 1;
+            return test;
+        }
+
+        public static long FindNextSquare(long num)
+        {
+            //check num first
+            if (!(Math.Sqrt(num) % 1 == 0)) return -1;
+            while (true)
+            {
+                if (Math.Sqrt(num++) % 1 == 0) return num;
+            }
+        }
+
+        public static int[] CountPositivesSumNegatives(int[] input)
+        {
+            if (input == null || input.Length == 0) return new int[] { };
+            return new[] {input.Where(x => x >= 0).Count(), input.Where(x => x < 0).Sum()};
+        }
+
+        public static int SumDiagonals(int[,] matrix)
+        {
+            if (matrix is null) return 0;
+            if (matrix.GetLength(0) != matrix.GetLength(1)) return 0;
+
+            if (matrix.Length <= 2) return 0;
+
+            var ltr = 0;
+            var rtl = 0;
+            var rigthIndex = matrix.GetLength(0) - 1;
+            for (var i = 0; i < matrix.GetLength(0); i++)
+            {
+                ltr += matrix[i, i];
+                rtl += matrix[i, rigthIndex--];
+            }
+            return Math.Abs(ltr - rtl);
+        }
+
+        public static string Reverse(string str)
+        {
+            return string.Join(" ", str.Split(' ').Select(word => new string(word.Reverse().ToArray())).ToList());
         }
 
         public static double MeanSquareError(int[] firstArray, int[] secondArray)
@@ -130,7 +221,6 @@ namespace CodeExercises
             }
             return maxWord;
         }
-
 
         private string ReplaceString(string input, string search, string replace)
         {
@@ -395,6 +485,17 @@ namespace CodeExercises
             public int val;
 
             public TreeNode(int x)
+            {
+                val = x;
+            }
+        }
+
+        public class ListNode
+        {
+            public int val;
+            public ListNode next;
+
+            public ListNode(int x)
             {
                 val = x;
             }
