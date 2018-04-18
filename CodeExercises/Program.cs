@@ -11,9 +11,39 @@ namespace CodeExercises
         {
             //Completed in 0.017881ms RECURSIVE
             //Completed in 0.016037ms LOOP
-            var response = Persistence(39);
+            //var response = Persistence(39);
+            var response = FindEvenIndex(new[] {1, 2, 3, 4, 3, 2, 1});
 
             Console.ReadLine();
+        }
+
+        public static int FindEvenIndex(int[] arr)
+        {
+            for (var i = 0; i < arr.Length; i++)
+            {
+                var left = GetSum(i, arr, true);
+                var right = GetSum(i, arr);
+                if (left == right) return i;
+            }
+            return -1;
+        }
+
+        public static int GetSum(int index, int[] arr, bool isLeft = false)
+        {
+            var sum = 0;
+            if (isLeft) for (var i = 0; i < index; i++) sum += arr[i];
+            else for (var i = index + 1; i < arr.Length; i++) sum += arr[i];
+            return sum;
+        }
+
+
+        public static string HighAndLow(string numbers)
+        {
+            var digits = numbers.Split(' ');
+            var max = digits.Max(x => int.Parse(x.ToString()));
+            var min = digits.Min(x => int.Parse(x.ToString()));
+
+            return $"{max} {min}";
         }
 
         public static int Persistence(long n)
