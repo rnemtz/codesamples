@@ -15,16 +15,50 @@ namespace CodeExercises
             //var response = FindEvenIndex(new[] {1, 2, 3, 4, 3, 2, 1});
             //var response = Find(new[] {2, 6, 8, -10, 3});
             //var response = Find(new[] {160, 3, 1719, 19, 11, 13, -21});
-            var response = DigitalRoot(16);
+            //var response = DigitalRoot(16);
+            var response = SpinWords("Welcome");
+
             Console.ReadLine();
+        }
+
+        public static string SpinWords(string sentence)
+        {
+            var words = sentence.Split(' ');
+            var response = new List<string>();
+            foreach (var word in words)
+            {
+                if (word.Length > 4)
+                {
+                    var wArray = word.ToArray();
+                    Array.Reverse(wArray);
+                    response.Add(string.Join(string.Empty, wArray));
+                }
+                else
+                {
+                    response.Add(word);
+                }
+            }
+            return string.Join(" ", response);
         }
 
         public static int DigitalRoot(long n)
         {
+            return DigitalRootRecursive(n);
+        }
+
+        private static int DigitalRootRecursive(long n)
+        {
+            if (n < 10) return int.Parse(n.ToString());
+            var digits = n.ToString().ToArray().Select(x => int.Parse(x.ToString()));
+            return DigitalRootRecursive(digits.Sum());
+        }
+
+        public static int DigitalRootLoop(long n)
+        {
             var number = n;
             while (true)
             {
-                if (number < 10) return int.Parse(n.ToString());
+                if (number < 10) return int.Parse(number.ToString());
                 var digits = n.ToString().ToArray().Select(x => int.Parse(x.ToString()));
                 number = digits.Sum();
             }
