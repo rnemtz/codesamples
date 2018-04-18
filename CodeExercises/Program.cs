@@ -20,6 +20,14 @@ namespace CodeExercises
             Console.ReadLine();
         }
 
+        public static int SquareDigits(int n)
+        {
+            var numbers = n.ToString().ToArray();
+            var result = numbers.Aggregate(string.Empty, (current, digit) => current + (int.Parse(digit.ToString()) * int.Parse(digit.ToString())).ToString());
+            return int.Parse(result);
+        }
+
+
         public static bool Xo(string input)
         {
             var x = input.Count(w => w.ToString().ToLower() == "x");
