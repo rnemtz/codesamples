@@ -20,6 +20,14 @@ namespace CodeExercises
 
             Console.ReadLine();
         }
+
+        public static bool XO(string input)
+        {
+            var x = input.Count(w => w.ToString().ToLower() == "x");
+            var o = input.Count(w => w.ToString().ToLower() == "o");
+            return x == o;
+        }
+
         public static int FindShort(string s)
         {
             return s.Split(' ').OrderBy(x => x.Length).First().Length;
