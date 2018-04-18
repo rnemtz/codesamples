@@ -8,15 +8,6 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            //Completed in 0.017881ms RECURSIVE
-            //Completed in 0.016037ms LOOP
-            //var response = Persistence(39);
-            //var response = FindEvenIndex(new[] {1, 2, 3, 4, 3, 2, 1});
-            //var response = Find(new[] {2, 6, 8, -10, 3});
-            //var response = Find(new[] {160, 3, 1719, 19, 11, 13, -21});
-            //var response = DigitalRoot(16);
-            //var response = SpinWords("Welcome");
-
             Console.ReadLine();
         }
 
@@ -26,7 +17,6 @@ namespace CodeExercises
             var result = numbers.Aggregate(string.Empty, (current, digit) => current + (int.Parse(digit.ToString()) * int.Parse(digit.ToString())).ToString());
             return int.Parse(result);
         }
-
 
         public static bool Xo(string input)
         {
@@ -623,11 +613,13 @@ namespace CodeExercises
             //var max = ones.OrderByDescending(x => x).First();
             //return max.Length;
         }
+
         public static int SingleNumber(int[] nums)
         {
             var num = nums.GroupBy(x => x).SingleOrDefault(y => y.Count() == 1).Key;
             return num;
         }
+
         public static IList<string> FizzBuzz(int n)
         {
             var list = new List<string>();
@@ -651,6 +643,7 @@ namespace CodeExercises
             }
             return list;
         }
+
         public static int[] NextGreaterElement(int[] findNums, int[] nums)
         {
             var result = new int[findNums.Length];
