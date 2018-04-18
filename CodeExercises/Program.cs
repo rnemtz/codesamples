@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace CodeExercises
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             //Completed in 0.017881ms RECURSIVE
             //Completed in 0.016037ms LOOP
@@ -21,7 +20,7 @@ namespace CodeExercises
             Console.ReadLine();
         }
 
-        public static bool XO(string input)
+        public static bool Xo(string input)
         {
             var x = input.Count(w => w.ToString().ToLower() == "x");
             var o = input.Count(w => w.ToString().ToLower() == "o");
@@ -33,14 +32,11 @@ namespace CodeExercises
             return s.Split(' ').OrderBy(x => x.Length).First().Length;
         }
 
-
         public static string ToJadenCase(string phrase)
         {
             var words = phrase.Split(' ');
             for (var i = 0; i < words.Length; i++)
-            {
                 words[i] = words[i][0].ToString().ToUpper() + words[i].Substring(1, words[i].Length - 1);
-            }
             return string.Join(" ", words);
         }
 
@@ -49,7 +45,6 @@ namespace CodeExercises
             var words = sentence.Split(' ');
             var response = new List<string>();
             foreach (var word in words)
-            {
                 if (word.Length > 4)
                 {
                     var wArray = word.ToArray();
@@ -60,7 +55,6 @@ namespace CodeExercises
                 {
                     response.Add(word);
                 }
-            }
             return string.Join(" ", response);
         }
 
@@ -112,7 +106,6 @@ namespace CodeExercises
             return sum;
         }
 
-
         public static string HighAndLow(string numbers)
         {
             var digits = numbers.Split(' ');
@@ -163,8 +156,8 @@ namespace CodeExercises
             if (string.IsNullOrWhiteSpace(s)) return string.Empty;
             if (s.Length == 1) return s;
             return s.Length % 2 > 0
-                ? s[(s.Length) / 2].ToString()
-                : s[(s.Length / 2) - 1] + s[(s.Length) / 2].ToString();
+                ? s[s.Length / 2].ToString()
+                : s[s.Length / 2 - 1] + s[s.Length / 2].ToString();
         }
 
         public static string Decode(string morseCode)
@@ -226,9 +219,7 @@ namespace CodeExercises
                 if (string.IsNullOrEmpty(s[i].ToString())) continue;
                 response += s[i].ToString().ToUpper();
                 for (var r = 0; r < i; r++)
-                {
                     response += s[i].ToString().ToLower();
-                }
                 if (i < s.Length - 1) response += "-";
             }
             return response;
@@ -243,7 +234,7 @@ namespace CodeExercises
         {
             var reverseNumber = number.ToString().Reverse().ToList();
             var node = new ListNode(reverseNumber[0]);
-            for (var i = 1; i < reverseNumber.Count(); i++)
+            for (var i = 1; i < reverseNumber.Count; i++)
             {
                 node.next = new ListNode(reverseNumber[i]);
                 node = node.next;
@@ -273,9 +264,7 @@ namespace CodeExercises
             //check num first
             if (!(Math.Sqrt(num) % 1 == 0)) return -1;
             while (true)
-            {
                 if (Math.Sqrt(num++) % 1 == 0) return num;
-            }
         }
 
         public static int[] CountPositivesSumNegatives(int[] input)
@@ -427,7 +416,8 @@ namespace CodeExercises
             return maxWord;
         }
 
-        private string ReplaceString(string input, string search, string replace)
+        // ReSharper disable once UnusedMember.Local
+        private static string ReplaceString(string input, string search, string replace)
         {
             if (input == null) return string.Empty;
             if (search == null || replace == null) return input;
@@ -499,7 +489,7 @@ namespace CodeExercises
             return output;
         }
 
-        private string Replace(int startIndex, int endIndex, string input, string replace)
+        private static string Replace(int startIndex, int endIndex, string input, string replace)
         {
             var output = string.Empty;
             for (var i = 0; i < startIndex; i++)
@@ -509,7 +499,6 @@ namespace CodeExercises
                 output += input[i];
             return output;
         }
-
 
         public static bool CanCross(int[] stones)
         {
@@ -626,13 +615,11 @@ namespace CodeExercises
             //var max = ones.OrderByDescending(x => x).First();
             //return max.Length;
         }
-
         public static int SingleNumber(int[] nums)
         {
             var num = nums.GroupBy(x => x).SingleOrDefault(y => y.Count() == 1).Key;
             return num;
         }
-
         public static IList<string> FizzBuzz(int n)
         {
             var list = new List<string>();
@@ -656,7 +643,6 @@ namespace CodeExercises
             }
             return list;
         }
-
         public static int[] NextGreaterElement(int[] findNums, int[] nums)
         {
             var result = new int[findNums.Length];
@@ -687,8 +673,8 @@ namespace CodeExercises
 
         public class ListNode
         {
-            public int val;
             public ListNode next;
+            public int val;
 
             public ListNode(int x)
             {
