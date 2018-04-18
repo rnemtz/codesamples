@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace CodeExercises
 {
@@ -8,15 +9,65 @@ namespace CodeExercises
     {
         private static void Main(string[] args)
         {
-            var response = Decode(".... . -.--   .--- ..- -.. .");
+            //Completed in 0.017881ms RECURSIVE
+            //Completed in 0.016037ms LOOP
+            var response = Persistence(39);
+
             Console.ReadLine();
+        }
+
+        public static int Persistence(long n)
+        {
+            return PersistenceLoop(n, 0);
+        }
+
+        //Loop
+        public static int PersistenceLoop(long n, int counter)
+        {
+            while (true)
+            {
+                var digits = n.ToString().ToCharArray();
+                if (digits.Length == 1) return counter;
+                var number = digits.Aggregate(1, (current, digit) => current * int.Parse(digit.ToString()));
+                counter += 1;
+                n = number;
+            }
+        }
+
+        //Recursive
+        public static int Persistence(long n, int counter)
+        {
+            var digits = n.ToString().ToCharArray();
+            if (digits.Length == 1) return counter;
+            var number = digits.Aggregate(1, (current, digit) => current * int.Parse(digit.ToString()));
+            counter += 1;
+            return Persistence(number, counter);
+        }
+
+        public static int FindOddCount(int[] seq)
+        {
+            foreach (var number in seq)
+            {
+                var response = seq.Count(x => x == number);
+                if (response % 2 == 1) return number;
+            }
+            return -1;
+        }
+
+        public static string GetMiddle(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+            if (s.Length == 1) return s;
+            return s.Length % 2 > 0
+                ? s[(s.Length) / 2].ToString()
+                : s[(s.Length / 2) - 1] + s[(s.Length) / 2].ToString();
         }
 
         //Decode Morse Code
         public static string Decode(string morseCode)
         {
             if (string.IsNullOrWhiteSpace(morseCode)) return string.Empty;
-            if (morseCode.Count(x=> x != 46 || x!=45) > 0) return string.Empty;
+            if (morseCode.Count(x => x != 46 || x != 45) > 0) return string.Empty;
             var morse = new Dictionary<string, char>
             {
                 {".-", 'A'},
@@ -58,7 +109,9 @@ namespace CodeExercises
                 {".-.-.-", '.'},
                 {"--..--", ','}
             };
-            return  string.Join(" ", morseCode.Split(new[] {"   "}, StringSplitOptions.None).Select(word => string.Join(string.Empty, word.Split(' ').Select(character => morse[character].ToString()))).ToList());
+            return string.Join(" ",
+                morseCode.Split(new[] {"   "}, StringSplitOptions.None).Select(word => string.Join(string.Empty,
+                    word.Split(' ').Select(character => morse[character].ToString()))).ToList());
         }
 
         public static string Accum(string s)
