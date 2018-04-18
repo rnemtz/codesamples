@@ -16,9 +16,19 @@ namespace CodeExercises
             //var response = Find(new[] {2, 6, 8, -10, 3});
             //var response = Find(new[] {160, 3, 1719, 19, 11, 13, -21});
             //var response = DigitalRoot(16);
-            var response = SpinWords("Welcome");
+            //var response = SpinWords("Welcome");
 
             Console.ReadLine();
+        }
+
+        public static string ToJadenCase(string phrase)
+        {
+            var words = phrase.Split(' ');
+            for (var i = 0; i < words.Length; i++)
+            {
+                words[i] = words[i][0].ToString().ToUpper() + words[i].Substring(1, words[i].Length - 1);
+            }
+            return string.Join(" ", words);
         }
 
         public static string SpinWords(string sentence)
