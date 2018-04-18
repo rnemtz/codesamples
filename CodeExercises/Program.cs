@@ -12,9 +12,17 @@ namespace CodeExercises
             //Completed in 0.017881ms RECURSIVE
             //Completed in 0.016037ms LOOP
             //var response = Persistence(39);
-            var response = FindEvenIndex(new[] {1, 2, 3, 4, 3, 2, 1});
-
+            //var response = FindEvenIndex(new[] {1, 2, 3, 4, 3, 2, 1});
+            //var response = Find(new[] {2, 6, 8, -10, 3});
+            //var response = Find(new[] {160, 3, 1719, 19, 11, 13, -21});
             Console.ReadLine();
+        }
+
+        public static int Find(int[] integers)
+        {
+            //Find type
+            var isEven = integers.Where(x => x % 2 == 0).Count() > 1;
+            return isEven ? integers.SingleOrDefault(x => x % 2 > 0) : integers.SingleOrDefault(x => x % 2 == 0);
         }
 
         public static int FindEvenIndex(int[] arr)
