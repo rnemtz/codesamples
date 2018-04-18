@@ -15,12 +15,23 @@ namespace CodeExercises
             //var response = FindEvenIndex(new[] {1, 2, 3, 4, 3, 2, 1});
             //var response = Find(new[] {2, 6, 8, -10, 3});
             //var response = Find(new[] {160, 3, 1719, 19, 11, 13, -21});
+            var response = DigitalRoot(16);
             Console.ReadLine();
+        }
+
+        public static int DigitalRoot(long n)
+        {
+            var number = n;
+            while (true)
+            {
+                if (number < 10) return int.Parse(n.ToString());
+                var digits = n.ToString().ToArray().Select(x => int.Parse(x.ToString()));
+                number = digits.Sum();
+            }
         }
 
         public static int Find(int[] integers)
         {
-            //Find type
             var isEven = integers.Where(x => x % 2 == 0).Count() > 1;
             return isEven ? integers.SingleOrDefault(x => x % 2 > 0) : integers.SingleOrDefault(x => x % 2 == 0);
         }
@@ -59,7 +70,6 @@ namespace CodeExercises
             return PersistenceLoop(n, 0);
         }
 
-        //Loop
         public static int PersistenceLoop(long n, int counter)
         {
             while (true)
@@ -72,7 +82,6 @@ namespace CodeExercises
             }
         }
 
-        //Recursive
         public static int Persistence(long n, int counter)
         {
             var digits = n.ToString().ToCharArray();
@@ -101,7 +110,6 @@ namespace CodeExercises
                 : s[(s.Length / 2) - 1] + s[(s.Length) / 2].ToString();
         }
 
-        //Decode Morse Code
         public static string Decode(string morseCode)
         {
             if (string.IsNullOrWhiteSpace(morseCode)) return string.Empty;
@@ -462,7 +470,6 @@ namespace CodeExercises
             return canCross;
         }
 
-        //Triangle
         public static int Triangle(int[] a)
         {
             //Non optimal Solution
@@ -475,7 +482,6 @@ namespace CodeExercises
             return 0;
         }
 
-        //Count Div
         public static int CountDiv(int a, int b, int k)
         {
             var counter = 0;
@@ -484,7 +490,6 @@ namespace CodeExercises
             return counter;
         }
 
-        //Binary Gap
         public static int BinaryGap(int number)
         {
             var bin = Convert.ToString(number, 2);
@@ -509,7 +514,6 @@ namespace CodeExercises
             return maxGap;
         }
 
-        //Detect Capital
         public static bool DetectCapitalUse(string word)
         {
             var capitals = word.Count(c => c >= 65 && c <= 90);
@@ -523,7 +527,6 @@ namespace CodeExercises
             return word[0] == first;
         }
 
-        //Add Digits
         public static int AddDigits(int num)
         {
             var result = num.ToString();
@@ -535,7 +538,6 @@ namespace CodeExercises
             return int.Parse(result);
         }
 
-        //Max Depth in Binary Tree
         public static int MaxDepth(TreeNode node)
         {
             if (node == null) return 0;
@@ -545,7 +547,6 @@ namespace CodeExercises
             return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
         }
 
-        //Max Consecutive Ones
         public static int FindMaxConsecutiveOnes(int[] nums)
         {
             //More efficient by more than 80%
@@ -569,14 +570,12 @@ namespace CodeExercises
             //return max.Length;
         }
 
-        //Single Number
         public static int SingleNumber(int[] nums)
         {
             var num = nums.GroupBy(x => x).SingleOrDefault(y => y.Count() == 1).Key;
             return num;
         }
 
-        //Fizz Buz
         public static IList<string> FizzBuzz(int n)
         {
             var list = new List<string>();
@@ -601,7 +600,6 @@ namespace CodeExercises
             return list;
         }
 
-        //Next Greater Element
         public static int[] NextGreaterElement(int[] findNums, int[] nums)
         {
             var result = new int[findNums.Length];
