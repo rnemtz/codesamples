@@ -20,6 +20,11 @@ namespace CodeExercises
 
             Console.ReadLine();
         }
+        public static int FindShort(string s)
+        {
+            return s.Split(' ').OrderBy(x => x.Length).First().Length;
+        }
+
 
         public static string ToJadenCase(string phrase)
         {
