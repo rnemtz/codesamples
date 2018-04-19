@@ -8,13 +8,52 @@ namespace CodeExercises
     {
         private static void Main()
         {
+            var response = SortArray(new [] { 5, 3, 2, 8, 1, 4 });
             Console.ReadLine();
+        }
+
+        public static int[] SortArray(int[] array)
+        {
+            var oIndex = 0;
+            var ordered = array.Where(x => x % 2 > 0).OrderBy(x => x).ToArray();
+            for (var i = 0; i < array.Length; i++)
+            {
+                if (array[i] % 2 == 0) continue;
+                array[i] = ordered[oIndex++];
+                oIndex++;
+            }
+            return array;
+        }
+
+
+        public static int GetUnique(IEnumerable<int> numbers)
+        {
+            return numbers.GroupBy(x => x)
+                .Select(n => new {number = n.Key, value = n.Count()})
+                .OrderBy(n => n.value)
+                .First().number;
+        }
+
+
+        public static string TitleCase(string title, string minorWords = "")
+        {
+            if (string.IsNullOrEmpty(title)) return string.Empty;
+            var response = title.ToLower().Split(' ');
+            for (var i = 0; i < response.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(minorWords) &&
+                    minorWords.ToLower().Split(' ').Contains(response[i])) continue;
+                response[i] = response[i][0].ToString().ToUpper() + response[i].Substring(1, response[i].Length - 1);
+            }
+            var result = string.Join(" ", response);
+            return result[0].ToString().ToUpper() + result.Substring(1, result.Length - 1);
         }
 
         public static int SquareDigits(int n)
         {
             var numbers = n.ToString().ToArray();
-            var result = numbers.Aggregate(string.Empty, (current, digit) => current + (int.Parse(digit.ToString()) * int.Parse(digit.ToString())).ToString());
+            var result = numbers.Aggregate(string.Empty,
+                (current, digit) => current + (int.Parse(digit.ToString()) * int.Parse(digit.ToString())).ToString());
             return int.Parse(result);
         }
 
@@ -613,6 +652,7 @@ namespace CodeExercises
             //var max = ones.OrderByDescending(x => x).First();
             //return max.Length;
         }
+
 
         public static int SingleNumber(int[] nums)
         {
