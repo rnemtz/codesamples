@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CodeExercises.DataStructures;
 
 namespace CodeExercises
 {
@@ -8,8 +10,159 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var response = SortArray(new [] { 5, 3, 2, 8, 1, 4 });
+            // var response = BinarySearch.SearchBinary(new[] {2, 3, 4, 5, 6, 7, 8, 9}, 8,3);
+            // var response = BinarySearch.SearchBinaryRecursive(new[] {2, 3, 4, 5, 6, 7, 8, 9}, 0, 7, 4);
+            //Tuple<int, int> indices = FindTwoSum(new List<int>() { 3, 1, 5, 7, 5, 9 }, 12);
+            //if (indices != null)
+            //{
+            //    Console.WriteLine(indices.Item1 + " " + indices.Item2);
+            //}
+
+           
             Console.ReadLine();
+        }
+
+        /*
+         * START Lyft Interview
+         * Stack Implementation in Linear Time complexity
+         */
+
+        /*  TEST CASE
+         *  var stMax = new MaxStack();
+
+            stMax.Push(45);
+            stMax.Push(-10);
+
+            var max = stMax.Max();
+            Console.WriteLine(max);
+
+            stMax.Push(68);
+            max = stMax.Max();
+            Console.WriteLine(max);
+
+            stMax.Pop();
+            max = stMax.Max();
+            Console.WriteLine(max);
+         */
+
+        public class MaxStack
+        {
+            private readonly System.Collections.Generic.Stack<InnerObject> MStack;
+
+            public MaxStack()
+            {
+                MStack = new System.Collections.Generic.Stack<InnerObject>();
+            }
+
+
+            public void Push(int val)
+            {
+                //o(1)
+                var current = new InnerObject() { Val = val };
+                if (IsEmpty()) current.Max = val;
+                else
+                {
+                    current.Max = Max().Value;
+                    if (val > current.Max) current.Max = val;
+                }
+                MStack.Push(current);
+            }
+
+            public int? Pop()
+            {
+                //o(1)
+                if (IsEmpty()) return null;
+                var current = MStack.Pop();
+                return current.Val;
+            }
+
+            public int? Peek()
+            {
+                //o(1)
+                if (IsEmpty()) return null;
+                var current = MStack.Peek();
+                return current.Val;
+            }
+
+            public int? Max()
+            {
+                //o(1)
+                if (IsEmpty()) return null;
+
+                var current = MStack.Peek();
+                return current.Max;
+            }
+
+            public bool IsEmpty()
+            {
+                return MStack.Count == 0;
+            }
+        }
+
+        public class InnerObject
+        {
+            public int Val { get; set; }
+            public int Max { get; set; }
+        }
+
+        /*
+         * END Lyft Interview
+         */
+
+
+        public static int Divide(int dividend, int divisor)
+        {
+            var isNegativeDivisor = divisor < 0;
+            var isNegativeDividend = dividend < 0;
+            if (isNegativeDivisor) divisor = divisor * -1;
+            if (isNegativeDividend) dividend = dividend * -1;
+            var result = dividend;
+            var count = 0;
+            while (result >= divisor)
+            {
+                result = result - divisor;
+                count++;
+                if (result > divisor) continue;
+                if (isNegativeDivisor && isNegativeDividend) return count;
+                return isNegativeDivisor || isNegativeDividend ? count * -1 : count;
+            }
+            return 0;
+        }
+
+        public static Tuple<int, int> FindTwoSum(IList<int> list, int sum)
+        {
+            foreach (var i in list)
+            {
+                var r = sum - i;
+                if (list.Contains(r)) return Tuple.Create(list.IndexOf(i), list.IndexOf(r));
+            }
+            return null;
+        }
+
+        public static List<string> RetrieveMostFrequentlyUsedWords(String literatureText,
+            List<string> wordsToExclude)
+        {
+            //Validate Input List
+            if (string.IsNullOrWhiteSpace(literatureText)) return new List<string>();
+
+            //Convert to space any special character
+            var inputLiteratureText = literatureText.Where(t => !char.IsLetter(t)).Aggregate(literatureText, (current, t) => current.Replace(t.ToString(), " "));
+
+            //Exclude common word from List
+            var result = inputLiteratureText.ToLower();
+            if (wordsToExclude != null && wordsToExclude.Any())
+                result = wordsToExclude.Select(x => x.ToLower())
+                    .Aggregate(result, (current, word) => current.Replace(string.Format(" {0} ", word), " ")
+                        .Replace(string.Format("{0} ", word), " ")
+                        .Replace(string.Format(" {0}", word), " "));
+
+            var words = result.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            var wordsGroup = words.ToLookup(x => x);
+            var maxFrequency = wordsGroup.Max(x => x.Count());
+            var resultWords = wordsGroup.Where(x => x.Count() == maxFrequency).ToList();
+
+            return resultWords.Select(x => x.Key).ToList();
         }
 
         public static int[] SortArray(int[] array)
