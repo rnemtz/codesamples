@@ -10,10 +10,27 @@ namespace CodeExercises
     {
         private static void Main()
         {
-           Console.ReadLine();
+            var tree = new BinarySearchTree();
+            tree.Add(4);
+            tree.Add(2);
+            tree.Add(6);
+            tree.Add(1);
+            tree.Add(3);
+            tree.Add(5);
+            tree.Add(8);
+            tree.Add(7);
+            tree.Enumerate();
+            tree.Remove(4);
+            Console.WriteLine();
+            tree.Enumerate();
+            tree.Remove(2);
+            Console.WriteLine();
+            tree.Enumerate();
+            Console.ReadLine();
         }
 
         #region cases
+
         /*
          * Lyft
          */
@@ -38,32 +55,33 @@ namespace CodeExercises
 
         public class MaxStack
         {
-            private readonly System.Collections.Generic.Stack<InnerObject> MStack;
+            private readonly Stack<InnerObject> _mStack;
 
             public MaxStack()
             {
-                MStack = new System.Collections.Generic.Stack<InnerObject>();
+                _mStack = new Stack<InnerObject>();
             }
 
 
             public void Push(int val)
             {
                 //o(1)
-                var current = new InnerObject() { Val = val };
+                var current = new InnerObject() {Val = val};
                 if (IsEmpty()) current.Max = val;
                 else
                 {
-                    current.Max = Max().Value;
+                    var max = Max();
+                    if (max != null) current.Max = max.Value;
                     if (val > current.Max) current.Max = val;
                 }
-                MStack.Push(current);
+                _mStack.Push(current);
             }
 
             public int? Pop()
             {
                 //o(1)
                 if (IsEmpty()) return null;
-                var current = MStack.Pop();
+                var current = _mStack.Pop();
                 return current.Val;
             }
 
@@ -71,7 +89,7 @@ namespace CodeExercises
             {
                 //o(1)
                 if (IsEmpty()) return null;
-                var current = MStack.Peek();
+                var current = _mStack.Peek();
                 return current.Val;
             }
 
@@ -80,13 +98,13 @@ namespace CodeExercises
                 //o(1)
                 if (IsEmpty()) return null;
 
-                var current = MStack.Peek();
+                var current = _mStack.Peek();
                 return current.Max;
             }
 
             public bool IsEmpty()
             {
-                return MStack.Count == 0;
+                return _mStack.Count == 0;
             }
         }
 
@@ -99,11 +117,14 @@ namespace CodeExercises
         /*
          * Lyft
          */
+
         #endregion
 
         public static int СenturyFromYear(int year)
         {
-            return Convert.ToInt32(year % 100 > 0 ? Math.Floor((decimal)(year / 100)) + 1 : Math.Floor((decimal)(year / 100)));
+            return Convert.ToInt32(year % 100 > 0
+                ? Math.Floor(d: (decimal) (year / 100)) + 1
+                : Math.Floor((decimal) (year / 100)));
         }
 
         public static int DuplicateCount(string str)
@@ -113,8 +134,6 @@ namespace CodeExercises
             var strArray = str.ToCharArray();
             return strArray.GroupBy(x => x).Count(y => y.Count() > 1);
         }
-
-
 
         public static string Order(string words)
         {
@@ -138,10 +157,9 @@ namespace CodeExercises
             var hcf = 2;
             while (true)
             {
-                for (var i = 0; i < arr.Length; i++)
+                if (arr.Any(t => t % hcf != 0))
                 {
-                    if (arr[i] % hcf != 0)
-                        return hcf - 1;
+                    return hcf - 1;
                 }
                 hcf++;
             }
@@ -196,8 +214,8 @@ namespace CodeExercises
 
         public static void WriteErrorstoList(Dictionary<string, int> errors)
         {
-
         }
+
         public static void PrintErrorsFromDAP()
         {
             var urlList = new Dictionary<string, int>();
@@ -208,7 +226,9 @@ namespace CodeExercises
                 {
                     var url = new Uri(line.Split(' ')[0]);
                     var urlPath = url.Scheme + "//" + url.DnsSafeHost + url.AbsolutePath;
-                    urlPath = Regex.Replace(urlPath, @"[({]?[a-zA-Z0-9]{8}[-]?([a-zA-Z0-9]{4}[-]?){3}[a-zA-Z0-9]{12}[})]?", string.Empty, RegexOptions.IgnoreCase);
+                    urlPath = Regex.Replace(urlPath,
+                        @"[({]?[a-zA-Z0-9]{8}[-]?([a-zA-Z0-9]{4}[-]?){3}[a-zA-Z0-9]{12}[})]?", string.Empty,
+                        RegexOptions.IgnoreCase);
                     urlPath = Regex.Replace(urlPath, @"(\d+)$", string.Empty, RegexOptions.IgnoreCase);
                     if (urlList.ContainsKey(urlPath))
                     {
@@ -224,14 +244,13 @@ namespace CodeExercises
                     continue;
                 }
             }
-            var lines = new List<string> { "URL, Error Count, Percentage" };
+            var lines = new List<string> {"URL, Error Count, Percentage"};
             var total = urlList.Sum(x => x.Value);
-            lines.AddRange(urlList.OrderByDescending(x => x.Value).Select(error => $"{error.Key},{error.Value},{Convert.ToDecimal(error.Value) * 100 / total}"));
+            lines.AddRange(urlList.OrderByDescending(x => x.Value)
+                .Select(error => $"{error.Key},{error.Value},{Convert.ToDecimal(error.Value) * 100 / total}"));
             lines.Add($"Total,{total},100");
             File.WriteAllLines(@"C:\\Obsidian\DAP-Error-Count.csv", lines);
         }
-
-
 
         public static int Divide(int dividend, int divisor)
         {
@@ -269,7 +288,8 @@ namespace CodeExercises
             if (string.IsNullOrWhiteSpace(literatureText)) return new List<string>();
 
             //Convert to space any special character
-            var inputLiteratureText = literatureText.Where(t => !char.IsLetter(t)).Aggregate(literatureText, (current, t) => current.Replace(t.ToString(), " "));
+            var inputLiteratureText = literatureText.Where(t => !char.IsLetter(t))
+                .Aggregate(literatureText, (current, t) => current.Replace(t.ToString(), " "));
 
             //Exclude common word from List
             var result = inputLiteratureText.ToLower();
@@ -279,7 +299,7 @@ namespace CodeExercises
                         .Replace(string.Format("{0} ", word), " ")
                         .Replace(string.Format(" {0}", word), " "));
 
-            var words = result.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = result.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
             var wordsGroup = words.ToLookup(x => x);
             var maxFrequency = wordsGroup.Max(x => x.Count());
@@ -301,7 +321,6 @@ namespace CodeExercises
             return array;
         }
 
-
         public static int GetUnique(IEnumerable<int> numbers)
         {
             return numbers.GroupBy(x => x)
@@ -309,7 +328,6 @@ namespace CodeExercises
                 .OrderBy(n => n.value)
                 .First().number;
         }
-
 
         public static string TitleCase(string title, string minorWords = "")
         {
@@ -549,8 +567,8 @@ namespace CodeExercises
             var node = new ListNode(reverseNumber[0]);
             for (var i = 1; i < reverseNumber.Count; i++)
             {
-                node.next = new ListNode(reverseNumber[i]);
-                node = node.next;
+                node.Next = new ListNode(reverseNumber[i]);
+                node = node.Next;
             }
             return node;
         }
@@ -560,8 +578,8 @@ namespace CodeExercises
             var number = new List<string>();
             while (l != null)
             {
-                number.Add(l.val.ToString());
-                l = l.next;
+                number.Add(l.Val.ToString());
+                l = l.Next;
             }
             return int.Parse(number.ToArray().Reverse().ToString());
         }
@@ -900,8 +918,8 @@ namespace CodeExercises
         public static int MaxDepth(TreeNode node)
         {
             if (node == null) return 0;
-            var leftDepth = MaxDepth(node.left);
-            var rightDepth = MaxDepth(node.right);
+            var leftDepth = MaxDepth(node.Left);
+            var rightDepth = MaxDepth(node.Right);
 
             return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
         }
@@ -975,28 +993,28 @@ namespace CodeExercises
             }
             return result;
         }
+    }
 
-        public class TreeNode
+    public class TreeNode
+    {
+        public TreeNode Left;
+        public TreeNode Right;
+        public int Val;
+
+        public TreeNode(int x)
         {
-            public TreeNode left;
-            public TreeNode right;
-            public int val;
-
-            public TreeNode(int x)
-            {
-                val = x;
-            }
+            Val = x;
         }
+    }
 
-        public class ListNode
+    public class ListNode
+    {
+        public ListNode Next;
+        public int Val;
+
+        public ListNode(int x)
         {
-            public ListNode next;
-            public int val;
-
-            public ListNode(int x)
-            {
-                val = x;
-            }
+            Val = x;
         }
     }
 }
