@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using CodeExercises.DataStructures;
+using System.Text.RegularExpressions;
 
 namespace CodeExercises
 {
@@ -10,21 +10,12 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            // var response = BinarySearch.SearchBinary(new[] {2, 3, 4, 5, 6, 7, 8, 9}, 8,3);
-            // var response = BinarySearch.SearchBinaryRecursive(new[] {2, 3, 4, 5, 6, 7, 8, 9}, 0, 7, 4);
-            //Tuple<int, int> indices = FindTwoSum(new List<int>() { 3, 1, 5, 7, 5, 9 }, 12);
-            //if (indices != null)
-            //{
-            //    Console.WriteLine(indices.Item1 + " " + indices.Item2);
-            //}
-
-           
-            Console.ReadLine();
+           Console.ReadLine();
         }
 
+        #region cases
         /*
-         * START Lyft Interview
-         * Stack Implementation in Linear Time complexity
+         * Lyft
          */
 
         /*  TEST CASE
@@ -106,8 +97,140 @@ namespace CodeExercises
         }
 
         /*
-         * END Lyft Interview
+         * Lyft
          */
+        #endregion
+
+        public static int СenturyFromYear(int year)
+        {
+            return Convert.ToInt32(year % 100 > 0 ? Math.Floor((decimal)(year / 100)) + 1 : Math.Floor((decimal)(year / 100)));
+        }
+
+        public static int DuplicateCount(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return 0;
+            str = str.ToLower();
+            var strArray = str.ToCharArray();
+            return strArray.GroupBy(x => x).Count(y => y.Count() > 1);
+        }
+
+
+
+        public static string Order(string words)
+        {
+            if (string.IsNullOrWhiteSpace(words)) return string.Empty;
+            var wordArray = words.Split(' ');
+            var result = new string[wordArray.Length];
+            foreach (var word in wordArray)
+            {
+                foreach (var letter in word.ToCharArray())
+                {
+                    if (!char.IsNumber(letter)) continue;
+                    result[int.Parse(letter.ToString()) - 1] = word;
+                    break;
+                }
+            }
+            return string.Join(" ", result);
+        }
+
+        public static int GeneralizedGcd(int num, int[] arr)
+        {
+            var hcf = 2;
+            while (true)
+            {
+                for (var i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i] % hcf != 0)
+                        return hcf - 1;
+                }
+                hcf++;
+            }
+        }
+
+        public static int[] CellCompete(int[] states, int days)
+        {
+            if (days <= 0) return states;
+            var newStates = states.Clone() as int[];
+            var currentStates = states.Clone() as int[];
+            for (var i = 1; i <= days; i++)
+            {
+                newStates = currentStates.Clone() as int[];
+                for (var r = 0; r < states.Length; r++)
+                {
+                    if (r == 0)
+                    {
+                        if (currentStates[r + 1] == 0)
+                        {
+                            newStates[r] = 0;
+                        }
+                        else
+                        {
+                            newStates[r] = 1;
+                        }
+                    }
+                    if (r > 0 && r < states.Length - 1)
+                    {
+                        if (currentStates[r - 1] == currentStates[r + 1])
+                        {
+                            newStates[r] = 0;
+                        }
+                        else
+                        {
+                            newStates[r] = 1;
+                        }
+                    }
+                    if (r != states.Length - 1) continue;
+                    if (currentStates[r - 1] == 0)
+                    {
+                        newStates[r] = 0;
+                    }
+                    else
+                    {
+                        newStates[r] = 1;
+                    }
+                }
+                currentStates = newStates.Clone() as int[];
+            }
+            return newStates;
+        }
+
+        public static void WriteErrorstoList(Dictionary<string, int> errors)
+        {
+
+        }
+        public static void PrintErrorsFromDAP()
+        {
+            var urlList = new Dictionary<string, int>();
+            var linesFromFile = System.IO.File.ReadAllLines(@"C:\Obsidian\DAP-Errors.txt");
+            foreach (var line in linesFromFile)
+            {
+                try
+                {
+                    var url = new Uri(line.Split(' ')[0]);
+                    var urlPath = url.Scheme + "//" + url.DnsSafeHost + url.AbsolutePath;
+                    urlPath = Regex.Replace(urlPath, @"[({]?[a-zA-Z0-9]{8}[-]?([a-zA-Z0-9]{4}[-]?){3}[a-zA-Z0-9]{12}[})]?", string.Empty, RegexOptions.IgnoreCase);
+                    urlPath = Regex.Replace(urlPath, @"(\d+)$", string.Empty, RegexOptions.IgnoreCase);
+                    if (urlList.ContainsKey(urlPath))
+                    {
+                        urlList[urlPath]++;
+                    }
+                    else
+                    {
+                        urlList.Add(urlPath, 1);
+                    }
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            var lines = new List<string> { "URL, Error Count, Percentage" };
+            var total = urlList.Sum(x => x.Value);
+            lines.AddRange(urlList.OrderByDescending(x => x.Value).Select(error => $"{error.Key},{error.Value},{Convert.ToDecimal(error.Value) * 100 / total}"));
+            lines.Add($"Total,{total},100");
+            File.WriteAllLines(@"C:\\Obsidian\DAP-Error-Count.csv", lines);
+        }
+
 
 
         public static int Divide(int dividend, int divisor)
