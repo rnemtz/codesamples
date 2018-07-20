@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeExercises
 {
@@ -10,24 +11,146 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var tree = new BinarySearchTree();
-            tree.Add(4);
-            tree.Add(2);
-            tree.Add(6);
-            tree.Add(1);
-            tree.Add(3);
-            tree.Add(5);
-            tree.Add(8);
-            tree.Add(7);
-            tree.Enumerate();
-            tree.Remove(4);
-            Console.WriteLine();
-            tree.Enumerate();
-            tree.Remove(2);
-            Console.WriteLine();
-            tree.Enumerate();
+            //var tree = new BinarySearchTree();
+            //tree.Add(4);
+            //tree.Add(2);
+            //tree.Add(6);
+            //tree.Add(1);
+            //tree.Add(3);
+            //tree.Add(5);
+            //tree.Add(8);
+            //tree.Add(7);
+            //tree.Enumerate();
+            //tree.Remove(4);
+            //Console.WriteLine();
+            //tree.Enumerate();
+            //tree.Remove(2);
+            //Console.WriteLine();
+            //tree.Enumerate();
+            TreeNode root = null;
+            Assert.AreEqual(true, TreeNode.IsPerfect(root), "null tree should be perfect");
+            root = TreeNode.Leaf().WithLeaves();
+
+            Assert.AreEqual(true, TreeNode.IsPerfect(root), "root with two leaves should be perfect");
+            root = TreeNode.Leaf().WithLeftLeaf();
+
+            Assert.AreEqual(false, TreeNode.IsPerfect(root), "root with single leaf should not be perfect");
             Console.ReadLine();
         }
+
+        public class TreeNode
+        {
+            public TreeNode Left;
+            public TreeNode Right;
+
+            private static bool _isPerfect = true;
+
+            public static bool IsPerfect(TreeNode root)
+            {
+                var depth = GetTreeDepth(root);
+                Traverse(root, 1, depth);
+                return _isPerfect;
+            }
+
+            public static void Traverse(TreeNode node, int nodeDepth, int treeDepth)
+            {
+                if (node == null || !_isPerfect) return;
+                if (IsLeaf(node))
+                {
+                    _isPerfect = nodeDepth == treeDepth;
+                }
+                else
+                {
+                    if (node.Left != null && node.Right != null)
+                    {
+                        Traverse(node.Left, nodeDepth + 1, treeDepth);
+                        Traverse(node.Right, nodeDepth + 1, treeDepth);
+                    }
+                    else
+                    {
+                        _isPerfect = false;
+                    }
+                    
+                }
+            }
+
+            public static int GetTreeDepth(TreeNode root)
+            {
+                var depth = 0;
+                var current = root;
+                while (current != null)
+                {
+                    depth++;
+                    current = current.Left;
+                }
+                return depth;
+            }
+
+            public static bool IsLeaf(TreeNode node)
+            {
+                return node.Left == null && node.Right == null;
+            }
+
+            public static TreeNode Leaf()
+            {
+                return new TreeNode();
+            }
+
+            public static TreeNode Join(TreeNode left, TreeNode right)
+            {
+                return new TreeNode().WithChildren(left, right);
+            }
+
+            public TreeNode WithLeft(TreeNode left)
+            {
+                this.Left = left;
+                return this;
+            }
+
+            public TreeNode WithRight(TreeNode right)
+            {
+                this.Right = right;
+                return this;
+            }
+
+            public TreeNode WithChildren(TreeNode left, TreeNode right)
+            {
+                this.Left = left;
+                this.Right = right;
+                return this;
+            }
+
+            public TreeNode WithLeftLeaf()
+            {
+                return WithLeft(Leaf());
+            }
+
+            public TreeNode WithRightLeaf()
+            {
+                return WithRight(Leaf());
+            }
+
+            public TreeNode WithLeaves()
+            {
+                return WithChildren(Leaf(), Leaf());
+            }
+        }
+
+
+        public class PrivateNode
+        {
+            public int Value;
+            public PrivateNode Left;
+            public PrivateNode Right;
+
+            public PrivateNode(int value, PrivateNode left = null, PrivateNode right = null)
+            {
+                Value = value;
+                Left = left;
+                Right = right;
+            }
+        }
+
 
         #region cases
 
