@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CodeExercises
 {
@@ -8,42 +11,151 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var a = new int[] { 1,2,3,4,5};
-            var b = new int[] { 4,5, 6,7,8,9};
-            var c = new int[] { 5, 12,14,15};
-            var result = CommonElement(a, b, c);
+            //var tree = new BinarySearchTree();
+            //tree.Add(4);
+            //tree.Add(2);
+            //tree.Add(6);
+            //tree.Add(1);
+            //tree.Add(3);
+            //tree.Add(5);
+            //tree.Add(8);
+            //tree.Add(7);
+            //tree.Enumerate();
+            //tree.Remove(4);
+            //Console.WriteLine();
+            //tree.Enumerate();
+            //tree.Remove(2);
+            //Console.WriteLine();
+            //tree.Enumerate();
+            TreeNode root = null;
+            Assert.AreEqual(true, TreeNode.IsPerfect(root), "null tree should be perfect");
+            root = TreeNode.Leaf().WithLeaves();
+
+            Assert.AreEqual(true, TreeNode.IsPerfect(root), "root with two leaves should be perfect");
+            root = TreeNode.Leaf().WithLeftLeaf();
+
+            Assert.AreEqual(false, TreeNode.IsPerfect(root), "root with single leaf should not be perfect");
             Console.ReadLine();
         }
 
-        public static bool CommonElement(int[] a, int[] b, int[] c)
+        public class TreeNode
         {
-            foreach (var num in a)
+            public TreeNode Left;
+            public TreeNode Right;
+
+            private static bool _isPerfect = true;
+
+            public static bool IsPerfect(TreeNode root)
             {
-                if (!BinarySearch(b, num)) continue;
-                if (BinarySearch(c, num)) return true;
+                var depth = GetTreeDepth(root);
+                Traverse(root, 1, depth);
+                return _isPerfect;
             }
-            return false;
+
+            public static void Traverse(TreeNode node, int nodeDepth, int treeDepth)
+            {
+                if (node == null || !_isPerfect) return;
+                if (IsLeaf(node))
+                {
+                    _isPerfect = nodeDepth == treeDepth;
+                }
+                else
+                {
+                    if (node.Left != null && node.Right != null)
+                    {
+                        Traverse(node.Left, nodeDepth + 1, treeDepth);
+                        Traverse(node.Right, nodeDepth + 1, treeDepth);
+                    }
+                    else
+                    {
+                        _isPerfect = false;
+                    }
+                    
+                }
+            }
+
+            public static int GetTreeDepth(TreeNode root)
+            {
+                var depth = 0;
+                var current = root;
+                while (current != null)
+                {
+                    depth++;
+                    current = current.Left;
+                }
+                return depth;
+            }
+
+            public static bool IsLeaf(TreeNode node)
+            {
+                return node.Left == null && node.Right == null;
+            }
+
+            public static TreeNode Leaf()
+            {
+                return new TreeNode();
+            }
+
+            public static TreeNode Join(TreeNode left, TreeNode right)
+            {
+                return new TreeNode().WithChildren(left, right);
+            }
+
+            public TreeNode WithLeft(TreeNode left)
+            {
+                this.Left = left;
+                return this;
+            }
+
+            public TreeNode WithRight(TreeNode right)
+            {
+                this.Right = right;
+                return this;
+            }
+
+            public TreeNode WithChildren(TreeNode left, TreeNode right)
+            {
+                this.Left = left;
+                this.Right = right;
+                return this;
+            }
+
+            public TreeNode WithLeftLeaf()
+            {
+                return WithLeft(Leaf());
+            }
+
+            public TreeNode WithRightLeaf()
+            {
+                return WithRight(Leaf());
+            }
+
+            public TreeNode WithLeaves()
+            {
+                return WithChildren(Leaf(), Leaf());
+            }
         }
 
-        private static bool BinarySearch(int[] a, int n)
-        {
-            var low = 0;
-            var high = a.Length - 1;
 
-            while (low <= high)
+        public class PrivateNode
+        {
+            public int Value;
+            public PrivateNode Left;
+            public PrivateNode Right;
+
+            public PrivateNode(int value, PrivateNode left = null, PrivateNode right = null)
             {
-                var mid = ((high - low) / 2) + low;
-                if (a[mid] == n) return true;
-                if (n < a[mid]) high = mid - 1;
-                else low = mid + 1;
+                Value = value;
+                Left = left;
+                Right = right;
             }
-            return false;
         }
 
+
+        #region cases
 
         /*
-         * START Lyft Interview
-         * Stack Implementation in Linear Time complexity
+         * Lyft
          */
 
         /*  TEST CASE
@@ -66,32 +178,33 @@ namespace CodeExercises
 
         public class MaxStack
         {
-            private readonly System.Collections.Generic.Stack<InnerObject> MStack;
+            private readonly Stack<InnerObject> _mStack;
 
             public MaxStack()
             {
-                MStack = new System.Collections.Generic.Stack<InnerObject>();
+                _mStack = new Stack<InnerObject>();
             }
 
 
             public void Push(int val)
             {
                 //o(1)
-                var current = new InnerObject() { Val = val };
+                var current = new InnerObject() {Val = val};
                 if (IsEmpty()) current.Max = val;
                 else
                 {
-                    current.Max = Max().Value;
+                    var max = Max();
+                    if (max != null) current.Max = max.Value;
                     if (val > current.Max) current.Max = val;
                 }
-                MStack.Push(current);
+                _mStack.Push(current);
             }
 
             public int? Pop()
             {
                 //o(1)
                 if (IsEmpty()) return null;
-                var current = MStack.Pop();
+                var current = _mStack.Pop();
                 return current.Val;
             }
 
@@ -99,7 +212,7 @@ namespace CodeExercises
             {
                 //o(1)
                 if (IsEmpty()) return null;
-                var current = MStack.Peek();
+                var current = _mStack.Peek();
                 return current.Val;
             }
 
@@ -108,13 +221,13 @@ namespace CodeExercises
                 //o(1)
                 if (IsEmpty()) return null;
 
-                var current = MStack.Peek();
+                var current = _mStack.Peek();
                 return current.Max;
             }
 
             public bool IsEmpty()
             {
-                return MStack.Count == 0;
+                return _mStack.Count == 0;
             }
         }
 
@@ -125,9 +238,142 @@ namespace CodeExercises
         }
 
         /*
-         * END Lyft Interview
+         * Lyft
          */
 
+        #endregion
+
+        public static int СenturyFromYear(int year)
+        {
+            return Convert.ToInt32(year % 100 > 0
+                ? Math.Floor(d: (decimal) (year / 100)) + 1
+                : Math.Floor((decimal) (year / 100)));
+        }
+
+        public static int DuplicateCount(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return 0;
+            str = str.ToLower();
+            var strArray = str.ToCharArray();
+            return strArray.GroupBy(x => x).Count(y => y.Count() > 1);
+        }
+
+        public static string Order(string words)
+        {
+            if (string.IsNullOrWhiteSpace(words)) return string.Empty;
+            var wordArray = words.Split(' ');
+            var result = new string[wordArray.Length];
+            foreach (var word in wordArray)
+            {
+                foreach (var letter in word.ToCharArray())
+                {
+                    if (!char.IsNumber(letter)) continue;
+                    result[int.Parse(letter.ToString()) - 1] = word;
+                    break;
+                }
+            }
+            return string.Join(" ", result);
+        }
+
+        public static int GeneralizedGcd(int num, int[] arr)
+        {
+            var hcf = 2;
+            while (true)
+            {
+                if (arr.Any(t => t % hcf != 0))
+                {
+                    return hcf - 1;
+                }
+                hcf++;
+            }
+        }
+
+        public static int[] CellCompete(int[] states, int days)
+        {
+            if (days <= 0) return states;
+            var newStates = states.Clone() as int[];
+            var currentStates = states.Clone() as int[];
+            for (var i = 1; i <= days; i++)
+            {
+                newStates = currentStates.Clone() as int[];
+                for (var r = 0; r < states.Length; r++)
+                {
+                    if (r == 0)
+                    {
+                        if (currentStates[r + 1] == 0)
+                        {
+                            newStates[r] = 0;
+                        }
+                        else
+                        {
+                            newStates[r] = 1;
+                        }
+                    }
+                    if (r > 0 && r < states.Length - 1)
+                    {
+                        if (currentStates[r - 1] == currentStates[r + 1])
+                        {
+                            newStates[r] = 0;
+                        }
+                        else
+                        {
+                            newStates[r] = 1;
+                        }
+                    }
+                    if (r != states.Length - 1) continue;
+                    if (currentStates[r - 1] == 0)
+                    {
+                        newStates[r] = 0;
+                    }
+                    else
+                    {
+                        newStates[r] = 1;
+                    }
+                }
+                currentStates = newStates.Clone() as int[];
+            }
+            return newStates;
+        }
+
+        public static void WriteErrorstoList(Dictionary<string, int> errors)
+        {
+        }
+
+        public static void PrintErrorsFromDAP()
+        {
+            var urlList = new Dictionary<string, int>();
+            var linesFromFile = System.IO.File.ReadAllLines(@"C:\Obsidian\DAP-Errors.txt");
+            foreach (var line in linesFromFile)
+            {
+                try
+                {
+                    var url = new Uri(line.Split(' ')[0]);
+                    var urlPath = url.Scheme + "//" + url.DnsSafeHost + url.AbsolutePath;
+                    urlPath = Regex.Replace(urlPath,
+                        @"[({]?[a-zA-Z0-9]{8}[-]?([a-zA-Z0-9]{4}[-]?){3}[a-zA-Z0-9]{12}[})]?", string.Empty,
+                        RegexOptions.IgnoreCase);
+                    urlPath = Regex.Replace(urlPath, @"(\d+)$", string.Empty, RegexOptions.IgnoreCase);
+                    if (urlList.ContainsKey(urlPath))
+                    {
+                        urlList[urlPath]++;
+                    }
+                    else
+                    {
+                        urlList.Add(urlPath, 1);
+                    }
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+            }
+            var lines = new List<string> {"URL, Error Count, Percentage"};
+            var total = urlList.Sum(x => x.Value);
+            lines.AddRange(urlList.OrderByDescending(x => x.Value)
+                .Select(error => $"{error.Key},{error.Value},{Convert.ToDecimal(error.Value) * 100 / total}"));
+            lines.Add($"Total,{total},100");
+            File.WriteAllLines(@"C:\\Obsidian\DAP-Error-Count.csv", lines);
+        }
 
         public static int Divide(int dividend, int divisor)
         {
@@ -165,7 +411,8 @@ namespace CodeExercises
             if (string.IsNullOrWhiteSpace(literatureText)) return new List<string>();
 
             //Convert to space any special character
-            var inputLiteratureText = literatureText.Where(t => !char.IsLetter(t)).Aggregate(literatureText, (current, t) => current.Replace(t.ToString(), " "));
+            var inputLiteratureText = literatureText.Where(t => !char.IsLetter(t))
+                .Aggregate(literatureText, (current, t) => current.Replace(t.ToString(), " "));
 
             //Exclude common word from List
             var result = inputLiteratureText.ToLower();
@@ -175,7 +422,7 @@ namespace CodeExercises
                         .Replace(string.Format("{0} ", word), " ")
                         .Replace(string.Format(" {0}", word), " "));
 
-            var words = result.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = result.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
             var wordsGroup = words.ToLookup(x => x);
             var maxFrequency = wordsGroup.Max(x => x.Count());
@@ -197,7 +444,6 @@ namespace CodeExercises
             return array;
         }
 
-
         public static int GetUnique(IEnumerable<int> numbers)
         {
             return numbers.GroupBy(x => x)
@@ -205,7 +451,6 @@ namespace CodeExercises
                 .OrderBy(n => n.value)
                 .First().number;
         }
-
 
         public static string TitleCase(string title, string minorWords = "")
         {
@@ -445,8 +690,8 @@ namespace CodeExercises
             var node = new ListNode(reverseNumber[0]);
             for (var i = 1; i < reverseNumber.Count; i++)
             {
-                node.next = new ListNode(reverseNumber[i]);
-                node = node.next;
+                node.Next = new ListNode(reverseNumber[i]);
+                node = node.Next;
             }
             return node;
         }
@@ -456,8 +701,8 @@ namespace CodeExercises
             var number = new List<string>();
             while (l != null)
             {
-                number.Add(l.val.ToString());
-                l = l.next;
+                number.Add(l.Val.ToString());
+                l = l.Next;
             }
             return int.Parse(number.ToArray().Reverse().ToString());
         }
@@ -796,8 +1041,8 @@ namespace CodeExercises
         public static int MaxDepth(TreeNode node)
         {
             if (node == null) return 0;
-            var leftDepth = MaxDepth(node.left);
-            var rightDepth = MaxDepth(node.right);
+            var leftDepth = MaxDepth(node.Left);
+            var rightDepth = MaxDepth(node.Right);
 
             return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
         }
@@ -871,28 +1116,28 @@ namespace CodeExercises
             }
             return result;
         }
+    }
 
-        public class TreeNode
+    public class TreeNode
+    {
+        public TreeNode Left;
+        public TreeNode Right;
+        public int Val;
+
+        public TreeNode(int x)
         {
-            public TreeNode left;
-            public TreeNode right;
-            public int val;
-
-            public TreeNode(int x)
-            {
-                val = x;
-            }
+            Val = x;
         }
+    }
 
-        public class ListNode
+    public class ListNode
+    {
+        public ListNode Next;
+        public int Val;
+
+        public ListNode(int x)
         {
-            public ListNode next;
-            public int val;
-
-            public ListNode(int x)
-            {
-                val = x;
-            }
+            Val = x;
         }
     }
 }
