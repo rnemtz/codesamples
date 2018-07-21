@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CodeExercises.DataStructures;
 
 namespace CodeExercises
 {
@@ -10,17 +8,38 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            // var response = BinarySearch.SearchBinary(new[] {2, 3, 4, 5, 6, 7, 8, 9}, 8,3);
-            // var response = BinarySearch.SearchBinaryRecursive(new[] {2, 3, 4, 5, 6, 7, 8, 9}, 0, 7, 4);
-            //Tuple<int, int> indices = FindTwoSum(new List<int>() { 3, 1, 5, 7, 5, 9 }, 12);
-            //if (indices != null)
-            //{
-            //    Console.WriteLine(indices.Item1 + " " + indices.Item2);
-            //}
-
-           
+            var a = new int[] { 1,2,3,4,5};
+            var b = new int[] { 4,5, 6,7,8,9};
+            var c = new int[] { 5, 12,14,15};
+            var result = CommonElement(a, b, c);
             Console.ReadLine();
         }
+
+        public static bool CommonElement(int[] a, int[] b, int[] c)
+        {
+            foreach (var num in a)
+            {
+                if (!BinarySearch(b, num)) continue;
+                if (BinarySearch(c, num)) return true;
+            }
+            return false;
+        }
+
+        private static bool BinarySearch(int[] a, int n)
+        {
+            var low = 0;
+            var high = a.Length - 1;
+
+            while (low <= high)
+            {
+                var mid = ((high - low) / 2) + low;
+                if (a[mid] == n) return true;
+                if (n < a[mid]) high = mid - 1;
+                else low = mid + 1;
+            }
+            return false;
+        }
+
 
         /*
          * START Lyft Interview

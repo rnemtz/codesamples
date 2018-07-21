@@ -48,7 +48,9 @@
     <Compile Include="Abstract\Atlethe.cs" />
     <Compile Include="Abstract\Person.cs" />
     <Compile Include="Arrays\ArrayList.cs" />
+    <Compile Include="BinaryGap.cs" />
     <Compile Include="BinarySearch.cs" />
+    <Compile Include="CountDiv.cs" />
     <Compile Include="DataStructures\BinaryTree.cs" />
     <Compile Include="DataStructures\DoubleLinkedList.cs" />
     <Compile Include="DataStructures\HashingAlgorithms.cs" />
