@@ -5,28 +5,18 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+
 namespace CodeExercises
 {
     internal class Program
     {
         private static void Main()
         {
-            //var tree = new BinarySearchTree();
-            //tree.Add(4);
-            //tree.Add(2);
-            //tree.Add(6);
-            //tree.Add(1);
-            //tree.Add(3);
-            //tree.Add(5);
-            //tree.Add(8);
-            //tree.Add(7);
-            //tree.Enumerate();
-            //tree.Remove(4);
-            //Console.WriteLine();
-            //tree.Enumerate();
-            //tree.Remove(2);
-            //Console.WriteLine();
-            //tree.Enumerate();
+            var a = new int[] { 1,2,3,4,5};
+            var b = new int[] { 4,5, 6,7,8,9};
+            var c = new int[] { 5, 12,14,15};
+        
+            
             TreeNode root = null;
             Assert.AreEqual(true, TreeNode.IsPerfect(root), "null tree should be perfect");
             root = TreeNode.Leaf().WithLeaves();
@@ -36,6 +26,31 @@ namespace CodeExercises
 
             Assert.AreEqual(false, TreeNode.IsPerfect(root), "root with single leaf should not be perfect");
             Console.ReadLine();
+        }
+
+        public static bool CommonElement(int[] a, int[] b, int[] c)
+        {
+            foreach (var num in a)
+            {
+                if (!BinarySearch(b, num)) continue;
+                if (BinarySearch(c, num)) return true;
+            }
+            return false;
+        }
+
+        private static bool BinarySearch(int[] a, int n)
+        {
+            var low = 0;
+            var high = a.Length - 1;
+
+            while (low <= high)
+            {
+                var mid = ((high - low) / 2) + low;
+                if (a[mid] == n) return true;
+                if (n < a[mid]) high = mid - 1;
+                else low = mid + 1;
+            }
+            return false;
         }
 
         public class TreeNode
@@ -136,7 +151,6 @@ namespace CodeExercises
             }
         }
 
-
         public class PrivateNode
         {
             public int Value;
@@ -151,9 +165,7 @@ namespace CodeExercises
             }
         }
 
-
         #region cases
-
         /*
          * Lyft
          */
