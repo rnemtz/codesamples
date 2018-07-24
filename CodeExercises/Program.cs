@@ -16,6 +16,25 @@ namespace CodeExercises
         }
 
         /*
+         * Check if an item exists in sortedList
+         * (Binary Search)
+         */
+
+        public bool ExistInSortedList(int[] list, int a)
+        {
+            var low = 0;
+            var high = list.Length - 1;
+            while (low <= high)
+            {
+                var mid = (high - low) / 2 + low;
+                if (list[mid] == a) return true;
+                if (a < list[mid]) high = mid - 1;
+                else low = mid + 1;
+            }
+            return false;
+        }
+
+        /*
         * LRU Cache
         * Implementing with Dictionary and Queue
         */
