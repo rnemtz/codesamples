@@ -12,22 +12,187 @@ namespace CodeExercises
     {
         private static void Main()
         {
+            Console.ReadKey();
+        }
+
+
+        /*
+         * Traversal in Level order for N-Ary tree
+         */
+
+        /*
+            var tree = new NTree();
+            Console.Write("Add Node (y/n): ");
+            var ck = Console.ReadKey();
+            while (ck.Key == ConsoleKey.Y)
+            {
+                Console.WriteLine();
+                Console.Write("Parent: ");
+                var parent = Console.ReadLine();
+                Console.Write("Node: ");
+                var value = Console.ReadLine();
+
+                tree.Add(parent, value);
+                Console.WriteLine($"Node added to {parent}");
+                Console.WriteLine();
+                Console.Write("Add Node (y/n): ");
+                ck = Console.ReadKey();
+            }
+            Console.WriteLine();
+            tree.LevelTraversal();
+        */
+
+        public class NTree
+        {
+            public NNode Root { get; set; }
+            public int Count { get; set; }
+
+            public void Add(string parent, string key)
+            {
+                Count++;
+                if (Root == null)
+                {
+                    Root = new NNode(key, null) {Level = 1};
+                }
+                else
+                {
+                    var node = Find(parent);
+                    if (node == null) Root.Children.Add(new NNode(key, Root) {Level = Root.Level + 1});
+                    else Add(node, key);
+                }
+            }
+
+            private void Add(NNode parent, string value)
+            {
+                parent?.Children.Add(new NNode(value, parent) {Level = parent.Level + 1});
+            }
+
+            public NNode Find(string key)
+            {
+                return string.IsNullOrWhiteSpace(key) ? null : Find(Root, key);
+            }
+
+            private NNode Find(NNode node, string key)
+            {
+                if (node == null) return null;
+                var q = new Queue<NNode>();
+                q.Enqueue(node);
+                while (q.Any())
+                {
+                    var current = q.Dequeue();
+                    if (current.Value == key) return current;
+                    foreach (var currentChild in current.Children) q.Enqueue(currentChild);
+                }
+                return null;
+            }
+
+            public void LevelTraversal()
+            {
+                if (Root == null) return;
+                var q = new Queue<NNode>();
+                q.Enqueue(Root);
+                while (q.Any())
+                {
+                    var current = q.Dequeue();
+                    Console.WriteLine($"Level: {current.Level}: Name: {current.Value}");
+                    foreach (var c in current.Children) q.Enqueue(c);
+                }
+            }
+        }
+
+        public class NNode
+        {
+            public string Value { get; set; }
+            public NNode Parent { get; set; }
+            public List<NNode> Children { get; set; }
+            public int Level { get; set; }
+
+            public NNode(string value, NNode parent)
+            {
+                Value = value;
+                Children = new List<NNode>();
+                Parent = parent;
+            }
+        }
+
+        /*
+         * Traverse In-Order for a Binary Tree
+         */
+        public static void TraverseInOrder(BinarySearchTreeNode node)
+        {
+            if (node == null) return;
+
+            TraverseInOrder(node.Left);
+            Console.WriteLine(node.Value);
+            TraverseInOrder(node.Right);
+        }
+
+        /*
+         * Find distance between two given keys of a Binary Tree 
+         */
+        public static int GetDistance(BinarySearchTreeNode a, BinarySearchTreeNode b, BinarySearchTreeNode node)
+        {
+            if (node == null) return 0;
+            var lca = GetLowestCommonAncestor(a, b, node);
+            var da = GetLevelOfNode(lca, a, 0);
+            var db = GetLevelOfNode(lca, a, 0);
+            return da + db;
+        }
+
+        /*
+         * Get Level of Node
+         */
+        public static int GetLevelOfNode(BinarySearchTreeNode root, BinarySearchTreeNode node, int level)
+        {
+            if (root == null) return -1;
+            if (root.Value == node.Value) return level;
+            var left = GetLevelOfNode(root.Left, node, level + 1);
+            return left != -1 ? left : GetLevelOfNode(root.Right, node, level + 1);
+        }
+
+        /*
+         * Lowest Common Ancestor in a Tree
+         */
+        public static BinarySearchTreeNode GetLowestCommonAncestor(BinarySearchTreeNode a, BinarySearchTreeNode b,
+            BinarySearchTreeNode root)
+        {
+            if (root == null) return null;
+            if (a == root || b == root) return root;
+
+            var left = GetLowestCommonAncestor(a, b, root.Left);
+            var right = GetLowestCommonAncestor(a, b, root.Right);
+
+            if (left != null && right != null) return root;
+            if (left == null && right == null) return null;
+
+            return left ?? right;
+        }
+
+        /*
+         * Binary Search Tree. Find longest path within it.
+         * Find a path between any two leaf nodes where path
+         * is the longest.
+         */
+        public static int GetLongestPath(BinarySearchTreeNode node)
+        {
+            if (node == null) return 0;
+            var ltree = TreeHeight(node.Left);
+            var rtree = TreeHeight(node.Right);
+            return ltree + rtree + 1;
+        }
+
+        public static int TreeHeight(BinarySearchTreeNode node)
+        {
+            if (node == null) return 0;
+            return 1 + Math.Max(TreeHeight(node.Left), TreeHeight(node.Right));
+        }
+
+        /*  
+            Common element in 3 arrays, O (log N) 
             var a = new int[] { 1,2,3,4,5};
             var b = new int[] { 4,5, 6,7,8,9};
             var c = new int[] { 5, 12,14,15};
-        
-            
-            TreeNode root = null;
-            Assert.AreEqual(true, TreeNode.IsPerfect(root), "null tree should be perfect");
-            root = TreeNode.Leaf().WithLeaves();
-
-            Assert.AreEqual(true, TreeNode.IsPerfect(root), "root with two leaves should be perfect");
-            root = TreeNode.Leaf().WithLeftLeaf();
-
-            Assert.AreEqual(false, TreeNode.IsPerfect(root), "root with single leaf should not be perfect");
-            Console.ReadLine();
-        }
-
+        */
         public static bool CommonElement(int[] a, int[] b, int[] c)
         {
             foreach (var num in a)
@@ -45,7 +210,7 @@ namespace CodeExercises
 
             while (low <= high)
             {
-                var mid = ((high - low) / 2) + low;
+                var mid = (high - low) / 2 + low;
                 if (a[mid] == n) return true;
                 if (n < a[mid]) high = mid - 1;
                 else low = mid + 1;
@@ -85,7 +250,6 @@ namespace CodeExercises
                     {
                         _isPerfect = false;
                     }
-                    
                 }
             }
 
@@ -166,6 +330,7 @@ namespace CodeExercises
         }
 
         #region cases
+
         /*
          * Lyft
          */
