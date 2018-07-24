@@ -15,6 +15,172 @@ namespace CodeExercises
             Console.ReadKey();
         }
 
+        /*
+        * LRU Cache
+        * Implementing with Dictionary and Queue
+        */
+
+        /*  
+         *  var cache = new LeastRecentUsedItems<int, string>(3);
+            cache.Add(1, "uno");
+            cache.Add(2, "dos");
+            cache.Add(3, "tres");
+            cache.Add(4, "cuatro");
+            cache.Add(5, "cinco");
+            var list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+            cache.Add(6, "seis");
+            cache.Add(7, "siete");
+            Console.WriteLine();
+            list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+            cache.Add(8, "ocho");
+            cache.Add(9, "nueve");
+            Console.WriteLine();
+            list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+        */
+
+        public class LeastRecentUsedItems<TKey, TValue>
+        {
+            private readonly int _maxSize;
+            private readonly Queue<Item> _queue;
+            private readonly Dictionary<TKey, Item> _items;
+
+            public LeastRecentUsedItems(int maxSize = 50)
+            {
+                if (maxSize <= 0) throw new ArgumentException();
+
+                _queue = new Queue<Item>();
+                _items = new Dictionary<TKey, Item>();
+                _maxSize = maxSize;
+            }
+
+            public void Add(TKey key, TValue value)
+            {
+                if (_items.ContainsKey(key)) _items.Remove(key);
+                else if (_items.Count == _maxSize)
+                {
+                    var item = _queue.Dequeue();
+                    _items.Remove(item.Key);
+                }
+                _items.Add(key, new Item(key, value));
+                _queue.Enqueue(new Item(key, value));
+            }
+
+            public bool TryGetValue(TKey key, out TValue value)
+            {
+                value = default(TValue);
+                if (!_items.TryGetValue(key, out var item)) return false;
+                value = item.Value;
+                return true;
+            }
+
+            public List<TValue> PrintValues()
+            {
+                return _items.Select(item => item.Value.Value).ToList();
+            }
+
+            private class Item
+            {
+                public TKey Key { get; }
+                public TValue Value { get; }
+
+                public Item(TKey key, TValue value)
+                {
+                    Key = key;
+                    Value = value;
+                }
+            }
+        }
+
+
+        /*
+         * LRU Cache
+         * Implementing with Dictionary and Double Linked List
+         */
+
+        public class LeastRecentUsedCache
+        {
+            private readonly int _maxCacheSize;
+            private readonly Dictionary<int, Node> _itemsDictionary;
+            private Node _head;
+            private Node _tail;
+
+            private class Node
+            {
+                public Node Next { get; set; }
+                public Node Previous { get; set; }
+                public int Key { get; set; }
+                public string Value { get; set; }
+            }
+
+
+            public LeastRecentUsedCache(int maxCacheSize = 50)
+            {
+                if (maxCacheSize < 0) throw new ArgumentException();
+                _maxCacheSize = maxCacheSize;
+                _itemsDictionary = new Dictionary<int, Node>();
+                _head = null;
+            }
+
+            public void Set(int key, string value)
+            {
+                if (!_itemsDictionary.TryGetValue(key, out var item))
+                {
+                    item = new Node() {Key = key, Value = value};
+                    if (_itemsDictionary.Count == _maxCacheSize)
+                    {
+                        _itemsDictionary.Remove(_tail.Key);
+                        _tail = _tail.Previous;
+                        if (_tail != null) _tail.Next = null;
+                    }
+                    _itemsDictionary.Add(key, item);
+                }
+                item.Value = value;
+                MoveToHead(item);
+                if (_tail == null) _tail = _head;
+            }
+
+            public bool TryGetValue(int key, out string value)
+            {
+                value = default(string);
+                if (!_itemsDictionary.TryGetValue(key, out var item)) return false;
+
+                MoveToHead(item);
+                value = item.Value;
+
+                return true;
+            }
+
+            private void MoveToHead(Node item)
+            {
+                if (item == _head || item == null) return;
+
+                var next = item.Next;
+                var previous = item.Previous;
+
+                if (next != null) next.Previous = item.Previous;
+                if (previous != null) previous.Next = item.Next;
+
+                item.Previous = null;
+                item.Next = _head;
+
+                if (_head != null) _head.Previous = item;
+                _head = item;
+
+                if (_tail == item) _tail = previous;
+            }
+        }
+
+        /*
+         * Print numbers between 2 parameters
+         */
+
+        public static void PrintNumbersInBetween(int a, int b)
+        {
+            for (var c = a + 1; c < b; c++) Console.WriteLine($"number:{c}");
+        }
 
         /*
          * Traversal in Level order for N-Ary tree
@@ -72,6 +238,7 @@ namespace CodeExercises
                 return string.IsNullOrWhiteSpace(key) ? null : Find(Root, key);
             }
 
+            /* BDF Approach */
             private NNode Find(NNode node, string key)
             {
                 if (node == null) return null;
@@ -86,6 +253,7 @@ namespace CodeExercises
                 return null;
             }
 
+            /* BDF Approach */
             public void LevelTraversal()
             {
                 if (Root == null) return;
