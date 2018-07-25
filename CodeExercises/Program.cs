@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 
 namespace CodeExercises
 {
@@ -12,8 +10,209 @@ namespace CodeExercises
     {
         private static void Main()
         {
+           
             Console.ReadKey();
         }
+
+
+        /*
+         * AMAZON Luxembourg Question
+         */
+
+        /*
+         var literatureText =
+            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat avoids a pain that produces no resultant pleasure? quo voluptas nulla pariatur? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
+        var wordsToExclude = new[] {"and", "he", "the", "to", "is"};
+        var startDate = DateTime.Now;
+        var res = GetFrequentWords(literatureText, wordsToExclude);
+        var resultTimeStamp = DateTime.Now - startDate;
+        Console.WriteLine($"(Total Time in O(N**2): {resultTimeStamp}");
+        Console.WriteLine();
+        startDate = DateTime.Now;
+        res = GetFrequentWordsFaster(literatureText, wordsToExclude);
+        resultTimeStamp = DateTime.Now - startDate;
+        Console.WriteLine($"(Total Time in O(N): {resultTimeStamp}");
+        Console.ReadKey();
+        */
+
+
+        /*
+         * Optimized Solution
+         */
+
+        public static string[] GetFrequentWordsFaster(string literatureText, string[] wordsToExclude)
+        {
+            if (string.IsNullOrWhiteSpace(literatureText)) return new string[0];
+            literatureText = literatureText.ToLower(); //O(1)
+
+            var result = new List<string>();
+
+            //Create a Dictionary with the allowed alphabetic characters
+            var allowedCharacters = new Dictionary<char, int>
+            {
+                {'a', 0},
+                {'b', 0},
+                {'c', 0},
+                {'d', 0},
+                {'e', 0},
+                {'f', 0},
+                {'g', 0},
+                {'h', 0},
+                {'i', 0},
+                {'j', 0},
+                {'k', 0},
+                {'l', 0},
+                {'m', 0},
+                {'n', 0},
+                {'o', 0},
+                {'p', 0},
+                {'q', 0},
+                {'r', 0},
+                {'s', 0},
+                {'t', 0},
+                {'u', 0},
+                {'v', 0},
+                {'x', 0},
+                {'w', 0},
+                {'y', 0},
+                {'z', 0},
+                {'A', 0},
+                {'B', 0},
+                {'C', 0},
+                {'D', 0},
+                {'E', 0},
+                {'F', 0},
+                {'G', 0},
+                {'H', 0},
+                {'I', 0},
+                {'J', 0},
+                {'K', 0},
+                {'L', 0},
+                {'M', 0},
+                {'N', 0},
+                {'O', 0},
+                {'P', 0},
+                {'Q', 0},
+                {'R', 0},
+                {'S', 0},
+                {'T', 0},
+                {'U', 0},
+                {'V', 0},
+                {'X', 0},
+                {'W', 0},
+                {'Y', 0},
+                {'Z', 0}
+            };
+            var lText = literatureText.ToArray(); //O(N)
+            for (var c = 0; c < lText.Length; c++) //O(N)
+                if (!allowedCharacters.ContainsKey(lText[c])) lText[c] = ' '; //O(1) 
+
+            var splitArray = string.Join(string.Empty, lText) //O(N**2) it seems
+                .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+
+            var fqwords = new Dictionary<string, int>();
+            var maxFrequency = 1;
+            var wordsToExcludeDict = new Dictionary<string, int>();
+            foreach (var word in wordsToExclude) //O(N)   
+                wordsToExcludeDict.Add(word, 0);
+
+            foreach (var word in splitArray) //O(N)
+            {
+                if (wordsToExcludeDict.ContainsKey(word)) continue; //O(1) 
+                if (fqwords.ContainsKey(word)) //O(1)
+                {
+                    fqwords[word] = fqwords[word] + 1;
+                    if (fqwords[word] > maxFrequency) maxFrequency = fqwords[word];
+                }
+                else
+                {
+                    fqwords.Add(word, 1);
+                }
+            }
+            foreach (var word in fqwords) //O(N)
+                if (word.Value == maxFrequency) result.Add(word.Key);
+            return result.ToArray(); //O(N)
+        }
+
+        /*Complexity O(N**2) due the Array.Contains inside a loop*/
+        public static string[] GetFrequentWords(string literatureText, string[] wordsToExclude)
+        {
+            var result = new List<string>();
+
+            //check nulls,
+            if (string.IsNullOrWhiteSpace(literatureText)) return new string[0];
+
+
+            //Create a Dictionary with the allowed alphabetic characters
+            var allowedCharacters = new[]
+            {
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+                'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
+            };
+
+            var lText = literatureText.ToArray(); //O(N)
+            for (var c = 0; c < lText.Length; c++) //O(N)
+                if (!allowedCharacters.Contains(lText[c])) lText[c] = ' '; //O(1) since is a fixed array
+            //Remove words to Exclude
+            var splitArray = string.Join(string.Empty, lText)
+                .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries); //O(N) ??
+            var fqwords = new Dictionary<string, int>();
+            var maxFrequency = 1;
+            foreach (var word in splitArray) //O(N)
+            {
+                if (wordsToExclude.Contains(word)) continue; //O(N) <-- O(N**2) 
+                /*
+                 * Solution to this bottle neck, 
+                 * 1. is to remove the words using Booyer-Moore algorithm
+                 * 2. implement it using a Trie/Prefix Tree
+                 * 3. Insert words to a dictionary to get a ContainsKey => O(1)
+                 */
+                var w = word.ToLower();
+                if (fqwords.ContainsKey(w)) //O(1)
+                {
+                    fqwords[w] = fqwords[w] + 1;
+                    if (fqwords[w] > maxFrequency) maxFrequency = fqwords[w];
+                }
+                else
+                {
+                    fqwords.Add(w, 1);
+                }
+            }
+            foreach (var word in fqwords) //O(N)
+                if (word.Value == maxFrequency) result.Add(word.Key);
+
+            //iterate through dictionary and get maxfrequency
+            //get keys and insert into result array.
+
+            return result.ToArray(); //O(N)
+        }
+
+
+        /*
+         * Given an array and a sum, determine if any of the items add up to sum. 
+         * Do a linear space solution and constant time solution.
+         */
+
+        public static bool ArraySum(int[] list, int sum)
+        {
+            var items = new Dictionary<int, int>();
+            for (var c = 0; c < list.Length; c++)
+                if (items.ContainsKey(list[c]))
+                {
+                    var rest = sum - list[c];
+                    if (items.ContainsKey(rest)) return true;
+                }
+
+                else
+                {
+                    var rest = sum - list[c];
+                    if (items.ContainsKey(rest)) return true;
+                    items.Add(list[c], 1);
+                }
+            return false;
+        }
+
 
         /*
          * Check if an item exists in sortedList
@@ -35,271 +234,12 @@ namespace CodeExercises
         }
 
         /*
-        * LRU Cache
-        * Implementing with Dictionary and Queue
-        */
-
-        /*  
-         *  var cache = new LeastRecentUsedItems<int, string>(3);
-            cache.Add(1, "uno");
-            cache.Add(2, "dos");
-            cache.Add(3, "tres");
-            cache.Add(4, "cuatro");
-            cache.Add(5, "cinco");
-            var list = cache.PrintValues();
-            foreach (var c in list) Console.WriteLine(c);
-            cache.Add(6, "seis");
-            cache.Add(7, "siete");
-            Console.WriteLine();
-            list = cache.PrintValues();
-            foreach (var c in list) Console.WriteLine(c);
-            cache.Add(8, "ocho");
-            cache.Add(9, "nueve");
-            Console.WriteLine();
-            list = cache.PrintValues();
-            foreach (var c in list) Console.WriteLine(c);
-        */
-
-        public class LeastRecentUsedItems<TKey, TValue>
-        {
-            private readonly int _maxSize;
-            private readonly Queue<Item> _queue;
-            private readonly Dictionary<TKey, Item> _items;
-
-            public LeastRecentUsedItems(int maxSize = 50)
-            {
-                if (maxSize <= 0) throw new ArgumentException();
-
-                _queue = new Queue<Item>();
-                _items = new Dictionary<TKey, Item>();
-                _maxSize = maxSize;
-            }
-
-            public void Add(TKey key, TValue value)
-            {
-                if (_items.ContainsKey(key)) _items.Remove(key);
-                else if (_items.Count == _maxSize)
-                {
-                    var item = _queue.Dequeue();
-                    _items.Remove(item.Key);
-                }
-                _items.Add(key, new Item(key, value));
-                _queue.Enqueue(new Item(key, value));
-            }
-
-            public bool TryGetValue(TKey key, out TValue value)
-            {
-                value = default(TValue);
-                if (!_items.TryGetValue(key, out var item)) return false;
-                value = item.Value;
-                return true;
-            }
-
-            public List<TValue> PrintValues()
-            {
-                return _items.Select(item => item.Value.Value).ToList();
-            }
-
-            private class Item
-            {
-                public TKey Key { get; }
-                public TValue Value { get; }
-
-                public Item(TKey key, TValue value)
-                {
-                    Key = key;
-                    Value = value;
-                }
-            }
-        }
-
-
-        /*
-         * LRU Cache
-         * Implementing with Dictionary and Double Linked List
-         */
-
-        public class LeastRecentUsedCache
-        {
-            private readonly int _maxCacheSize;
-            private readonly Dictionary<int, Node> _itemsDictionary;
-            private Node _head;
-            private Node _tail;
-
-            private class Node
-            {
-                public Node Next { get; set; }
-                public Node Previous { get; set; }
-                public int Key { get; set; }
-                public string Value { get; set; }
-            }
-
-
-            public LeastRecentUsedCache(int maxCacheSize = 50)
-            {
-                if (maxCacheSize < 0) throw new ArgumentException();
-                _maxCacheSize = maxCacheSize;
-                _itemsDictionary = new Dictionary<int, Node>();
-                _head = null;
-            }
-
-            public void Set(int key, string value)
-            {
-                if (!_itemsDictionary.TryGetValue(key, out var item))
-                {
-                    item = new Node() {Key = key, Value = value};
-                    if (_itemsDictionary.Count == _maxCacheSize)
-                    {
-                        _itemsDictionary.Remove(_tail.Key);
-                        _tail = _tail.Previous;
-                        if (_tail != null) _tail.Next = null;
-                    }
-                    _itemsDictionary.Add(key, item);
-                }
-                item.Value = value;
-                MoveToHead(item);
-                if (_tail == null) _tail = _head;
-            }
-
-            public bool TryGetValue(int key, out string value)
-            {
-                value = default(string);
-                if (!_itemsDictionary.TryGetValue(key, out var item)) return false;
-
-                MoveToHead(item);
-                value = item.Value;
-
-                return true;
-            }
-
-            private void MoveToHead(Node item)
-            {
-                if (item == _head || item == null) return;
-
-                var next = item.Next;
-                var previous = item.Previous;
-
-                if (next != null) next.Previous = item.Previous;
-                if (previous != null) previous.Next = item.Next;
-
-                item.Previous = null;
-                item.Next = _head;
-
-                if (_head != null) _head.Previous = item;
-                _head = item;
-
-                if (_tail == item) _tail = previous;
-            }
-        }
-
-        /*
          * Print numbers between 2 parameters
          */
 
         public static void PrintNumbersInBetween(int a, int b)
         {
             for (var c = a + 1; c < b; c++) Console.WriteLine($"number:{c}");
-        }
-
-        /*
-         * Traversal in Level order for N-Ary tree
-         */
-
-        /*
-            var tree = new NTree();
-            Console.Write("Add Node (y/n): ");
-            var ck = Console.ReadKey();
-            while (ck.Key == ConsoleKey.Y)
-            {
-                Console.WriteLine();
-                Console.Write("Parent: ");
-                var parent = Console.ReadLine();
-                Console.Write("Node: ");
-                var value = Console.ReadLine();
-
-                tree.Add(parent, value);
-                Console.WriteLine($"Node added to {parent}");
-                Console.WriteLine();
-                Console.Write("Add Node (y/n): ");
-                ck = Console.ReadKey();
-            }
-            Console.WriteLine();
-            tree.LevelTraversal();
-        */
-
-        public class NTree
-        {
-            public NNode Root { get; set; }
-            public int Count { get; set; }
-
-            public void Add(string parent, string key)
-            {
-                Count++;
-                if (Root == null)
-                {
-                    Root = new NNode(key, null) {Level = 1};
-                }
-                else
-                {
-                    var node = Find(parent);
-                    if (node == null) Root.Children.Add(new NNode(key, Root) {Level = Root.Level + 1});
-                    else Add(node, key);
-                }
-            }
-
-            private void Add(NNode parent, string value)
-            {
-                parent?.Children.Add(new NNode(value, parent) {Level = parent.Level + 1});
-            }
-
-            public NNode Find(string key)
-            {
-                return string.IsNullOrWhiteSpace(key) ? null : Find(Root, key);
-            }
-
-            /* BDF Approach */
-            private NNode Find(NNode node, string key)
-            {
-                if (node == null) return null;
-                var q = new Queue<NNode>();
-                q.Enqueue(node);
-                while (q.Any())
-                {
-                    var current = q.Dequeue();
-                    if (current.Value == key) return current;
-                    foreach (var currentChild in current.Children) q.Enqueue(currentChild);
-                }
-                return null;
-            }
-
-            /* BDF Approach */
-            public void LevelTraversal()
-            {
-                if (Root == null) return;
-                var q = new Queue<NNode>();
-                q.Enqueue(Root);
-                while (q.Any())
-                {
-                    var current = q.Dequeue();
-                    Console.WriteLine($"Level: {current.Level}: Name: {current.Value}");
-                    foreach (var c in current.Children) q.Enqueue(c);
-                }
-            }
-        }
-
-        public class NNode
-        {
-            public string Value { get; set; }
-            public NNode Parent { get; set; }
-            public List<NNode> Children { get; set; }
-            public int Level { get; set; }
-
-            public NNode(string value, NNode parent)
-            {
-                Value = value;
-                Children = new List<NNode>();
-                Parent = parent;
-            }
         }
 
         /*
@@ -405,212 +345,10 @@ namespace CodeExercises
             return false;
         }
 
-        public class TreeNode
-        {
-            public TreeNode Left;
-            public TreeNode Right;
-
-            private static bool _isPerfect = true;
-
-            public static bool IsPerfect(TreeNode root)
-            {
-                var depth = GetTreeDepth(root);
-                Traverse(root, 1, depth);
-                return _isPerfect;
-            }
-
-            public static void Traverse(TreeNode node, int nodeDepth, int treeDepth)
-            {
-                if (node == null || !_isPerfect) return;
-                if (IsLeaf(node))
-                {
-                    _isPerfect = nodeDepth == treeDepth;
-                }
-                else
-                {
-                    if (node.Left != null && node.Right != null)
-                    {
-                        Traverse(node.Left, nodeDepth + 1, treeDepth);
-                        Traverse(node.Right, nodeDepth + 1, treeDepth);
-                    }
-                    else
-                    {
-                        _isPerfect = false;
-                    }
-                }
-            }
-
-            public static int GetTreeDepth(TreeNode root)
-            {
-                var depth = 0;
-                var current = root;
-                while (current != null)
-                {
-                    depth++;
-                    current = current.Left;
-                }
-                return depth;
-            }
-
-            public static bool IsLeaf(TreeNode node)
-            {
-                return node.Left == null && node.Right == null;
-            }
-
-            public static TreeNode Leaf()
-            {
-                return new TreeNode();
-            }
-
-            public static TreeNode Join(TreeNode left, TreeNode right)
-            {
-                return new TreeNode().WithChildren(left, right);
-            }
-
-            public TreeNode WithLeft(TreeNode left)
-            {
-                this.Left = left;
-                return this;
-            }
-
-            public TreeNode WithRight(TreeNode right)
-            {
-                this.Right = right;
-                return this;
-            }
-
-            public TreeNode WithChildren(TreeNode left, TreeNode right)
-            {
-                this.Left = left;
-                this.Right = right;
-                return this;
-            }
-
-            public TreeNode WithLeftLeaf()
-            {
-                return WithLeft(Leaf());
-            }
-
-            public TreeNode WithRightLeaf()
-            {
-                return WithRight(Leaf());
-            }
-
-            public TreeNode WithLeaves()
-            {
-                return WithChildren(Leaf(), Leaf());
-            }
-        }
-
-        public class PrivateNode
-        {
-            public int Value;
-            public PrivateNode Left;
-            public PrivateNode Right;
-
-            public PrivateNode(int value, PrivateNode left = null, PrivateNode right = null)
-            {
-                Value = value;
-                Left = left;
-                Right = right;
-            }
-        }
-
-        #region cases
-
-        /*
-         * Lyft
-         */
-
-        /*  TEST CASE
-         *  var stMax = new MaxStack();
-
-            stMax.Push(45);
-            stMax.Push(-10);
-
-            var max = stMax.Max();
-            Console.WriteLine(max);
-
-            stMax.Push(68);
-            max = stMax.Max();
-            Console.WriteLine(max);
-
-            stMax.Pop();
-            max = stMax.Max();
-            Console.WriteLine(max);
-         */
-
-        public class MaxStack
-        {
-            private readonly Stack<InnerObject> _mStack;
-
-            public MaxStack()
-            {
-                _mStack = new Stack<InnerObject>();
-            }
-
-
-            public void Push(int val)
-            {
-                //o(1)
-                var current = new InnerObject() {Val = val};
-                if (IsEmpty()) current.Max = val;
-                else
-                {
-                    var max = Max();
-                    if (max != null) current.Max = max.Value;
-                    if (val > current.Max) current.Max = val;
-                }
-                _mStack.Push(current);
-            }
-
-            public int? Pop()
-            {
-                //o(1)
-                if (IsEmpty()) return null;
-                var current = _mStack.Pop();
-                return current.Val;
-            }
-
-            public int? Peek()
-            {
-                //o(1)
-                if (IsEmpty()) return null;
-                var current = _mStack.Peek();
-                return current.Val;
-            }
-
-            public int? Max()
-            {
-                //o(1)
-                if (IsEmpty()) return null;
-
-                var current = _mStack.Peek();
-                return current.Max;
-            }
-
-            public bool IsEmpty()
-            {
-                return _mStack.Count == 0;
-            }
-        }
-
-        public class InnerObject
-        {
-            public int Val { get; set; }
-            public int Max { get; set; }
-        }
-
-        /*
-         * Lyft
-         */
-
-        #endregion
-
         public static int СenturyFromYear(int year)
         {
             return Convert.ToInt32(year % 100 > 0
-                ? Math.Floor(d: (decimal) (year / 100)) + 1
+                ? Math.Floor((decimal) (year / 100)) + 1
                 : Math.Floor((decimal) (year / 100)));
         }
 
@@ -628,13 +366,11 @@ namespace CodeExercises
             var wordArray = words.Split(' ');
             var result = new string[wordArray.Length];
             foreach (var word in wordArray)
+            foreach (var letter in word.ToCharArray())
             {
-                foreach (var letter in word.ToCharArray())
-                {
-                    if (!char.IsNumber(letter)) continue;
-                    result[int.Parse(letter.ToString()) - 1] = word;
-                    break;
-                }
+                if (!char.IsNumber(letter)) continue;
+                result[int.Parse(letter.ToString()) - 1] = word;
+                break;
             }
             return string.Join(" ", result);
         }
@@ -645,9 +381,7 @@ namespace CodeExercises
             while (true)
             {
                 if (arr.Any(t => t % hcf != 0))
-                {
                     return hcf - 1;
-                }
                 hcf++;
             }
         }
@@ -663,36 +397,20 @@ namespace CodeExercises
                 for (var r = 0; r < states.Length; r++)
                 {
                     if (r == 0)
-                    {
                         if (currentStates[r + 1] == 0)
-                        {
                             newStates[r] = 0;
-                        }
                         else
-                        {
                             newStates[r] = 1;
-                        }
-                    }
                     if (r > 0 && r < states.Length - 1)
-                    {
                         if (currentStates[r - 1] == currentStates[r + 1])
-                        {
                             newStates[r] = 0;
-                        }
                         else
-                        {
                             newStates[r] = 1;
-                        }
-                    }
                     if (r != states.Length - 1) continue;
                     if (currentStates[r - 1] == 0)
-                    {
                         newStates[r] = 0;
-                    }
                     else
-                    {
                         newStates[r] = 1;
-                    }
                 }
                 currentStates = newStates.Clone() as int[];
             }
@@ -706,9 +424,8 @@ namespace CodeExercises
         public static void PrintErrorsFromDAP()
         {
             var urlList = new Dictionary<string, int>();
-            var linesFromFile = System.IO.File.ReadAllLines(@"C:\Obsidian\DAP-Errors.txt");
+            var linesFromFile = File.ReadAllLines(@"C:\Obsidian\DAP-Errors.txt");
             foreach (var line in linesFromFile)
-            {
                 try
                 {
                     var url = new Uri(line.Split(' ')[0]);
@@ -718,19 +435,13 @@ namespace CodeExercises
                         RegexOptions.IgnoreCase);
                     urlPath = Regex.Replace(urlPath, @"(\d+)$", string.Empty, RegexOptions.IgnoreCase);
                     if (urlList.ContainsKey(urlPath))
-                    {
                         urlList[urlPath]++;
-                    }
                     else
-                    {
                         urlList.Add(urlPath, 1);
-                    }
                 }
                 catch (Exception)
                 {
-                    continue;
                 }
-            }
             var lines = new List<string> {"URL, Error Count, Percentage"};
             var total = urlList.Sum(x => x.Value);
             lines.AddRange(urlList.OrderByDescending(x => x.Value)
@@ -768,7 +479,7 @@ namespace CodeExercises
             return null;
         }
 
-        public static List<string> RetrieveMostFrequentlyUsedWords(String literatureText,
+        public static List<string> RetrieveMostFrequentlyUsedWords(string literatureText,
             List<string> wordsToExclude)
         {
             //Validate Input List
@@ -1480,6 +1191,472 @@ namespace CodeExercises
             }
             return result;
         }
+
+        /*
+        * LRU Cache
+        * Implementing with Dictionary and Queue
+        */
+
+        /*  
+         *  var cache = new LeastRecentUsedItems<int, string>(3);
+            cache.Add(1, "uno");
+            cache.Add(2, "dos");
+            cache.Add(3, "tres");
+            cache.Add(4, "cuatro");
+            cache.Add(5, "cinco");
+            var list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+            cache.Add(6, "seis");
+            cache.Add(7, "siete");
+            Console.WriteLine();
+            list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+            cache.Add(8, "ocho");
+            cache.Add(9, "nueve");
+            Console.WriteLine();
+            list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+        */
+
+        public class LeastRecentUsedItems<TKey, TValue>
+        {
+            private readonly Dictionary<TKey, Item> _items;
+            private readonly int _maxSize;
+            private readonly Queue<Item> _queue;
+
+            public LeastRecentUsedItems(int maxSize = 50)
+            {
+                if (maxSize <= 0) throw new ArgumentException();
+
+                _queue = new Queue<Item>();
+                _items = new Dictionary<TKey, Item>();
+                _maxSize = maxSize;
+            }
+
+            public void Add(TKey key, TValue value)
+            {
+                if (_items.ContainsKey(key))
+                {
+                    _items.Remove(key);
+                }
+                else if (_items.Count == _maxSize)
+                {
+                    var item = _queue.Dequeue();
+                    _items.Remove(item.Key);
+                }
+                _items.Add(key, new Item(key, value));
+                _queue.Enqueue(new Item(key, value));
+            }
+
+            public bool TryGetValue(TKey key, out TValue value)
+            {
+                value = default(TValue);
+                if (!_items.TryGetValue(key, out var item)) return false;
+                value = item.Value;
+                return true;
+            }
+
+            public List<TValue> PrintValues()
+            {
+                return _items.Select(item => item.Value.Value).ToList();
+            }
+
+            private class Item
+            {
+                public Item(TKey key, TValue value)
+                {
+                    Key = key;
+                    Value = value;
+                }
+
+                public TKey Key { get; }
+                public TValue Value { get; }
+            }
+        }
+
+
+        /*
+         * LRU Cache
+         * Implementing with Dictionary and Double Linked List
+         */
+
+        public class LeastRecentUsedCache
+        {
+            private readonly Dictionary<int, Node> _itemsDictionary;
+            private readonly int _maxCacheSize;
+            private Node _head;
+            private Node _tail;
+
+
+            public LeastRecentUsedCache(int maxCacheSize = 50)
+            {
+                if (maxCacheSize < 0) throw new ArgumentException();
+                _maxCacheSize = maxCacheSize;
+                _itemsDictionary = new Dictionary<int, Node>();
+                _head = null;
+            }
+
+            public void Set(int key, string value)
+            {
+                if (!_itemsDictionary.TryGetValue(key, out var item))
+                {
+                    item = new Node {Key = key, Value = value};
+                    if (_itemsDictionary.Count == _maxCacheSize)
+                    {
+                        _itemsDictionary.Remove(_tail.Key);
+                        _tail = _tail.Previous;
+                        if (_tail != null) _tail.Next = null;
+                    }
+                    _itemsDictionary.Add(key, item);
+                }
+                item.Value = value;
+                MoveToHead(item);
+                if (_tail == null) _tail = _head;
+            }
+
+            public bool TryGetValue(int key, out string value)
+            {
+                value = default(string);
+                if (!_itemsDictionary.TryGetValue(key, out var item)) return false;
+
+                MoveToHead(item);
+                value = item.Value;
+
+                return true;
+            }
+
+            private void MoveToHead(Node item)
+            {
+                if (item == _head || item == null) return;
+
+                var next = item.Next;
+                var previous = item.Previous;
+
+                if (next != null) next.Previous = item.Previous;
+                if (previous != null) previous.Next = item.Next;
+
+                item.Previous = null;
+                item.Next = _head;
+
+                if (_head != null) _head.Previous = item;
+                _head = item;
+
+                if (_tail == item) _tail = previous;
+            }
+
+            private class Node
+            {
+                public Node Next { get; set; }
+                public Node Previous { get; set; }
+                public int Key { get; set; }
+                public string Value { get; set; }
+            }
+        }
+
+        /*
+         * Traversal in Level order for N-Ary tree
+         */
+
+        /*
+            var tree = new NTree();
+            Console.Write("Add Node (y/n): ");
+            var ck = Console.ReadKey();
+            while (ck.Key == ConsoleKey.Y)
+            {
+                Console.WriteLine();
+                Console.Write("Parent: ");
+                var parent = Console.ReadLine();
+                Console.Write("Node: ");
+                var value = Console.ReadLine();
+
+                tree.Add(parent, value);
+                Console.WriteLine($"Node added to {parent}");
+                Console.WriteLine();
+                Console.Write("Add Node (y/n): ");
+                ck = Console.ReadKey();
+            }
+            Console.WriteLine();
+            tree.LevelTraversal();
+        */
+
+        public class NTree
+        {
+            public NNode Root { get; set; }
+            public int Count { get; set; }
+
+            public void Add(string parent, string key)
+            {
+                Count++;
+                if (Root == null)
+                {
+                    Root = new NNode(key, null) {Level = 1};
+                }
+                else
+                {
+                    var node = Find(parent);
+                    if (node == null) Root.Children.Add(new NNode(key, Root) {Level = Root.Level + 1});
+                    else Add(node, key);
+                }
+            }
+
+            private void Add(NNode parent, string value)
+            {
+                parent?.Children.Add(new NNode(value, parent) {Level = parent.Level + 1});
+            }
+
+            public NNode Find(string key)
+            {
+                return string.IsNullOrWhiteSpace(key) ? null : Find(Root, key);
+            }
+
+            /* BDF Approach */
+            private NNode Find(NNode node, string key)
+            {
+                if (node == null) return null;
+                var q = new Queue<NNode>();
+                q.Enqueue(node);
+                while (q.Any())
+                {
+                    var current = q.Dequeue();
+                    if (current.Value == key) return current;
+                    foreach (var currentChild in current.Children) q.Enqueue(currentChild);
+                }
+                return null;
+            }
+
+            /* BDF Approach */
+            public void LevelTraversal()
+            {
+                if (Root == null) return;
+                var q = new Queue<NNode>();
+                q.Enqueue(Root);
+                while (q.Any())
+                {
+                    var current = q.Dequeue();
+                    Console.WriteLine($"Level: {current.Level}: Name: {current.Value}");
+                    foreach (var c in current.Children) q.Enqueue(c);
+                }
+            }
+        }
+
+        public class NNode
+        {
+            public NNode(string value, NNode parent)
+            {
+                Value = value;
+                Children = new List<NNode>();
+                Parent = parent;
+            }
+
+            public string Value { get; set; }
+            public NNode Parent { get; set; }
+            public List<NNode> Children { get; set; }
+            public int Level { get; set; }
+        }
+
+        public class TreeNode
+        {
+            private static bool _isPerfect = true;
+            public TreeNode Left;
+            public TreeNode Right;
+
+            public static bool IsPerfect(TreeNode root)
+            {
+                var depth = GetTreeDepth(root);
+                Traverse(root, 1, depth);
+                return _isPerfect;
+            }
+
+            public static void Traverse(TreeNode node, int nodeDepth, int treeDepth)
+            {
+                if (node == null || !_isPerfect) return;
+                if (IsLeaf(node))
+                {
+                    _isPerfect = nodeDepth == treeDepth;
+                }
+                else
+                {
+                    if (node.Left != null && node.Right != null)
+                    {
+                        Traverse(node.Left, nodeDepth + 1, treeDepth);
+                        Traverse(node.Right, nodeDepth + 1, treeDepth);
+                    }
+                    else
+                    {
+                        _isPerfect = false;
+                    }
+                }
+            }
+
+            public static int GetTreeDepth(TreeNode root)
+            {
+                var depth = 0;
+                var current = root;
+                while (current != null)
+                {
+                    depth++;
+                    current = current.Left;
+                }
+                return depth;
+            }
+
+            public static bool IsLeaf(TreeNode node)
+            {
+                return node.Left == null && node.Right == null;
+            }
+
+            public static TreeNode Leaf()
+            {
+                return new TreeNode();
+            }
+
+            public static TreeNode Join(TreeNode left, TreeNode right)
+            {
+                return new TreeNode().WithChildren(left, right);
+            }
+
+            public TreeNode WithLeft(TreeNode left)
+            {
+                Left = left;
+                return this;
+            }
+
+            public TreeNode WithRight(TreeNode right)
+            {
+                Right = right;
+                return this;
+            }
+
+            public TreeNode WithChildren(TreeNode left, TreeNode right)
+            {
+                Left = left;
+                Right = right;
+                return this;
+            }
+
+            public TreeNode WithLeftLeaf()
+            {
+                return WithLeft(Leaf());
+            }
+
+            public TreeNode WithRightLeaf()
+            {
+                return WithRight(Leaf());
+            }
+
+            public TreeNode WithLeaves()
+            {
+                return WithChildren(Leaf(), Leaf());
+            }
+        }
+
+        public class PrivateNode
+        {
+            public PrivateNode Left;
+            public PrivateNode Right;
+            public int Value;
+
+            public PrivateNode(int value, PrivateNode left = null, PrivateNode right = null)
+            {
+                Value = value;
+                Left = left;
+                Right = right;
+            }
+        }
+
+        #region cases
+
+        /*
+         * Lyft
+         */
+
+        /*  TEST CASE
+         *  var stMax = new MaxStack();
+
+            stMax.Push(45);
+            stMax.Push(-10);
+
+            var max = stMax.Max();
+            Console.WriteLine(max);
+
+            stMax.Push(68);
+            max = stMax.Max();
+            Console.WriteLine(max);
+
+            stMax.Pop();
+            max = stMax.Max();
+            Console.WriteLine(max);
+         */
+
+        public class MaxStack
+        {
+            private readonly Stack<InnerObject> _mStack;
+
+            public MaxStack()
+            {
+                _mStack = new Stack<InnerObject>();
+            }
+
+
+            public void Push(int val)
+            {
+                //o(1)
+                var current = new InnerObject {Val = val};
+                if (IsEmpty())
+                {
+                    current.Max = val;
+                }
+                else
+                {
+                    var max = Max();
+                    if (max != null) current.Max = max.Value;
+                    if (val > current.Max) current.Max = val;
+                }
+                _mStack.Push(current);
+            }
+
+            public int? Pop()
+            {
+                //o(1)
+                if (IsEmpty()) return null;
+                var current = _mStack.Pop();
+                return current.Val;
+            }
+
+            public int? Peek()
+            {
+                //o(1)
+                if (IsEmpty()) return null;
+                var current = _mStack.Peek();
+                return current.Val;
+            }
+
+            public int? Max()
+            {
+                //o(1)
+                if (IsEmpty()) return null;
+
+                var current = _mStack.Peek();
+                return current.Max;
+            }
+
+            public bool IsEmpty()
+            {
+                return _mStack.Count == 0;
+            }
+        }
+
+        public class InnerObject
+        {
+            public int Val { get; set; }
+            public int Max { get; set; }
+        }
+
+        /*
+         * Lyft
+         */
+
+        #endregion
     }
 
     public class TreeNode
