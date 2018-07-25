@@ -10,10 +10,60 @@ namespace CodeExercises
     {
         private static void Main()
         {
-           
             Console.ReadKey();
         }
+        /*
+         * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+         * Calling next() will return the next smallest number in the BST. 
+         * Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+         * 
+         * Your BSTIterator will be called like this:
+         * BSTIterator i = new BSTIterator(root);
+         * while (i.HasNext()) v[f()] = i.Next();
+         */
 
+        public class BSTIterator
+        {
+            public class TreeNode
+            {
+                public int val;
+                public TreeNode left;
+                public TreeNode right;
+
+                public TreeNode(int x)
+                {
+                    val = x;
+                }
+            }
+
+            private Queue<TreeNode> q;
+
+            public BSTIterator(TreeNode root)
+            {
+                q = new Queue<TreeNode>();
+                Traverse(root);
+            }
+
+            private void Traverse(TreeNode node)
+            {
+                if (node == null) return;
+                Traverse(node.left);
+                q.Enqueue(node);
+                Traverse(node.right);
+            }
+
+            /** @return whether we have a next smallest number */
+            public bool HasNext()
+            {
+                return q.Count > 0;
+            }
+
+            /** @return the next smallest number */
+            public int Next()
+            {
+                return q.Dequeue().val;
+            }
+        }
 
         /*
          * AMAZON Luxembourg Question
@@ -34,7 +84,6 @@ namespace CodeExercises
         Console.WriteLine($"(Total Time in O(N): {resultTimeStamp}");
         Console.ReadKey();
         */
-
 
         /*
          * Optimized Solution
@@ -107,14 +156,16 @@ namespace CodeExercises
             for (var c = 0; c < lText.Length; c++) //O(N)
                 if (!allowedCharacters.ContainsKey(lText[c])) lText[c] = ' '; //O(1) 
 
-            var splitArray = string.Join(string.Empty, lText) //O(N**2) it seems
+            var splitArray = string.Join(string.Empty, lText) //O(N**2) it seems <-- Bottleneck
                 .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
 
             var fqwords = new Dictionary<string, int>();
             var maxFrequency = 1;
             var wordsToExcludeDict = new Dictionary<string, int>();
             foreach (var word in wordsToExclude) //O(N)   
+            {
                 wordsToExcludeDict.Add(word, 0);
+            }
 
             foreach (var word in splitArray) //O(N)
             {
@@ -134,7 +185,9 @@ namespace CodeExercises
             return result.ToArray(); //O(N)
         }
 
-        /*Complexity O(N**2) due the Array.Contains inside a loop*/
+        /*
+         * Complexity O(N**2) due the Array.Contains inside a loop
+         */
         public static string[] GetFrequentWords(string literatureText, string[] wordsToExclude)
         {
             var result = new List<string>();
@@ -155,8 +208,8 @@ namespace CodeExercises
             for (var c = 0; c < lText.Length; c++) //O(N)
                 if (!allowedCharacters.Contains(lText[c])) lText[c] = ' '; //O(1) since is a fixed array
             //Remove words to Exclude
-            var splitArray = string.Join(string.Empty, lText)
-                .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries); //O(N) ??
+            var splitArray = string.Join(string.Empty, lText) //O(N**2) ??
+                .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
             var fqwords = new Dictionary<string, int>();
             var maxFrequency = 1;
             foreach (var word in splitArray) //O(N)
@@ -188,12 +241,10 @@ namespace CodeExercises
             return result.ToArray(); //O(N)
         }
 
-
         /*
          * Given an array and a sum, determine if any of the items add up to sum. 
          * Do a linear space solution and constant time solution.
          */
-
         public static bool ArraySum(int[] list, int sum)
         {
             var items = new Dictionary<int, int>();
@@ -218,7 +269,6 @@ namespace CodeExercises
          * Check if an item exists in sortedList
          * (Binary Search)
          */
-
         public bool ExistInSortedList(int[] list, int a)
         {
             var low = 0;
@@ -236,7 +286,6 @@ namespace CodeExercises
         /*
          * Print numbers between 2 parameters
          */
-
         public static void PrintNumbersInBetween(int a, int b)
         {
             for (var c = a + 1; c < b; c++) Console.WriteLine($"number:{c}");
