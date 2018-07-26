@@ -10,8 +10,10 @@ namespace CodeExercises
     {
         private static void Main()
         {
+           
             Console.ReadKey();
         }
+
         /*
          * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
          * Calling next() will return the next smallest number in the BST. 
