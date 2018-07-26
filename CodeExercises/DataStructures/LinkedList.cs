@@ -101,8 +101,7 @@ namespace CodeExercises.LinkedLists
         public Node Tail { get; set; }
         public int Count { get; set; }
         public bool IsEmpty { get; set; }
-        private SortedLinkedList Sorted { get; set; }
-
+        private SortedLinkedList Sorted { get; }
 
         public LinkedList()
         {
@@ -330,12 +329,35 @@ namespace CodeExercises.LinkedLists
 
         public bool IsCyclic()
         {
+            if (IsEmpty) return false; //Or Count == 0, whatever you have implemented in a Linked List
+            var slow = Head;
+            var fast = Head.Next;
+            while (fast?.Next != null)
+            {
+                if (fast == slow) return true;
+                fast = fast.Next.Next;
+                slow = slow.Next;
+            }
             return false;
         }
 
-        public bool InsertAt(int index)
+        public bool InsertBefore(int value, int node)
         {
-            return false;
+            var nextNode = Find(node, out var previous);
+            if (nextNode == null) return false; //It doesn't exist
+            var newNode = new Node { Value = value };
+            if (previous == null)
+            {
+                var temp = Head;
+                Head = newNode;
+                newNode.Next = temp;
+            }
+            else
+            {
+                newNode.Next = nextNode;
+                previous.Next = newNode;
+            }
+            return true;
         }
 
         public void Sort(Order order)
