@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace CodeExercises.DataStructures
+namespace CodeExercises.Trees
 {
     public class BinaryTree<T> : IEnumerable<T> where T : IComparable<T>
     {

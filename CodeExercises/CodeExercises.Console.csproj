@@ -57,6 +57,7 @@
     <Compile Include="DataStructures\HashingAlgorithms.cs" />
     <Compile Include="DataStructures\HashTable.cs" />
     <Compile Include="DataStructures\LinkedList.cs" />
+    <Compile Include="DataStructures\PrefixTree.cs" />
     <Compile Include="DataStructures\Queue.cs" />
     <Compile Include="DataStructures\Stack.cs" />
     <Compile Include="Program.cs" />
