@@ -56,8 +56,6 @@ namespace CodeExercises.Stacks
     {
         public bool IsEmpty { get; set; }
         public int Count { get; set; }
-        public T MaxValue { get; set; }
-        public T MinValue { get; set; }
 
         //LinkedList Implementation
         private LinkedList<T> _stackList;
@@ -77,8 +75,6 @@ namespace CodeExercises.Stacks
         {
             IsEmpty = false;
             Count = 0;
-            MaxValue = default(T);
-            MinValue = default(T);
             _stackList = new LinkedList<T>();
         }
 
@@ -119,8 +115,6 @@ namespace CodeExercises.Stacks
     {
         public bool IsEmpty { get; set; }
         public int Count { get; set; }
-        public T MaxValue { get; set; }
-        public T MinValue { get; set; }
 
         //Array Implementation
         private T[] _stackList;

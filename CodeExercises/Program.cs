@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using CodeExercises.LinkedLists;
-using CodeExercises.Stacks;
 
 namespace CodeExercises
 {
@@ -12,60 +10,80 @@ namespace CodeExercises
     {
         private static void Main()
         {
+            var numbers = new[] {186,419,83,408};
+            var count = CoinChange(numbers, 6249);
             Console.ReadKey();
         }
 
+        #region LeetCode
+
         /*
-         * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
-         * Calling next() will return the next smallest number in the BST. 
-         * Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+         * You are given coins of different denominations and a total amount of money amount. 
+         * Write a function to compute the fewest number of coins that you need to make up that amount. 
+         * If that amount of money cannot be made up by any combination of the coins, return -1.
+
+            Example 1:
+
+            Input: coins = [1, 2, 5], amount = 11
+            Output: 3 
+            Explanation: 11 = 5 + 5 + 1
+            Example 2:
+
+            Input: coins = [2], amount = 3
+            Output: -1
+            Note:
+            You may assume that you have an infinite number of each kind of coin.
+        */
+
+        public static int CoinChange(int[] coins, int amount)
+        {
+            return amount < 1 ? 0 : CoinChange(coins, amount, new int[amount]);
+        }
+
+        private static int CoinChange(IEnumerable<int> coins, int rem, IList<int> count)
+        {
+            if (rem < 0) return -1;
+            if (rem == 0) return 0;
+            if (count[rem - 1] != 0) return count[rem - 1];
+            var min = int.MaxValue;
+            var coinsArray = coins as int[] ?? coins.ToArray();
+            foreach( var coin in coinsArray)
+            {
+                var res = CoinChange(coinsArray, rem - coin, count);
+                if (res >= 0 && res < min)
+                    min = 1 + res;
+            }
+            count[rem - 1] = (min == int.MaxValue) ? -1 : min;
+            return count[rem - 1];
+        }
+
+        #endregion
+
+        /*
+         * Amazon 
          * 
-         * Your BSTIterator will be called like this:
-         * BSTIterator i = new BSTIterator(root);
-         * while (i.HasNext()) v[f()] = i.Next();
+         * Given an array of numbers in sorted order
+         * count the pairs of numbers whose sum is less than X
          */
 
-        public class BSTIterator
+        public static int GetCountOfPairs(int[] numbers, int n)
         {
-            public class TreeNode
+            var count = 0;
+            var firstIndex = 0;
+            var lastIndex = numbers.Length - 1;
+            while (firstIndex != lastIndex)
             {
-                public int val;
-                public TreeNode left;
-                public TreeNode right;
-
-                public TreeNode(int x)
+                if (numbers[firstIndex] + numbers[lastIndex] < n)
                 {
-                    val = x;
+                    count += lastIndex - firstIndex;
+                    firstIndex++;
+                }
+                else
+                {
+                    lastIndex--;
                 }
             }
-
-            private Queue<TreeNode> q;
-
-            public BSTIterator(TreeNode root)
-            {
-                q = new Queue<TreeNode>();
-                Traverse(root);
-            }
-
-            private void Traverse(TreeNode node)
-            {
-                if (node == null) return;
-                Traverse(node.left);
-                q.Enqueue(node);
-                Traverse(node.right);
-            }
-
-            /** @return whether we have a next smallest number */
-            public bool HasNext()
-            {
-                return q.Count > 0;
-            }
-
-            /** @return the next smallest number */
-            public int Next()
-            {
-                return q.Dequeue().val;
-            }
+            return count;
         }
 
         /*
@@ -73,8 +91,7 @@ namespace CodeExercises
          */
 
         /*
-         var literatureText =
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat avoids a pain that produces no resultant pleasure? quo voluptas nulla pariatur? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
+         var literatureText ="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat avoids a pain that produces no resultant pleasure? quo voluptas nulla pariatur? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
         var wordsToExclude = new[] {"and", "he", "the", "to", "is"};
         var startDate = DateTime.Now;
         var res = GetFrequentWords(literatureText, wordsToExclude);
@@ -166,9 +183,7 @@ namespace CodeExercises
             var maxFrequency = 1;
             var wordsToExcludeDict = new Dictionary<string, int>();
             foreach (var word in wordsToExclude) //O(N)   
-            {
                 wordsToExcludeDict.Add(word, 0);
-            }
 
             foreach (var word in splitArray) //O(N)
             {
@@ -1242,6 +1257,60 @@ namespace CodeExercises
                 }
             }
             return result;
+        }
+
+
+        /*
+         * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+         * Calling next() will return the next smallest number in the BST. 
+         * Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+         * 
+         * Your BSTIterator will be called like this:
+         * BSTIterator i = new BSTIterator(root);
+         * while (i.HasNext()) v[f()] = i.Next();
+         */
+
+        public class BSTIterator
+        {
+            private readonly Queue<TreeNode> q;
+
+            public BSTIterator(TreeNode root)
+            {
+                q = new Queue<TreeNode>();
+                Traverse(root);
+            }
+
+            private void Traverse(TreeNode node)
+            {
+                if (node == null) return;
+                Traverse(node.left);
+                q.Enqueue(node);
+                Traverse(node.right);
+            }
+
+            /** @return whether we have a next smallest number */
+            public bool HasNext()
+            {
+                return q.Count > 0;
+            }
+
+            /** @return the next smallest number */
+            public int Next()
+            {
+                return q.Dequeue().val;
+            }
+
+            public class TreeNode
+            {
+                public TreeNode left;
+                public TreeNode right;
+                public int val;
+
+                public TreeNode(int x)
+                {
+                    val = x;
+                }
+            }
         }
 
         /*
