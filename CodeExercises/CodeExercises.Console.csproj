@@ -65,6 +65,7 @@
     <Compile Include="Sealed\SealedPerson.cs" />
     <Compile Include="Sorting\BubbleSort.cs" />
     <Compile Include="Sorting\MergeSort.cs" />
+    <Compile Include="Sorting\QuickSort.cs" />
     <Compile Include="Trees.cs" />
   </ItemGroup>
   <ItemGroup>
