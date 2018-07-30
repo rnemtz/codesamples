@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using CodeExercises.Sorting;
 
 namespace CodeExercises
 {
@@ -10,17 +11,15 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var result =
-                MathOperations.Sum(
-                    "100000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-                    "100000000000000000000000000000000000000000000000000000000000000000000000000000000001");
             Console.ReadKey();
         }
 
-/*
- * Given an array and a sum, determine if any of the items add up to sum. 
- * Do a linear space solution and constant time solution.
- */
+        #region CODE WARS && OTHER
+
+        /*
+         * Given an array and a sum, determine if any of the items add up to sum. 
+         * Do a linear space solution and constant time solution.
+         */
         public static bool ArraySum(int[] list, int sum)
         {
             var items = new Dictionary<int, int>();
@@ -166,7 +165,9 @@ namespace CodeExercises
         public static int СenturyFromYear(int year)
         {
             return Convert.ToInt32(year % 100 > 0
+                // ReSharper disable once PossibleLossOfFraction
                 ? Math.Floor((decimal) (year / 100)) + 1
+                // ReSharper disable once PossibleLossOfFraction
                 : Math.Floor((decimal) (year / 100)));
         }
 
@@ -1400,7 +1401,9 @@ namespace CodeExercises
             }
         }
 
-        #region LeetCode
+        #endregion
+
+        #region LEETCODE
 
         /*
          * You are given coins of different denominations and a total amount of money amount. 
@@ -1444,7 +1447,7 @@ namespace CodeExercises
 
         #endregion
 
-        #region Amazon
+        #region AMAZON
 
         /*
          * Amazon AWS
@@ -1456,33 +1459,28 @@ namespace CodeExercises
          *  I want you to build this in a way that other people can use it. e.g. a library.
          */
 
-        public class MathOperations
+        public static string Sum(string a, string b)
         {
-            public static string Sum(string a, string b)
+            var result = string.Empty;
+            var aLength = a.Length - 1;
+            var bLength = b.Length - 1;
+            var carry = 0;
+            var maxIndex = Math.Max(aLength, bLength);
+
+            for (var i = 0; i <= maxIndex; i++)
             {
-                var result = string.Empty;
-                var aLength = a.Length - 1;
-                var bLength = b.Length - 1;
-                var carry = 0;
-                var maxIndex = Math.Max(aLength, bLength);
+                var left = aLength >= 0 ? int.Parse(a[aLength].ToString()) : 0;
+                var right = bLength >= 0 ? int.Parse(b[bLength].ToString()) : 0;
+                var sum = left + right + carry;
 
-                for (var i = 0; i <= maxIndex; i++)
-                {
-                    var left = 0;
-                    var right = 0;
+                carry = sum >= 10 ? 1 : 0;
 
-                    if (aLength >= 0) left = int.Parse(a[aLength].ToString());
-                    if (bLength >= 0) right = int.Parse(b[bLength].ToString());
+                result += sum.ToString()[sum.ToString().Length - 1].ToString();
 
-                    var currentResult = left + right + carry;
-                    carry = currentResult >= 10 ? 1 : 0;
-                    result += currentResult.ToString()[currentResult.ToString().Length - 1].ToString();
-
-                    bLength--;
-                    aLength--;
-                }
-                return string.Join(string.Empty, result.Reverse());
+                bLength--;
+                aLength--;
             }
+            return string.Join(string.Empty, result.Reverse());
         }
 
         /*
@@ -1681,7 +1679,7 @@ Console.ReadKey();
 
         #endregion
 
-        #region cases
+        #region LYFT
 
 /*
  * Lyft
