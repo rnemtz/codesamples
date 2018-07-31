@@ -15,7 +15,7 @@ namespace CodeExercises
             var array = new[] {5, 4, 2, 2, 4, 6, 7, 8, 76, 5, 4, 3};
             foreach(var item in array) Console.Write($"{item} ");
             Console.WriteLine();
-            Implement.Execute(ref array, 0, array.Length-1);
+           array = MergeSort.Execute( array, 0, array.Length);
             Console.WriteLine("SORTED Array");
             foreach (var item in array) Console.Write($"{item} ");
             Console.WriteLine();

@@ -63,6 +63,30 @@ namespace CodeExercises.Sorting
             return result;
         }
 
+        public static int[] Execute(int[] array, int start, int end)
+        {
+            if (end - start < 2) return new[] { array[start] };
+
+            var middle = start + (end - start) / 2;
+            var left = Execute(array, start, middle);
+            var right = Execute(array, middle, end);
+
+            var result = new int[left.Length + right.Length];
+            var indexL = 0;
+            var indexR = 0;
+            var i = 0;
+
+            for (; indexL < left.Length && indexR < right.Length; i++)
+            {
+                if (left[indexL] < right[indexR]) result[i] = left[indexL++];
+                else result[i] = right[indexR++];
+            }
+
+            while (indexL < left.Length) result[i++] = left[indexL++];
+            while (indexR < right.Length) result[i++] = right[indexR++];
+            return result;
+        }
+
         private enum Order
         {
             Ascending,
