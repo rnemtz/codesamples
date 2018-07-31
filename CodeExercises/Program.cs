@@ -46,10 +46,10 @@ namespace CodeExercises
             return false;
         }
 
-/*
- * Check if an item exists in sortedList
- * (Binary Search)
- */
+        /*
+         * Check if an item exists in sortedList
+         * (Binary Search)
+         */
         public bool ExistInSortedList(int[] list, int a)
         {
             var low = 0;
@@ -64,17 +64,17 @@ namespace CodeExercises
             return false;
         }
 
-/*
- * Print numbers between 2 parameters
- */
+        /*
+         * Print numbers between 2 parameters
+         */
         public static void PrintNumbersInBetween(int a, int b)
         {
             for (var c = a + 1; c < b; c++) Console.WriteLine($"number:{c}");
         }
 
-/*
- * Traverse In-Order for a Binary Tree
- */
+        /*
+         * Traverse In-Order for a Binary Tree
+         */
         public static void TraverseInOrder(BinarySearchTreeNode node)
         {
             if (node == null) return;
@@ -83,9 +83,9 @@ namespace CodeExercises
             TraverseInOrder(node.Right);
         }
 
-/*
- * Find distance between two given keys of a Binary Tree 
- */
+        /*
+         * Find distance between two given keys of a Binary Tree 
+         */
         public static int GetDistance(BinarySearchTreeNode a, BinarySearchTreeNode b, BinarySearchTreeNode node)
         {
             if (node == null) return 0;
@@ -95,9 +95,9 @@ namespace CodeExercises
             return da + db;
         }
 
-/*
- * Get Level of Node
- */
+        /*
+         * Get Level of Node
+         */
         public static int GetLevelOfNode(BinarySearchTreeNode root, BinarySearchTreeNode node, int level)
         {
             if (root == null) return -1;
@@ -106,9 +106,9 @@ namespace CodeExercises
             return left != -1 ? left : GetLevelOfNode(root.Right, node, level + 1);
         }
 
-/*
- * Lowest Common Ancestor in a Tree
- */
+        /*
+         * Lowest Common Ancestor in a Tree
+         */
         public static BinarySearchTreeNode GetLowestCommonAncestor(BinarySearchTreeNode a, BinarySearchTreeNode b,
             BinarySearchTreeNode root)
         {
@@ -121,11 +121,11 @@ namespace CodeExercises
             return left ?? right;
         }
 
-/*
- * Binary Search Tree. Find longest path within it.
- * Find a path between any two leaf nodes where path
- * is the longest.
- */
+        /*
+         * Binary Search Tree. Find longest path within it.
+         * Find a path between any two leaf nodes where path
+         * is the longest.
+         */
         public static int GetLongestPath(BinarySearchTreeNode node)
         {
             if (node == null) return 0;
@@ -140,12 +140,12 @@ namespace CodeExercises
             return 1 + Math.Max(TreeHeight(node.Left), TreeHeight(node.Right));
         }
 
-/*  
-    Common element in 3 arrays, O (log N) 
-    var a = new int[] { 1,2,3,4,5};
-    var b = new int[] { 4,5, 6,7,8,9};
-    var c = new int[] { 5, 12,14,15};
-*/
+        /*  
+            Common element in 3 arrays, O (log N) 
+            var a = new int[] { 1,2,3,4,5};
+            var b = new int[] { 4,5, 6,7,8,9};
+            var c = new int[] { 5, 12,14,15};
+        */
         public static bool CommonElement(int[] a, int[] b, int[] c)
         {
             foreach (var num in a)
@@ -309,14 +309,14 @@ namespace CodeExercises
         public static List<string> RetrieveMostFrequentlyUsedWords(string literatureText,
             List<string> wordsToExclude)
         {
-//Validate Input List
+            //Validate Input List
             if (string.IsNullOrWhiteSpace(literatureText)) return new List<string>();
 
-//Convert to space any special character
+            //Convert to space any special character
             var inputLiteratureText = literatureText.Where(t => !char.IsLetter(t))
                 .Aggregate(literatureText, (current, t) => current.Replace(t.ToString(), " "));
 
-//Exclude common word from List
+            //Exclude common word from List
             var result = inputLiteratureText.ToLower();
             if (wordsToExclude != null && wordsToExclude.Any())
                 result = wordsToExclude.Select(x => x.ToLower())
@@ -613,7 +613,7 @@ namespace CodeExercises
 
         public static long FindNextSquare(long num)
         {
-//check num first
+            //check num first
             if (!(Math.Sqrt(num) % 1 == 0)) return -1;
             while (true)
                 if (Math.Sqrt(num++) % 1 == 0) return num;
@@ -764,7 +764,7 @@ namespace CodeExercises
             return maxWord;
         }
 
-// ReSharper disable once UnusedMember.Local
+        // ReSharper disable once UnusedMember.Local
         private static string ReplaceString(string input, string search, string replace)
         {
             if (input == null) return string.Empty;
@@ -863,12 +863,12 @@ namespace CodeExercises
 
         public static int Triangle(int[] a)
         {
-//Non optimal Solution
+            //Non optimal Solution
             for (var p = 0; p < a.Length; p++)
-            for (var q = p; q < a.Length; q++)
-            for (var r = q; r < a.Length; r++)
-                if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
-                    return 1;
+                for (var q = p; q < a.Length; q++)
+                    for (var r = q; r < a.Length; r++)
+                        if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
+                            return 1;
             return 0;
         }
 
@@ -934,7 +934,7 @@ namespace CodeExercises
 
         public static int FindMaxConsecutiveOnes(int[] nums)
         {
-//More efficient by more than 80%
+            //More efficient by more than 80%
             var max = 0;
             var current = 0;
             foreach (var i in nums)
@@ -949,10 +949,10 @@ namespace CodeExercises
                 }
             return max;
 
-//Less efficient solution but quicker to implement.
-//var ones = string.Join(string.Empty, nums).Split('0');
-//var max = ones.OrderByDescending(x => x).First();
-//return max.Length;
+            //Less efficient solution but quicker to implement.
+            //var ones = string.Join(string.Empty, nums).Split('0');
+            //var max = ones.OrderByDescending(x => x).First();
+            //return max.Length;
         }
 
         public static int SingleNumber(int[] nums)
@@ -1000,15 +1000,15 @@ namespace CodeExercises
             return result;
         }
 
-/*
- * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
- * Calling next() will return the next smallest number in the BST. 
- * Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
- * 
- * Your BSTIterator will be called like this:
- * BSTIterator i = new BSTIterator(root);
- * while (i.HasNext()) v[f()] = i.Next();
- */
+        /*
+         * Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+         * Calling next() will return the next smallest number in the BST. 
+         * Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+         * 
+         * Your BSTIterator will be called like this:
+         * BSTIterator i = new BSTIterator(root);
+         * while (i.HasNext()) v[f()] = i.Next();
+         */
         public class BSTIterator
         {
             private readonly Queue<TreeNode> q;
@@ -1027,13 +1027,13 @@ namespace CodeExercises
                 Traverse(node.right);
             }
 
-/** @return whether we have a next smallest number */
+            /** @return whether we have a next smallest number */
             public bool HasNext()
             {
                 return q.Count > 0;
             }
 
-/** @return the next smallest number */
+            /** @return the next smallest number */
             public int Next()
             {
                 return q.Dequeue().val;
@@ -1052,30 +1052,30 @@ namespace CodeExercises
             }
         }
 
-/*
-* LRU Cache
-* Implementing with Dictionary and Queue
-*/
-/*  
- *  var cache = new LeastRecentUsedItems<int, string>(3);
-    cache.Add(1, "uno");
-    cache.Add(2, "dos");
-    cache.Add(3, "tres");
-    cache.Add(4, "cuatro");
-    cache.Add(5, "cinco");
-    var list = cache.PrintValues();
-    foreach (var c in list) Console.WriteLine(c);
-    cache.Add(6, "seis");
-    cache.Add(7, "siete");
-    Console.WriteLine();
-    list = cache.PrintValues();
-    foreach (var c in list) Console.WriteLine(c);
-    cache.Add(8, "ocho");
-    cache.Add(9, "nueve");
-    Console.WriteLine();
-    list = cache.PrintValues();
-    foreach (var c in list) Console.WriteLine(c);
-*/
+        /*
+        * LRU Cache
+        * Implementing with Dictionary and Queue
+        */
+        /*  
+         *  var cache = new LeastRecentUsedItems<int, string>(3);
+            cache.Add(1, "uno");
+            cache.Add(2, "dos");
+            cache.Add(3, "tres");
+            cache.Add(4, "cuatro");
+            cache.Add(5, "cinco");
+            var list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+            cache.Add(6, "seis");
+            cache.Add(7, "siete");
+            Console.WriteLine();
+            list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+            cache.Add(8, "ocho");
+            cache.Add(9, "nueve");
+            Console.WriteLine();
+            list = cache.PrintValues();
+            foreach (var c in list) Console.WriteLine(c);
+        */
         public class LeastRecentUsedItems<TKey, TValue>
         {
             private readonly Dictionary<TKey, Item> _items;
@@ -1131,10 +1131,10 @@ namespace CodeExercises
             }
         }
 
-/*
- * LRU Cache
- * Implementing with Dictionary and Double Linked List
- */
+        /*
+         * LRU Cache
+         * Implementing with Dictionary and Double Linked List
+         */
         public class LeastRecentUsedCache
         {
             private readonly Dictionary<int, Node> _itemsDictionary;
@@ -1200,30 +1200,30 @@ namespace CodeExercises
             }
         }
 
-/*
- * Traversal in Level order for N-Ary tree
- */
-/*
-    var tree = new NTree();
-    Console.Write("Add Node (y/n): ");
-    var ck = Console.ReadKey();
-    while (ck.Key == ConsoleKey.Y)
-    {
-        Console.WriteLine();
-        Console.Write("Parent: ");
-        var parent = Console.ReadLine();
-        Console.Write("Node: ");
-        var value = Console.ReadLine();
+        /*
+         * Traversal in Level order for N-Ary tree
+         */
+        /*
+            var tree = new NTree();
+            Console.Write("Add Node (y/n): ");
+            var ck = Console.ReadKey();
+            while (ck.Key == ConsoleKey.Y)
+            {
+                Console.WriteLine();
+                Console.Write("Parent: ");
+                var parent = Console.ReadLine();
+                Console.Write("Node: ");
+                var value = Console.ReadLine();
 
-        tree.Add(parent, value);
-        Console.WriteLine($"Node added to {parent}");
-        Console.WriteLine();
-        Console.Write("Add Node (y/n): ");
-        ck = Console.ReadKey();
-    }
-    Console.WriteLine();
-    tree.LevelTraversal();
-*/
+                tree.Add(parent, value);
+                Console.WriteLine($"Node added to {parent}");
+                Console.WriteLine();
+                Console.Write("Add Node (y/n): ");
+                ck = Console.ReadKey();
+            }
+            Console.WriteLine();
+            tree.LevelTraversal();
+        */
         public class NTree
         {
             public NNode Root { get; set; }
@@ -1254,7 +1254,7 @@ namespace CodeExercises
                 return string.IsNullOrWhiteSpace(key) ? null : Find(Root, key);
             }
 
-/* BDF Approach */
+            /* BFS Approach */
             private NNode Find(NNode node, string key)
             {
                 if (node == null) return null;
@@ -1269,7 +1269,7 @@ namespace CodeExercises
                 return null;
             }
 
-/* BDF Approach */
+            /* BFS Approach */
             public void LevelTraversal()
             {
                 if (Root == null) return;
@@ -1492,11 +1492,11 @@ namespace CodeExercises
         }
 
         /*
-    * Amazon 
-    * 
-    * Given an array of numbers in sorted order
-    * count the pairs of numbers whose sum is less than X
-    */
+        * Amazon 
+        * 
+        * Given an array of numbers in sorted order
+        * count the pairs of numbers whose sum is less than X
+        */
 
         public static int GetCountOfPairs(int[] numbers, int n)
         {
@@ -1517,28 +1517,28 @@ namespace CodeExercises
             return count;
         }
 
-/*
- * AMAZON Luxembourg Question
- */
+        /*
+         * AMAZON Luxembourg Question
+         */
 
-/*
- var literatureText ="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat avoids a pain that produces no resultant pleasure? quo voluptas nulla pariatur? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
-var wordsToExclude = new[] {"and", "he", "the", "to", "is"};
-var startDate = DateTime.Now;
-var res = GetFrequentWords(literatureText, wordsToExclude);
-var resultTimeStamp = DateTime.Now - startDate;
-Console.WriteLine($"(Total Time in O(N**2): {resultTimeStamp}");
-Console.WriteLine();
-startDate = DateTime.Now;
-res = GetFrequentWordsFaster(literatureText, wordsToExclude);
-resultTimeStamp = DateTime.Now - startDate;
-Console.WriteLine($"(Total Time in O(N): {resultTimeStamp}");
-Console.ReadKey();
-*/
+        /*
+         var literatureText ="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat avoids a pain that produces no resultant pleasure? quo voluptas nulla pariatur? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).";
+        var wordsToExclude = new[] {"and", "he", "the", "to", "is"};
+        var startDate = DateTime.Now;
+        var res = GetFrequentWords(literatureText, wordsToExclude);
+        var resultTimeStamp = DateTime.Now - startDate;
+        Console.WriteLine($"(Total Time in O(N**2): {resultTimeStamp}");
+        Console.WriteLine();
+        startDate = DateTime.Now;
+        res = GetFrequentWordsFaster(literatureText, wordsToExclude);
+        resultTimeStamp = DateTime.Now - startDate;
+        Console.WriteLine($"(Total Time in O(N): {resultTimeStamp}");
+        Console.ReadKey();
+        */
 
-/*
- * Optimized Solution
- */
+        /*
+         * Optimized Solution
+         */
 
         public static string[] GetFrequentWordsFaster(string literatureText, string[] wordsToExclude)
         {
@@ -1546,7 +1546,7 @@ Console.ReadKey();
             literatureText = literatureText.ToLower(); //O(1)
             var result = new List<string>();
 
-//Create a Dictionary with the allowed alphabetic characters
+            //Create a Dictionary with the allowed alphabetic characters
             var allowedCharacters = new Dictionary<char, int>
             {
                 {
@@ -1632,17 +1632,17 @@ Console.ReadKey();
             return result.ToArray(); //O(N)
         }
 
-/*
- * Complexity O(N**2) due the Array.Contains inside a loop
- */
+        /*
+         * Complexity O(N**2) due the Array.Contains inside a loop
+         */
         public static string[] GetFrequentWords(string literatureText, string[] wordsToExclude)
         {
             var result = new List<string>();
 
-//check nulls,
+            //check nulls,
             if (string.IsNullOrWhiteSpace(literatureText)) return new string[0];
 
-//Create a Dictionary with the allowed alphabetic characters
+            //Create a Dictionary with the allowed alphabetic characters
             var allowedCharacters = new[]
             {
                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
@@ -1652,7 +1652,7 @@ Console.ReadKey();
             var lText = literatureText.ToArray(); //O(N)
             for (var c = 0; c < lText.Length; c++) //O(N)
                 if (!allowedCharacters.Contains(lText[c])) lText[c] = ' '; //O(1) since is a fixed array
-//Remove words to Exclude
+            //Remove words to Exclude
             var splitArray = string.Join(string.Empty, lText) //O(N**2) ??
                 .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
             var fqwords = new Dictionary<string, int>();
@@ -1660,12 +1660,12 @@ Console.ReadKey();
             foreach (var word in splitArray) //O(N)
             {
                 if (wordsToExclude.Contains(word)) continue; //O(N) <-- O(N**2) 
-/*
- * Solution to this bottle neck, 
- * 1. is to remove the words using Booyer-Moore algorithm
- * 2. implement it using a Trie/Prefix Tree
- * 3. Insert words to a dictionary to get a ContainsKey => O(1)
- */
+                /*
+                 * Solution to this bottle neck, 
+                 * 1. is to remove the words using Booyer-Moore algorithm
+                 * 2. implement it using a Trie/Prefix Tree
+                 * 3. Insert words to a dictionary to get a ContainsKey => O(1)
+                 */
                 var w = word.ToLower();
                 if (fqwords.ContainsKey(w)) //O(1)
                 {
@@ -1680,8 +1680,8 @@ Console.ReadKey();
             foreach (var word in fqwords) //O(N)
                 if (word.Value == maxFrequency) result.Add(word.Key);
 
-//iterate through dictionary and get maxfrequency
-//get keys and insert into result array.
+            //iterate through dictionary and get maxfrequency
+            //get keys and insert into result array.
             return result.ToArray(); //O(N)
         }
 
@@ -1689,26 +1689,26 @@ Console.ReadKey();
 
         #region LYFT
 
-/*
- * Lyft
- */
-/*  TEST CASE
- *  var stMax = new MaxStack();
+        /*
+         * Lyft
+         */
+        /*  TEST CASE
+         *  var stMax = new MaxStack();
 
-    stMax.Push(45);
-    stMax.Push(-10);
+            stMax.Push(45);
+            stMax.Push(-10);
 
-    var max = stMax.Max();
-    Console.WriteLine(max);
+            var max = stMax.Max();
+            Console.WriteLine(max);
 
-    stMax.Push(68);
-    max = stMax.Max();
-    Console.WriteLine(max);
+            stMax.Push(68);
+            max = stMax.Max();
+            Console.WriteLine(max);
 
-    stMax.Pop();
-    max = stMax.Max();
-    Console.WriteLine(max);
- */
+            stMax.Pop();
+            max = stMax.Max();
+            Console.WriteLine(max);
+         */
         public class MaxStack
         {
             private readonly Stack<InnerObject> _mStack;
@@ -1720,7 +1720,7 @@ Console.ReadKey();
 
             public void Push(int val)
             {
-//o(1)
+                //o(1)
                 var current = new InnerObject {Val = val};
                 if (IsEmpty())
                 {
@@ -1737,7 +1737,7 @@ Console.ReadKey();
 
             public int? Pop()
             {
-//o(1)
+                //o(1)
                 if (IsEmpty()) return null;
                 var current = _mStack.Pop();
                 return current.Val;
@@ -1745,7 +1745,7 @@ Console.ReadKey();
 
             public int? Peek()
             {
-//o(1)
+                //o(1)
                 if (IsEmpty()) return null;
                 var current = _mStack.Peek();
                 return current.Val;
@@ -1753,7 +1753,7 @@ Console.ReadKey();
 
             public int? Max()
             {
-//o(1)
+                //o(1)
                 if (IsEmpty()) return null;
                 var current = _mStack.Peek();
                 return current.Max;
@@ -1770,9 +1770,7 @@ Console.ReadKey();
             public int Val { get; set; }
             public int Max { get; set; }
         }
-/*
- * Lyft
- */
+
 
         #endregion
     }
