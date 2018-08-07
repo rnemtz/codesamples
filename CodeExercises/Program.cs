@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using CodeExercises.Sorting;
 
@@ -11,16 +13,91 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            Console.WriteLine("UNSORTED Array");
-            var array = new[] {5, 4, 2, 2, 4, 6, 7, 8, 76, 5, 4, 3};
-            foreach(var item in array) Console.Write($"{item} ");
-            Console.WriteLine();
-           array = MergeSort.Execute( array, 0, array.Length);
-            Console.WriteLine("SORTED Array");
-            foreach (var item in array) Console.Write($"{item} ");
-            Console.WriteLine();
+            var m = new int[5, 5];
+
+            m[0, 0] = 1;
+            m[0, 1] = 2;
+            m[0, 2] = 3;
+            m[0, 3] = 4;
+            m[0, 4] = 5;
+            m[1, 0] = 12;
+            m[1, 1] = 13;
+            m[1, 2] = 14;
+            m[1, 3] = 15;
+            m[1, 4] = 6;
+            m[2, 0] = 11;
+            m[2, 1] = 10;
+            m[2, 2] = 9;
+            m[2, 3] = 8;
+            m[2, 4] = 7;
+            m[3, 0] = 11;
+            m[3, 1] = 10;
+            m[3, 2] = 9;
+            m[3, 3] = 8;
+            m[3, 4] = 7;
+            m[4, 0] = 11;
+            m[4, 1] = 10;
+            m[4, 2] = 9;
+            m[4, 3] = 8;
+            m[4, 4] = 7;
+
+
+            SpiralMatrix(m);
+
             Console.ReadKey();
         }
+
+
+        /*
+         * Print a matrix in a spiral way
+         */
+
+        private static void SpiralMatrix(int[,] matrix)
+        {
+            var lu = 0;
+            var ru = matrix.GetLength(1) - 1;
+            var rb = matrix.GetLength(0) - 1;
+            var lb = 0;
+            var direction = Direction.Right;
+            while (ru >= lb && rb >= lu)
+            {
+                switch (direction)
+                {
+                    case Direction.Right:
+                        for (var i = lb; i <= ru; i++) Console.Write($"{matrix[lb, i]} ");
+                        lu++;
+                        direction = Direction.Down;
+                        break;
+                    case Direction.Down:
+                        for (var i = lu; i <= rb; i++) Console.Write($"{matrix[i, ru]} ");
+                        ru--;
+                        direction = Direction.Left;
+                        break;
+                    case Direction.Left:
+                        for (var i = ru; i >= lb; i--) Console.Write($"{matrix[rb, i]} ");
+                        rb--;
+                        direction = Direction.Up;
+
+                        break;
+                    case Direction.Up:
+                        for (var i = rb; i >= lu; i--) Console.Write($"{matrix[i, lb]} ");
+                        lb++;
+                        direction = Direction.Right;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+
+        private enum Direction
+        {
+            Right,
+            Down,
+            Left,
+            Up
+        }
+
 
         #region CODE WARS && OTHER
 
@@ -865,10 +942,10 @@ namespace CodeExercises
         {
             //Non optimal Solution
             for (var p = 0; p < a.Length; p++)
-                for (var q = p; q < a.Length; q++)
-                    for (var r = q; r < a.Length; r++)
-                        if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
-                            return 1;
+            for (var q = p; q < a.Length; q++)
+            for (var r = q; r < a.Length; r++)
+                if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
+                    return 1;
             return 0;
         }
 
@@ -1411,6 +1488,204 @@ namespace CodeExercises
 
         #endregion
 
+        #region HACKERRANK
+
+        static int[] RotateLeft(int[] a, int d)
+        {
+            var tempArray = new int[a.Length];
+            for (var i = a.Length - 1; i >= 0; i--)
+            {
+                var index = i - d;
+                if (index < 0) index = index + a.Length;
+                tempArray[index] = a[i];
+            }
+            a = tempArray;
+
+            var stack = new Stack<string>();
+            stack.Push("wer");
+            stack.Pop();
+            return a;
+        }
+
+
+        //Timeouts
+        static int[] rotLeft(int[] a, int d)
+        {
+            while (d > 0)
+            {
+                var tempArray = new int[a.Length];
+                for (var i = a.Length - 1; i >= 0; i--)
+                {
+                    var index = i - 1;
+                    if (index == -1) index = a.Length - 1;
+                    tempArray[index] = a[i];
+                }
+                a = tempArray;
+                d--;
+            }
+            return a;
+        }
+
+
+        static int MiniSwaps(int[] arr)
+        {
+            if (!arr.Any()) return 0;
+            var swaps = 0;
+            for (var i = 0; i < arr.Length; i++)
+            {
+                if (arr[i] == i + 1) continue;
+                while (arr[i] != i + 1)
+                {
+                    Swap(ref arr, i, arr[i] - 1);
+                    swaps++;
+                }
+            }
+            return swaps;
+        }
+
+
+        //Timeout
+        static int MinimumSwaps(int[] arr)
+        {
+            if (IsSorted(arr, 0)) return 0;
+            var swaps = 0;
+            var currentIndex = 0;
+            for (var i = currentIndex; i < arr.Length; i++)
+            {
+                if (IsSorted(arr, currentIndex)) return swaps;
+                var r = FindMin(arr, currentIndex);
+                if (r > 0 && r != currentIndex)
+                {
+                    Swap(ref arr, r, currentIndex);
+                    swaps++;
+                }
+                currentIndex++;
+            }
+            return swaps;
+        }
+
+        public static int FindMin(int[] array, int currentIndex)
+        {
+            var min = currentIndex;
+            for (var i = currentIndex; i < array.Length; i++)
+            {
+                if (array[i] < array[min]) min = i;
+            }
+            return min;
+        }
+
+        private static void Swap(ref int[] array, int source, int target)
+        {
+            var temp = array[source];
+            array[source] = array[target];
+            array[target] = temp;
+        }
+
+        private static bool IsSorted(IReadOnlyList<int> array, int fromIndex)
+        {
+            if (!array.Any()) return true;
+            var previous = array[fromIndex];
+            for (var i = fromIndex + 1; i < array.Count; i++)
+            {
+                if (array[i] < previous) return false;
+                previous = array[i];
+            }
+            return true;
+        }
+
+
+        //O(N) Solutionon
+        static long ArrayMan(int n, int[][] queries)
+        {
+            var numbers = new long[n + 1];
+            foreach (var operation in queries)
+            {
+                var a = operation[0];
+                var b = operation[0];
+                long k = operation[0];
+
+                numbers[a] += k;
+                if (b + 1 <= n) numbers[b + 1] -= k;
+            }
+            long temp = 0;
+            long maxValue = 0;
+            for (var i = 1; i <= n; i++)
+            {
+                temp += numbers[i];
+                if (temp > maxValue) maxValue = temp;
+            }
+            return maxValue;
+        }
+
+        //Times out with long operations
+        //O(N*M)
+        static long ArrayManipulation(int n, int[][] queries)
+        {
+            if (queries == null || !queries.Any()) return 0;
+            if (n <= 0) return 0;
+            var result = new int[n];
+            long maxNumber = 0;
+            foreach (var operation in queries) //O(N)
+            {
+                if (operation == null || !operation.Any()) continue;
+                var low = operation[0] - 1;
+                var high = operation[1];
+                var factor = operation[2];
+                for (var r = low; r < high; r++) //O(M)
+                {
+                    result[r] += factor;
+                    if (result[r] > maxNumber) maxNumber = result[r];
+                }
+            }
+            return maxNumber;
+        }
+
+        static int[] GradingStudents(int[] grades)
+        {
+            if (grades == null || !grades.Any()) return new int[0];
+            var result = new int[grades.Length];
+            for (var i = 0; i < grades.Length; i++)
+            {
+                if (grades[i] < 38) result[i] = grades[i];
+                else result[i] = grades[i] % 5 >= 3 ? grades[i] + (5 - grades[i] % 5) : grades[i];
+            }
+            return result;
+        }
+
+
+        static int BirthdayCakeCandles(int[] ar)
+        {
+            //Base Case
+            if (ar == null || !ar.Any()) return 0;
+            var maxNumber = 0;
+            foreach (var candle in ar)
+            {
+                if (candle <= maxNumber) continue;
+                maxNumber = candle;
+            }
+            var maxNumberValues = new Dictionary<int, int> {{maxNumber, 0}};
+            foreach (var candle in ar)
+            {
+                if (candle != maxNumber) continue;
+                maxNumberValues[maxNumber]++;
+            }
+            return maxNumberValues[maxNumber];
+        }
+
+
+        static long AVeryBigSum(long[] ar)
+        {
+            if (!ar.Any()) return 0;
+            long result = 0;
+            for (var i = 0; i < ar.Length; i++)
+            {
+                result += ar[i];
+            }
+            return result;
+        }
+
+        #endregion
+
         #region LEETCODE
 
         /*
@@ -1771,6 +2046,62 @@ namespace CodeExercises
             public int Max { get; set; }
         }
 
+        #endregion
+
+        #region CARVANA
+
+        /*
+         * Carvana Online Exam (HackerRank)
+         */
+        static string Rev(string a)
+        {
+            //var str = string.Empty;
+            //for (var i = a.Length - 1; i >= 0; i--)
+            //{
+            //    str += a[i].ToString();
+            //}
+            //return str;
+            //1. Array
+            //var str = new char[a.Length];
+            //for (var i = 0; i < a.Length; i++)
+            //{
+            //    str[i] = a[a.Length - 1- i];
+            //}
+            //return string.Join(string.Empty, str);
+
+            //var stk = new Stack<string>();
+            //foreach (char t in a)
+            //{
+            //    stk.Push(t.ToString());
+            //}
+            //var result = string.Empty;
+            //while (stk.Count > 0)
+            //{
+            //    result += stk.Pop();
+            //}
+            //return result;
+
+            var index = a.Length - 1;
+            var array = a.ToCharArray();
+            for (var i = 0; i < a.Length; i++)
+            {
+                //swap in same string
+                //implementing a temporary variable
+                //we can use a different method say, 
+                // private method just for swap, but this
+                // is simply enough to demonstrate it.
+                if (index <= i)
+                {
+                    break;
+                }
+                var temp = array[i];
+                array[i] = array[index];
+                array[index] = temp;
+                index--;
+            }
+
+            return string.Join(string.Empty, array);
+        }
 
         #endregion
     }
