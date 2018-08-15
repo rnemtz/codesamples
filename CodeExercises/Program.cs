@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -13,44 +14,71 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var m = new int[5, 5];
-
-            m[0, 0] = 1;
-            m[0, 1] = 2;
-            m[0, 2] = 3;
-            m[0, 3] = 4;
-            m[0, 4] = 5;
-            m[1, 0] = 12;
-            m[1, 1] = 13;
-            m[1, 2] = 14;
-            m[1, 3] = 15;
-            m[1, 4] = 6;
-            m[2, 0] = 11;
-            m[2, 1] = 10;
-            m[2, 2] = 9;
-            m[2, 3] = 8;
-            m[2, 4] = 7;
-            m[3, 0] = 11;
-            m[3, 1] = 10;
-            m[3, 2] = 9;
-            m[3, 3] = 8;
-            m[3, 4] = 7;
-            m[4, 0] = 11;
-            m[4, 1] = 10;
-            m[4, 2] = 9;
-            m[4, 3] = 8;
-            m[4, 4] = 7;
-
-
-            SpiralMatrix(m);
-
+            Console.WriteLine(ReturnSum(16, new []{3,5,7}));
             Console.ReadKey();
         }
 
+        #region WAYFAIR
+
+        public static long ReturnSum(int n, int[] array)
+        {
+            if (n < 1) return 0;
+            long sum = 0;
+            for (var i = 0; i < n; i++) if (IsMultiple(i, array)) sum += i;
+            return sum;
+        }
+
+        private static bool IsMultiple(int n, int[] array)
+        {
+            return array.Any(t => n % t == 0);
+        }
+        #endregion
+
+        #region MICROSOFT
 
         /*
-         * Print a matrix in a spiral way
+         * Second smallest number in a Binary Search Tree
          */
+
+        /*
+         * Design a Max throughput per hour of N in cloud transactions
+         */
+
+        /*
+        * Convert number to Roman numbers
+        */
+
+        /*
+         * FuzzBuzz. In an array print Fizz if number is multiple of 3, 
+         * Buzz if is multiple of 5
+         * and FuzzBuzz if is multiple of both
+         */
+
+        /*
+         * Max number of Permutations in an string
+         */
+
+        /*
+        * in a Stream of numbers
+        * Max Number
+        * Min Number
+        * Frequency
+        * Average
+        * Median
+        */
+
+        /*
+         * Convert Integer to Binary
+         */
+
+
+        #endregion
+
+        #region CODE WARS && OTHER
+
+        /*
+        * Print a matrix in a spiral way
+        */
 
         private static void SpiralMatrix(int[,] matrix)
         {
@@ -97,9 +125,6 @@ namespace CodeExercises
             Left,
             Up
         }
-
-
-        #region CODE WARS && OTHER
 
         /*
          * Given an array and a sum, determine if any of the items add up to sum. 
