@@ -20,6 +20,46 @@ namespace CodeExercises
         #region WAYFAIR
 
         /*
+         * Determine whether invalid {}, [], () exists in a string
+         */
+
+        public static bool IsCorrectNotation(string notation)
+        {
+            if (string.IsNullOrWhiteSpace(notation)) return false;
+            var stk = new Stack<char>();
+            var openings = new Dictionary<char, char> {{'(',')'}, { '[', ']' } , { '{', '}' }};
+            var closing = new Dictionary<char, char> {{')','('}, { ']', '[' } , { '}', '{' } };
+            foreach (var c in notation)
+            {
+                if (openings.ContainsKey(c)) stk.Push(c);
+                else if (closing.ContainsKey(c)) if (openings[stk.Pop()] != c) return false;
+            }
+            return stk.Count == 0;
+        }
+
+       
+
+
+
+        /*
+         * find a way to separate money into n parts. 
+         * For example, if total money is 121, find a way to separate 121 into 4 closest parts and the solution 
+         * would be an array with elements 30, 30, 30, 31  
+         */
+
+        public static int[] GetQuarts(int n)
+        {
+            if (n < 4) return new[] {0};
+            var numbers = new int[4];
+            var parts = n / 4;
+            numbers[0] = parts;
+            numbers[1] = parts;
+            numbers[2] = parts;
+            numbers[3] = parts + n % 4;
+            return numbers;
+        }
+
+        /*
          * Is anagram of a given word
          */
 
