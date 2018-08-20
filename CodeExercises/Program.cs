@@ -14,11 +14,34 @@ namespace CodeExercises
     {
         private static void Main()
         {
-         
             Console.ReadKey();
         }
 
         #region WAYFAIR
+
+        /*
+         * Is anagram of a given word
+         */
+
+        public static bool IsAnagram(string s1, string s2)
+        {
+            var chars =new Dictionary<char,int>();
+            foreach (var c in s1.ToCharArray())
+            {
+                if (c == ' ') continue;
+                if (chars.ContainsKey(c)) chars[c]++;
+                else chars.Add(c, 1);
+            }
+            foreach (var c in s2.ToCharArray())
+            {
+                if (c == ' ') continue;
+                if (!chars.ContainsKey(c)) return false;
+                chars[c]--;
+                if (chars[c] < 0) return false;
+            }
+            return true;
+        }
+
         /*
          * Convert number to words
          * EX: 100 -> one hundred
