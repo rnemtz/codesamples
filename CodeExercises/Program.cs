@@ -14,11 +14,121 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            Console.WriteLine(ReturnSum(16, new []{3,5,7}));
+         
             Console.ReadKey();
         }
 
         #region WAYFAIR
+        /*
+         * Convert number to words
+         * EX: 100 -> one hundred
+         */
+        public static string ConvertNumberToWord(int number)
+        {
+            if (Math.Abs(number) == 0) return "zero";
+
+            //Handle negative numbers
+            var result = string.Empty;
+            if (number < 0)
+            {
+                result = "minus ";
+                number *= -1;
+            }
+
+            var words = new Dictionary<int, string>[2];
+            // units
+            words[0] = new Dictionary<int, string>
+            {
+                {1, "one"},
+                {2, "two"},
+                {3, "three"},
+                {4, "four"},
+                {5, "five"},
+                {6, "six"},
+                {7, "seven"},
+                {8, "eight"},
+                {9, "nine"}
+            };
+            // tens
+            words[1] = new Dictionary<int, string>
+            {
+                {1, "ten"},
+                {2, "twenty"},
+                {3, "thirty"},
+                {4, "forty"},
+                {5, "fifty"},
+                {6, "sixty"},
+                {7, "seventy"},
+                {8, "eighty"},
+                {9, "ninety"}
+            };
+
+            var length = number.ToString().Length;
+            while (length > 1)
+            {
+                switch (length)
+                {
+                    case 4: //thousands 
+                        result += $"{words[0][int.Parse(number.ToString()[0].ToString())]} thousand ";
+                        number %= 1000;
+                        length = number.ToString().Length;
+                        if (length == 1 && number > 0) result += "and ";
+                        break;
+                    case 3: //hundreds
+                        result += $"{words[0][int.Parse(number.ToString()[0].ToString())]} hundred ";
+                        number %= 100;
+                        length = number.ToString().Length;
+                        if (number > 0) result += "and ";
+                        break;
+                    case 2: //tens
+                        result += $"{words[1][int.Parse(number.ToString()[0].ToString())]} ";
+                        number %= 10;
+                        length = number.ToString().Length;
+                        break;
+                    default:
+                        return "Not supported";
+                }
+            }
+            if (number > 0) result += $"{words[0][int.Parse(number.ToString()[0].ToString())]}";
+            return result.TrimEnd();
+        }
+
+        /*
+         * * Fibonacci (40)
+         * * Iterative Approach
+         *  Completed in 00:00:00.0010031
+         *  Recursive Approach
+         *  Completed in 00:00:05.9519619
+         *  Recursive Approach with Memoization
+         *  Completed in 00:00:00.0839923
+         */
+
+        //Get Fibonnacci Number Iterative
+        public static long FibonacciIterative(long number)
+        {
+            var numbers = new long[number+1];
+            var n = number - 1;
+            numbers[0] = 0;
+            numbers[1] = 1;
+            for (var i = 2; i <= n+1; i++) numbers[i] = numbers[i - 2] + numbers[i - 1];
+            return numbers[number];
+        }
+
+        //Get Fibonacci Number Recursively with Dynamic programming
+
+        public static long FibonacciRecursiveMemo(long number, long[] memo)
+        {
+            if (number == 0 || number == 1) return number;
+            if (!memo.Contains(number)) memo[number] = FibonacciRecursiveMemo(number - 1, memo) + FibonacciRecursiveMemo(number - 2, memo);
+            return memo[number];
+        }
+
+        //Get Fibonacci Number Recursively
+        public static long FibonacciRecursive(long number)
+        {
+            if (number == 0 || number == 1) return number;
+            return FibonacciRecursive(number - 1) + FibonacciRecursive(number - 2);
+        }
 
         public static long ReturnSum(int n, int[] array)
         {
@@ -28,10 +138,11 @@ namespace CodeExercises
             return sum;
         }
 
-        private static bool IsMultiple(int n, int[] array)
+        private static bool IsMultiple(int n, IEnumerable<int> array)
         {
             return array.Any(t => n % t == 0);
         }
+
         #endregion
 
         #region MICROSOFT
@@ -422,9 +533,9 @@ namespace CodeExercises
             var result = inputLiteratureText.ToLower();
             if (wordsToExclude != null && wordsToExclude.Any())
                 result = wordsToExclude.Select(x => x.ToLower())
-                    .Aggregate(result, (current, word) => current.Replace(string.Format(" {0} ", word), " ")
-                        .Replace(string.Format("{0} ", word), " ")
-                        .Replace(string.Format(" {0}", word), " "));
+                    .Aggregate(result, (current, word) => current.Replace($" {word} ", " ")
+                        .Replace($"{word} ", " ")
+                        .Replace($" {word}", " "));
             var words = result.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             var wordsGroup = words.ToLookup(x => x);
             var maxFrequency = wordsGroup.Max(x => x.Count());

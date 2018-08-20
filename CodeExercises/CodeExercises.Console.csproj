@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Abstract\Atlethe.cs" />
     <Compile Include="Abstract\Person.cs" />
+    <Compile Include="AdjacentNumbers.cs" />
     <Compile Include="Arrays\ArrayList.cs" />
     <Compile Include="BinaryGap.cs" />
     <Compile Include="BinarySearch.cs" />
