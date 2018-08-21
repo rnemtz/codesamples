@@ -14,10 +14,34 @@ namespace CodeExercises
     {
         private static void Main()
         {
+          
+           
             Console.ReadKey();
         }
 
         #region WAYFAIR
+
+        /*
+         * Reverse a string
+         */
+        public static string ReverseString(string str)
+        {
+            if (string.IsNullOrWhiteSpace(str)) return str;
+            var len = str.Length;
+            var array = str.ToCharArray();
+            for (var i = 0; i < len / 2; i++)
+            {
+                Swap(ref array, i, len-1-i);
+            }
+            return string.Join(string.Empty, array);
+        }
+
+        public static void Swap(ref char[] array, int source, int target)
+        {
+            var temp = array[source];
+            array[source] = array[target];
+            array[target] = temp;
+        }
 
         /*
          * Determine whether invalid {}, [], () exists in a string
@@ -36,10 +60,6 @@ namespace CodeExercises
             }
             return stk.Count == 0;
         }
-
-       
-
-
 
         /*
          * find a way to separate money into n parts. 
