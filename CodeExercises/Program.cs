@@ -22,6 +22,32 @@ namespace CodeExercises
         #region WAYFAIR
 
         /*
+         * Given a two-dimensional array of strings, return all possible combination of words. <-cartesian product
+         * Example:
+         * ['grey','black']
+         * ['fox','dog']
+         * ['jumped','ran','growled']
+         * 
+         * Return:
+         * grey fox jumped
+         * grey fox ran
+         * grey fox growled
+         * black fox jumped
+         * ...
+         * black dog growled  
+         * 
+         */
+
+        public static List<string> GetCombinations(string[][] array)
+        {
+            //Put all string lists in a stack
+            //while stack is not empty
+                //call 
+            
+
+        }
+
+        /*
          * You are given a one dimensional array that may contain both positive and negative integers, 
          * find the sum of contiguous subarray of numbers which has the largest sum.
          * For example, if the given array is {-2, -5, 6, -2, -3, 1, 5, -6}, then the 
