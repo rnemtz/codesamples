@@ -15,11 +15,32 @@ namespace CodeExercises
         private static void Main()
         {
            
-            foreach(var c in SwapNegativesAndPositives(new[]{-1,3,5,-1,-6,7,-9})) Console.Write($"{c} ");
+           Console.WriteLine(MaximumSubArray(new[]{ -2, -5, 6, -2, -3, 1, 5, -6 }));
             Console.ReadKey();
         }
 
         #region WAYFAIR
+
+        /*
+         * You are given a one dimensional array that may contain both positive and negative integers, 
+         * find the sum of contiguous subarray of numbers which has the largest sum.
+         * For example, if the given array is {-2, -5, 6, -2, -3, 1, 5, -6}, then the 
+         * maximum subarray sum is 7 (see highlighted elements).
+         */
+        public static int MaximumSubArray(int[] a)
+        {
+            var maxSoFar = int.MinValue;
+            var maxEndingHere = 0;
+
+            foreach (var number in a)
+            {
+                maxEndingHere = maxEndingHere + number;
+                if (maxSoFar < maxEndingHere) maxSoFar = maxEndingHere;
+                if (maxEndingHere < 0) maxEndingHere = 0;
+            }
+
+            return maxSoFar;
+        }
 
         /*
          * Given an array of integers, negative and positive, return the array with all negative numbers to the left and positive numbers
