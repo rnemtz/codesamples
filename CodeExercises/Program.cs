@@ -14,12 +14,61 @@ namespace CodeExercises
     {
         private static void Main()
         {
-          
            
+            foreach(var c in SwapNegativesAndPositives(new[]{-1,3,5,-1,-6,7,-9})) Console.Write($"{c} ");
             Console.ReadKey();
         }
 
         #region WAYFAIR
+
+        /*
+         * Given an array of integers, negative and positive, return the array with all negative numbers to the left and positive numbers
+         * to the right, without changing the order of the positives
+         */
+
+        public static int[] SwapNegativesAndPositives(int[] numbers)
+        {
+            if (numbers.Length < 2) return numbers;
+            var lIndex = 0;
+            for (var i = 0; i < numbers.Length; i++) if (numbers[i] < 0) ShiftValues(ref numbers, lIndex++, i-1);
+            return numbers;
+        }
+
+        public static void ShiftValues(ref int[] array, int lIndex, int index)
+        {
+            for (var i = index; i >= lIndex; i--)
+            {
+                Swap(ref array, i, i + 1);
+            }
+        }
+
+        /*
+         * Get Tree Depth
+         */
+        public static int BinaryTreeDepth(BinarySearchTreeNode node)
+        {
+            if (node == null) return 0;
+            return Math.Max(BinaryTreeDepth(node.Left), BinaryTreeDepth(node.Right)) + 1;
+        }
+
+        public static int FindNonDuplicate(int[] list)
+        {
+            var dict = new Dictionary<int, int>();
+            foreach (var n in list)
+            {
+                if (dict.ContainsKey(n)) dict[n]++;
+                else dict.Add(n, 1);
+            }
+            return dict.SingleOrDefault(x => x.Value == 1).Key;
+        }
+
+        public static bool IsPalindrome(string str)
+        {
+            //Remove spaces
+            //Reverse string
+            //return str is equal to reversed string
+            return true;
+        }
 
         /*
          * Reverse a string
