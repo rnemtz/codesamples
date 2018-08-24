@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 using CodeExercises.Sorting;
 
@@ -14,8 +15,12 @@ namespace CodeExercises
     {
         private static void Main()
         {
-           
-           Console.WriteLine(MaximumSubArray(new[]{ -2, -5, 6, -2, -3, 1, 5, -6 }));
+
+            var words = new string[2][];
+            words[0] = new[] {"grey", "black"};
+            words[1] = new[] {"fox", "dog"};
+            var result = GetCombinations(words);
+            foreach(var res in result) Console.WriteLine(res);
             Console.ReadKey();
         }
 
@@ -40,12 +45,33 @@ namespace CodeExercises
 
         public static List<string> GetCombinations(string[][] array)
         {
-            //Put all string lists in a stack
-            //while stack is not empty
-                //call 
             
+            var itemsInArray = array.Aggregate(1, (current, line) => current * line.Length);
+            var matrix = new int[array.Length, itemsInArray];
+            var ant = 1;
+            for (var c = 0; c < array.Length; c++)
+            {
+                ant *= array[c].Length;
+                var rep = itemsInArray / ant;
+                var index = 0;
+                var r = 0;
+                while(r < itemsInArray) {
+                    for (var i = 0; i < rep; i++) matrix[c, r++] = index;
+                    index++;
+                    if (index >= array[c].Length) index = 0;
+                }
+            }
+            var result = new List<string>();
+            for (var c = 0; c < matrix.GetLength(1); c++)
+            {
+                var str = new StringBuilder();
+                for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r,c]]} ");
+                result.Add(str.ToString().Trim());
+            }
 
+            return result;
         }
+
 
         /*
          * You are given a one dimensional array that may contain both positive and negative integers, 
