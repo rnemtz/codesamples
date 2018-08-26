@@ -15,17 +15,120 @@ namespace CodeExercises
     {
         private static void Main()
         {
-
-            var words = new string[2][];
-            words[0] = new[] {"grey", "black"};
-            words[1] = new[] {"fox", "dog"};
-            var result = GetCombinations(words);
-            foreach(var res in result) Console.WriteLine(res);
+            var result = FindNonDuplicateHs(new int[] {1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9});
             Console.ReadKey();
         }
 
         #region WAYFAIR
 
+        public struct Interval
+        {
+            public int Buy;
+            public int Sell;
+        }
+
+        /*
+         * Stock Buy sell to maximize profit
+         * 
+         */
+        public static void MaximizeProfit(int[] values, int n, out Interval[] results)
+        {
+            if (n <= 1)
+            {
+                results = null;
+                return;
+            }
+            results = new Interval[n / 2 + 1];
+            var count = 0;
+            var i = 0;
+            while (i < n - 1)
+            {
+                //Find local minima
+                while (i < n - 1 && values[i + 1] <= values[i]) i++;
+                if (i == n - 1) break;
+                results[count].Buy = i++;
+
+                //Find local maxima
+                while (i < n && values[i] >= values[i - 1]) i++;
+
+                results[count].Sell = i - 1;
+                count++;
+            }
+        }
+
+       
+
+        private static bool ContainsSubstringBooyerMoore(string source, string sub)
+        {
+            //preprocess the string
+            //build a table that contains the length to shift when a bad match occurs
+            var dis = GetBadMatchTable(sub);
+            //stage 2
+            //string to find is searched from the last character to the first
+            //bad match table is used to skip the chars when a mismatch occurs
+            var startIndex = 0;
+            while (startIndex <= source.Length - sub.Length)
+            {
+                var leftToMatch = sub.Length - 1;
+                while (leftToMatch >= 0 && sub[leftToMatch] == source[startIndex + leftToMatch])
+                {
+                    leftToMatch--;
+                }
+
+                if (leftToMatch < 0)
+                {
+                    return true;
+
+                }
+                else
+                {
+                    startIndex = dis[sub[startIndex + sub.Length - 1]];
+                }
+
+            }
+            return false;
+        }
+
+        private static Dictionary<int, int> GetBadMatchTable(string sub)
+        {
+            var defaultValue = sub.Length;
+            var distances = new Dictionary<int, int>();
+            for (var i = 0; i < defaultValue - 1; i++)
+            {
+                distances[sub[i]] = sub.Length - i - 1;
+            }
+            return distances;
+        }
+
+        private static bool ContainsSubstringNaive(string source, string sub)
+        {
+            for (var i = 0; i < source.Length; i++)
+            {
+                var count = 0;
+                while (source[i + count] == sub[count])
+                {
+                    count++;
+                    if (sub.Length == count) return true;
+                }
+            }
+            return false;
+
+        }
+
+        /*
+         * Remove duplicates from an array
+         */
+
+        /*
+            Adding repeated numbers to a set it won't cause an exception it will discard them only
+            and mantain the order when you return it as an array;
+        */
+        public static int[] RemoveDuplicates(int[] array)
+        {
+            var temp = new HashSet<int>();
+            foreach (var n in array) temp.Add(n);
+            return temp.ToArray();
+        }
         /*
          * Given a two-dimensional array of strings, return all possible combination of words. <-cartesian product
          * Example:
@@ -68,7 +171,6 @@ namespace CodeExercises
                 for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r,c]]} ");
                 result.Add(str.ToString().Trim());
             }
-
             return result;
         }
 
@@ -78,6 +180,9 @@ namespace CodeExercises
          * find the sum of contiguous subarray of numbers which has the largest sum.
          * For example, if the given array is {-2, -5, 6, -2, -3, 1, 5, -6}, then the 
          * maximum subarray sum is 7 (see highlighted elements).
+         * 
+         * KADANE's Algorithm O(N)
+         * 
          */
         public static int MaximumSubArray(int[] a)
         {
@@ -122,6 +227,15 @@ namespace CodeExercises
         {
             if (node == null) return 0;
             return Math.Max(BinaryTreeDepth(node.Left), BinaryTreeDepth(node.Right)) + 1;
+        }
+
+        public static HashSet<int> FindNonDuplicateHs(int[] list)
+        { 
+            var hd = new HashSet<int>();
+            var hn = new HashSet<int>();
+            foreach (var c in list) if (hn.Add(c) == false) hd.Add(c);
+            hn.SymmetricExceptWith(hd.AsEnumerable());
+            return hn;
         }
 
         public static int FindNonDuplicate(int[] list)
@@ -323,7 +437,7 @@ namespace CodeExercises
 
         public static long FibonacciRecursiveMemo(long number, long[] memo)
         {
-            if (number == 0 || number == 1) return number;
+            if (number <= 1) return number;
             if (!memo.Contains(number)) memo[number] = FibonacciRecursiveMemo(number - 1, memo) + FibonacciRecursiveMemo(number - 2, memo);
             return memo[number];
         }
