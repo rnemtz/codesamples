@@ -106,12 +106,36 @@ namespace CodeExercises
 
                 //Find local maxima
                 while (i < n && values[i] >= values[i - 1]) i++;
-
                 results[count].Sell = i - 1;
+
                 count++;
             }
         }
 
+        public static int GetMaxProfixSum(int[] values)
+        {
+            if (values.Length <= 1) return 0;
+            var results = new List<KeyValuePair<int,int>>();
+            var index = 0;
+            var length = values.Length;
+            while (index < length - 1)
+            {
+                //find  next min
+                while (index < length - 1 && values[index + 1] <= values[index]) index++;
+                if (index == length - 1) break;
+                var buy = index++;
+
+                //find next max
+                while (index <= length - 1 && values[index] >= values[index - 1]) index++;
+                var sell = index - 1;
+                results.Add(new KeyValuePair<int, int>(buy,sell));
+            }
+
+            var sum = 0;
+            foreach (var inter in results) sum += values[inter.Value] - values[inter.Key];
+
+            return sum;
+        }
        
 
         private static bool ContainsSubstringBooyerMoore(string source, string sub)
