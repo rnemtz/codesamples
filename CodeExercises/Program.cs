@@ -15,11 +15,67 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var result = FindNonDuplicateHs(new int[] {1, 1, 2, 2, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9});
+
+            var result = GetPermutations(new [] {1,2,3,4});
+            foreach(var r in result)
+            {
+                foreach (var c in r)
+                {
+                    Console.Write($"{c} ");
+                }
+                Console.WriteLine();
+            }
+            var strings = GetPermutations("rene");
+            foreach(var s in strings) Console.WriteLine(s);
             Console.ReadKey();
         }
 
         #region WAYFAIR
+
+
+        public static List<int[]> GetPermutations(int[] array)
+        {
+            var results = new List<int[]>();
+            Permutations(array, 0, results);
+            return results;
+        }
+
+        public static List<string> GetPermutations(string s)
+        {
+            var results = new List<string>();
+            Permutations(s.ToCharArray(), 0, results);
+            return results;
+        }
+
+        private static void Permutations(int[] array,int index, ICollection<int[]> list)
+        {
+            if (index >= array.Length) list.Add(array.Clone() as int[]);
+            else
+            {
+                for (var i = index; i < array.Length; i++)
+                {
+                    Swap(ref array, i, index);
+                    Permutations(array, index + 1, list);
+                    Swap(ref array, i, index);
+                }
+            }
+
+        }
+
+
+        private static void Permutations(char[] array, int index, ICollection<string> list)
+        {
+            if (index >= array.Length) list.Add(string.Join(string.Empty, array));
+            else
+            {
+                for (var i = index; i < array.Length; i++)
+                {
+                    Swap(ref array, i, index);
+                    Permutations(array, index + 1, list);
+                    Swap(ref array, i, index);
+                }
+            }
+        }
 
         public struct Interval
         {
@@ -146,6 +202,81 @@ namespace CodeExercises
          * 
          */
 
+
+        public static List<string> GetCartesianMatrix(string[][] array)
+        {
+            var result = new List<string>();
+            // build a matrix of indexes
+            //size arr.length * combinations
+            var items = 1;
+            foreach (var row in array) items *= row.Length;
+            var matrix = new int[array.Length, items];
+            var prevRep = 1;
+            for (var r = 0; r < array.Length; r++)
+            {
+                prevRep *= array[r].Length;
+                var repetitions = items / prevRep;
+                var c = 0;
+                var index = 0;
+                while (c < items)
+                {
+                    for (var i = 0; i < repetitions; i++) matrix[r, c++] = index;
+                    index++;
+                    if (index >= array[r].Length) index = 0;
+                }
+            }
+             
+            //fill matrix
+            for (var c = 0; c < matrix.GetLength(1); c++)
+            {
+                var str = new StringBuilder();
+                for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r,c]]} ");
+                result.Add(str.ToString().TrimEnd());
+            }
+
+            return result;
+        }
+        public static List<string> GetCartesianProduct(string[][] array)
+        {
+            //Build a matrix of inexes. Combinations of all strings
+            var itemsPerRow = 1;
+            foreach (var row in array)
+            {
+                itemsPerRow *= row.Length;
+            }
+
+            var matrix = new int[array.Length, itemsPerRow];
+            var previousRep = 1;
+            for (var r = 0; r < array.Length; r++)
+            {
+                previousRep *= array[r].Length;
+                var repetitions = itemsPerRow / previousRep;
+                var index = 0;
+                var c = 0;
+                while (c < itemsPerRow)
+                {
+                    for (var i = 0; i < repetitions; i++) matrix[r, c++] = index;
+                    index++;
+                    if (index >= array[r].Length) index = 0;
+                }
+            }
+
+            var result = new List<string>();
+            //Fill the List with indexes in matrix
+            for (var c = 0; c < matrix.GetLength(1); c++)
+            {
+                var str = new StringBuilder();
+                for (var r = 0; r < matrix.GetLength(0); r++)
+                {
+                    str.Append($"{array[r][matrix[r,c]]} ");
+                }
+
+                result.Add(str.ToString().TrimEnd());
+            }
+
+            return result;
+        }
+
         public static List<string> GetCombinations(string[][] array)
         {
             
@@ -177,7 +308,7 @@ namespace CodeExercises
 
         /*
          * You are given a one dimensional array that may contain both positive and negative integers, 
-         * find the sum of contiguous subarray of numbers which has the largest sum.
+         * find the sum of contiguous xay of numbers which has the largest sum.
          * For example, if the given array is {-2, -5, 6, -2, -3, 1, 5, -6}, then the 
          * maximum subarray sum is 7 (see highlighted elements).
          * 
