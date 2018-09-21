@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using CodeExercises.Sorting;
+using System.Threading;
 
 namespace CodeExercises
 {
@@ -15,23 +12,69 @@ namespace CodeExercises
     {
         private static void Main()
         {
-
-            var result = GetPermutations(new [] {1,2,3,4});
-            foreach(var r in result)
-            {
-                foreach (var c in r)
-                {
-                    Console.Write($"{c} ");
-                }
-                Console.WriteLine();
-            }
-            var strings = GetPermutations("rene");
-            foreach(var s in strings) Console.WriteLine(s);
+            var r = new Random();
+            for (var n = 0; n < 1000000; n++) Numbers.IncomingNumbers(r.Next(int.MinValue, int.MaxValue));
+            var i = 0;
+            foreach (var n in Numbers.List) Console.WriteLine($"{i++} - {n}");
             Console.ReadKey();
         }
 
-        #region WAYFAIR
+        #region CARVANA
 
+        /*
+         * Carvana Online Exam (HackerRank)
+         */
+        private static string Rev(string a)
+        {
+            //var str = string.Empty;
+            //for (var i = a.Length - 1; i >= 0; i--)
+            //{
+            //    str += a[i].ToString();
+            //}
+            //return str;
+            //1. Array
+            //var str = new char[a.Length];
+            //for (var i = 0; i < a.Length; i++)
+            //{
+            //    str[i] = a[a.Length - 1- i];
+            //}
+            //return string.Join(string.Empty, str);
+
+            //var stk = new Stack<string>();
+            //foreach (char t in a)
+            //{
+            //    stk.Push(t.ToString());
+            //}
+            //var result = string.Empty;
+            //while (stk.Count > 0)
+            //{
+            //    result += stk.Pop();
+            //}
+            //return result;
+
+            var index = a.Length - 1;
+            var array = a.ToCharArray();
+            for (var i = 0; i < a.Length; i++)
+            {
+                //swap in same string
+                //implementing a temporary variable
+                //we can use a different method say, 
+                // private method just for swap, but this
+                // is simply enough to demonstrate it.
+                if (index <= i)
+                    break;
+                var temp = array[i];
+                array[i] = array[index];
+                array[index] = temp;
+                index--;
+            }
+
+            return string.Join(string.Empty, array);
+        }
+
+        #endregion
+
+        #region WAYFAIR
 
         public static List<int[]> GetPermutations(int[] array)
         {
@@ -47,19 +90,16 @@ namespace CodeExercises
             return results;
         }
 
-        private static void Permutations(int[] array,int index, ICollection<int[]> list)
+        private static void Permutations(int[] array, int index, ICollection<int[]> list)
         {
             if (index >= array.Length) list.Add(array.Clone() as int[]);
             else
-            {
                 for (var i = index; i < array.Length; i++)
                 {
                     Swap(ref array, i, index);
                     Permutations(array, index + 1, list);
                     Swap(ref array, i, index);
                 }
-            }
-
         }
 
 
@@ -67,14 +107,12 @@ namespace CodeExercises
         {
             if (index >= array.Length) list.Add(string.Join(string.Empty, array));
             else
-            {
                 for (var i = index; i < array.Length; i++)
                 {
                     Swap(ref array, i, index);
                     Permutations(array, index + 1, list);
                     Swap(ref array, i, index);
                 }
-            }
         }
 
         public struct Interval
@@ -115,7 +153,7 @@ namespace CodeExercises
         public static int GetMaxProfixSum(int[] values)
         {
             if (values.Length <= 1) return 0;
-            var results = new List<KeyValuePair<int,int>>();
+            var results = new List<KeyValuePair<int, int>>();
             var index = 0;
             var length = values.Length;
             while (index < length - 1)
@@ -128,7 +166,7 @@ namespace CodeExercises
                 //find next max
                 while (index <= length - 1 && values[index] >= values[index - 1]) index++;
                 var sell = index - 1;
-                results.Add(new KeyValuePair<int, int>(buy,sell));
+                results.Add(new KeyValuePair<int, int>(buy, sell));
             }
 
             var sum = 0;
@@ -136,7 +174,7 @@ namespace CodeExercises
 
             return sum;
         }
-       
+
 
         private static bool ContainsSubstringBooyerMoore(string source, string sub)
         {
@@ -151,20 +189,11 @@ namespace CodeExercises
             {
                 var leftToMatch = sub.Length - 1;
                 while (leftToMatch >= 0 && sub[leftToMatch] == source[startIndex + leftToMatch])
-                {
                     leftToMatch--;
-                }
 
                 if (leftToMatch < 0)
-                {
                     return true;
-
-                }
-                else
-                {
-                    startIndex = dis[sub[startIndex + sub.Length - 1]];
-                }
-
+                startIndex = dis[sub[startIndex + sub.Length - 1]];
             }
             return false;
         }
@@ -174,9 +203,7 @@ namespace CodeExercises
             var defaultValue = sub.Length;
             var distances = new Dictionary<int, int>();
             for (var i = 0; i < defaultValue - 1; i++)
-            {
                 distances[sub[i]] = sub.Length - i - 1;
-            }
             return distances;
         }
 
@@ -192,7 +219,6 @@ namespace CodeExercises
                 }
             }
             return false;
-
         }
 
         /*
@@ -249,25 +275,24 @@ namespace CodeExercises
                     if (index >= array[r].Length) index = 0;
                 }
             }
-             
+
             //fill matrix
             for (var c = 0; c < matrix.GetLength(1); c++)
             {
                 var str = new StringBuilder();
-                for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r,c]]} ");
+                for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r, c]]} ");
                 result.Add(str.ToString().TrimEnd());
             }
 
             return result;
         }
+
         public static List<string> GetCartesianProduct(string[][] array)
         {
-            //Build a matrix of inexes. Combinations of all strings
+            //Build a matrix of indexes. Combinations of all strings
             var itemsPerRow = 1;
             foreach (var row in array)
-            {
                 itemsPerRow *= row.Length;
-            }
 
             var matrix = new int[array.Length, itemsPerRow];
             var previousRep = 1;
@@ -291,9 +316,7 @@ namespace CodeExercises
             {
                 var str = new StringBuilder();
                 for (var r = 0; r < matrix.GetLength(0); r++)
-                {
-                    str.Append($"{array[r][matrix[r,c]]} ");
-                }
+                    str.Append($"{array[r][matrix[r, c]]} ");
 
                 result.Add(str.ToString().TrimEnd());
             }
@@ -303,7 +326,6 @@ namespace CodeExercises
 
         public static List<string> GetCombinations(string[][] array)
         {
-            
             var itemsInArray = array.Aggregate(1, (current, line) => current * line.Length);
             var matrix = new int[array.Length, itemsInArray];
             var ant = 1;
@@ -313,7 +335,8 @@ namespace CodeExercises
                 var rep = itemsInArray / ant;
                 var index = 0;
                 var r = 0;
-                while(r < itemsInArray) {
+                while (r < itemsInArray)
+                {
                     for (var i = 0; i < rep; i++) matrix[c, r++] = index;
                     index++;
                     if (index >= array[c].Length) index = 0;
@@ -323,7 +346,7 @@ namespace CodeExercises
             for (var c = 0; c < matrix.GetLength(1); c++)
             {
                 var str = new StringBuilder();
-                for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r,c]]} ");
+                for (var r = 0; r < matrix.GetLength(0); r++) str.Append($"{array[r][matrix[r, c]]} ");
                 result.Add(str.ToString().Trim());
             }
             return result;
@@ -363,16 +386,14 @@ namespace CodeExercises
         {
             if (numbers.Length < 2) return numbers;
             var lIndex = 0;
-            for (var i = 0; i < numbers.Length; i++) if (numbers[i] < 0) ShiftValues(ref numbers, lIndex++, i-1);
+            for (var i = 0; i < numbers.Length; i++) if (numbers[i] < 0) ShiftValues(ref numbers, lIndex++, i - 1);
             return numbers;
         }
 
         public static void ShiftValues(ref int[] array, int lIndex, int index)
         {
             for (var i = index; i >= lIndex; i--)
-            {
                 Swap(ref array, i, i + 1);
-            }
         }
 
         /*
@@ -385,7 +406,7 @@ namespace CodeExercises
         }
 
         public static HashSet<int> FindNonDuplicateHs(int[] list)
-        { 
+        {
             var hd = new HashSet<int>();
             var hn = new HashSet<int>();
             foreach (var c in list) if (hn.Add(c) == false) hd.Add(c);
@@ -397,10 +418,8 @@ namespace CodeExercises
         {
             var dict = new Dictionary<int, int>();
             foreach (var n in list)
-            {
                 if (dict.ContainsKey(n)) dict[n]++;
                 else dict.Add(n, 1);
-            }
             return dict.SingleOrDefault(x => x.Value == 1).Key;
         }
 
@@ -421,9 +440,7 @@ namespace CodeExercises
             var len = str.Length;
             var array = str.ToCharArray();
             for (var i = 0; i < len / 2; i++)
-            {
-                Swap(ref array, i, len-1-i);
-            }
+                Swap(ref array, i, len - 1 - i);
             return string.Join(string.Empty, array);
         }
 
@@ -442,13 +459,11 @@ namespace CodeExercises
         {
             if (string.IsNullOrWhiteSpace(notation)) return false;
             var stk = new Stack<char>();
-            var openings = new Dictionary<char, char> {{'(',')'}, { '[', ']' } , { '{', '}' }};
-            var closing = new Dictionary<char, char> {{')','('}, { ']', '[' } , { '}', '{' } };
+            var openings = new Dictionary<char, char> {{'(', ')'}, {'[', ']'}, {'{', '}'}};
+            var closing = new Dictionary<char, char> {{')', '('}, {']', '['}, {'}', '{'}};
             foreach (var c in notation)
-            {
                 if (openings.ContainsKey(c)) stk.Push(c);
                 else if (closing.ContainsKey(c)) if (openings[stk.Pop()] != c) return false;
-            }
             return stk.Count == 0;
         }
 
@@ -476,7 +491,7 @@ namespace CodeExercises
 
         public static bool IsAnagram(string s1, string s2)
         {
-            var chars =new Dictionary<char,int>();
+            var chars = new Dictionary<char, int>();
             foreach (var c in s1.ToCharArray())
             {
                 if (c == ' ') continue;
@@ -539,7 +554,6 @@ namespace CodeExercises
 
             var length = number.ToString().Length;
             while (length > 1)
-            {
                 switch (length)
                 {
                     case 4: //thousands 
@@ -562,7 +576,6 @@ namespace CodeExercises
                     default:
                         return "Not supported";
                 }
-            }
             if (number > 0) result += $"{words[0][int.Parse(number.ToString()[0].ToString())]}";
             return result.TrimEnd();
         }
@@ -580,11 +593,11 @@ namespace CodeExercises
         //Get Fibonnacci Number Iterative
         public static long FibonacciIterative(long number)
         {
-            var numbers = new long[number+1];
+            var numbers = new long[number + 1];
             var n = number - 1;
             numbers[0] = 0;
             numbers[1] = 1;
-            for (var i = 2; i <= n+1; i++) numbers[i] = numbers[i - 2] + numbers[i - 1];
+            for (var i = 2; i <= n + 1; i++) numbers[i] = numbers[i - 2] + numbers[i - 1];
             return numbers[number];
         }
 
@@ -593,7 +606,8 @@ namespace CodeExercises
         public static long FibonacciRecursiveMemo(long number, long[] memo)
         {
             if (number <= 1) return number;
-            if (!memo.Contains(number)) memo[number] = FibonacciRecursiveMemo(number - 1, memo) + FibonacciRecursiveMemo(number - 2, memo);
+            if (!memo.Contains(number))
+                memo[number] = FibonacciRecursiveMemo(number - 1, memo) + FibonacciRecursiveMemo(number - 2, memo);
             return memo[number];
         }
 
@@ -622,26 +636,80 @@ namespace CodeExercises
         #region MICROSOFT
 
         /*
-         * Second smallest number in a Binary Search Tree
-         */
+            // in: balanced binary search tree containing positive ints
+            // out: find the value which is closest to max(node value)/2
+        */
+
+        public class TreeNodeT
+        {
+            public int val { get; set; }
+            public TreeNodeT left { get; set; }
+            public TreeNodeT right { get; set; }
+        }
+
+        public int GetValue(TreeNodeT node)
+        {
+            //base case
+            if (node == null) return -1;
+            //get max value/2 O(log n)
+            var maxValue = GetMaxValue(node) / 2;
+            //bs for result  (log n)
+            var result = BinarySearch(node, maxValue, out var closest);
+            if (result != null) return result.val;
+            return Math.Min(Math.Abs(result.val - maxValue), Math.Abs(closest - maxValue));
+        }
+
+        private int GetMaxValue(TreeNodeT node)
+        {
+            var value = -1;
+            while (node != null)
+            {
+                value = node.val;
+                node = node.right;
+            }
+            return value;
+        }
+
+        public TreeNodeT BinarySearch(TreeNodeT node, int maxValue, out int closest)
+        {
+            closest = int.MaxValue;
+            //try find value
+            //when compares the value evaluate if is closest to maxValue
+            var current = node;
+            while (node != null)
+            {
+                //comparison
+                if (node.val == maxValue) return node;
+                if (Math.Abs(node.val - maxValue) < closest) closest = node.val;
+                current = node;
+                //left or right
+                node = maxValue >= node.val ? node.right : node.left;
+            }
+            return current;
+        }
+
 
         /*
-         * Design a Max throughput per hour of N in cloud transactions
-         */
+            * Second smallest number in a Binary Search Tree
+            */
+
+        /*
+            * Design a Max throughput per hour of N in cloud transactions
+            */
 
         /*
         * Convert number to Roman numbers
         */
 
         /*
-         * FuzzBuzz. In an array print Fizz if number is multiple of 3, 
-         * Buzz if is multiple of 5
-         * and FuzzBuzz if is multiple of both
-         */
+            * FuzzBuzz. In an array print Fizz if number is multiple of 3, 
+            * Buzz if is multiple of 5
+            * and FuzzBuzz if is multiple of both
+            */
 
         /*
-         * Max number of Permutations in an string
-         */
+            * Max number of Permutations in an string
+            */
 
         /*
         * in a Stream of numbers
@@ -653,13 +721,48 @@ namespace CodeExercises
         */
 
         /*
-         * Convert Integer to Binary
-         */
-
+            * Convert Integer to Binary
+            */
 
         #endregion
 
         #region CODE WARS && OTHER
+
+        /*
+         * There are incoming numbers from a stream, print the largest 1000 numbers
+         * 3,6,7,64,3,34,5,6,75,42,4
+         * print 5 largest
+         */
+
+        public static class Numbers
+        {
+            private static readonly Mutex M;
+
+            static Numbers()
+            {
+                List = new HashSet<int>();
+                M = new Mutex();
+                Min = int.MaxValue;
+            }
+
+            public static HashSet<int> List { get; }
+            private static int Min { get; set; }
+
+            public static void IncomingNumbers(int n)
+            {
+                M.WaitOne();
+                if (List.Add(n))
+                    if (Min > n)
+                        Min = n;
+                if (List.Count > 500)
+                {
+                    List.Remove(Min);
+                    Min = List.Min();
+                }
+                M.ReleaseMutex();
+            }
+        }
+
 
         /*
         * Print a matrix in a spiral way
@@ -673,7 +776,6 @@ namespace CodeExercises
             var lb = 0;
             var direction = Direction.Right;
             while (ru >= lb && rb >= lu)
-            {
                 switch (direction)
                 {
                     case Direction.Right:
@@ -700,7 +802,6 @@ namespace CodeExercises
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-            }
         }
 
         private enum Direction
@@ -1123,7 +1224,7 @@ namespace CodeExercises
 
         public static int Find(int[] integers)
         {
-            var isEven = integers.Where(x => x % 2 == 0).Count() > 1;
+            var isEven = integers.Count(x => x % 2 == 0) > 1;
             return isEven ? integers.SingleOrDefault(x => x % 2 > 0) : integers.SingleOrDefault(x => x % 2 == 0);
         }
 
@@ -1831,7 +1932,7 @@ namespace CodeExercises
 
             public LeastRecentUsedCache(int maxCacheSize = 50)
             {
-                if (maxCacheSize < 0) throw new ArgumentException();
+                if (maxCacheSize < 1) throw new ArgumentException();
                 _maxCacheSize = maxCacheSize;
                 _itemsDictionary = new Dictionary<int, Node>();
                 _head = null;
@@ -2100,7 +2201,7 @@ namespace CodeExercises
 
         #region HACKERRANK
 
-        static int[] RotateLeft(int[] a, int d)
+        private static int[] RotateLeft(int[] a, int d)
         {
             var tempArray = new int[a.Length];
             for (var i = a.Length - 1; i >= 0; i--)
@@ -2119,7 +2220,7 @@ namespace CodeExercises
 
 
         //Timeouts
-        static int[] rotLeft(int[] a, int d)
+        private static int[] rotLeft(int[] a, int d)
         {
             while (d > 0)
             {
@@ -2137,7 +2238,7 @@ namespace CodeExercises
         }
 
 
-        static int MiniSwaps(int[] arr)
+        private static int MiniSwaps(int[] arr)
         {
             if (!arr.Any()) return 0;
             var swaps = 0;
@@ -2155,7 +2256,7 @@ namespace CodeExercises
 
 
         //Timeout
-        static int MinimumSwaps(int[] arr)
+        private static int MinimumSwaps(int[] arr)
         {
             if (IsSorted(arr, 0)) return 0;
             var swaps = 0;
@@ -2178,9 +2279,7 @@ namespace CodeExercises
         {
             var min = currentIndex;
             for (var i = currentIndex; i < array.Length; i++)
-            {
                 if (array[i] < array[min]) min = i;
-            }
             return min;
         }
 
@@ -2205,7 +2304,7 @@ namespace CodeExercises
 
 
         //O(N) Solutionon
-        static long ArrayMan(int n, int[][] queries)
+        private static long ArrayMan(int n, int[][] queries)
         {
             var numbers = new long[n + 1];
             foreach (var operation in queries)
@@ -2229,7 +2328,7 @@ namespace CodeExercises
 
         //Times out with long operations
         //O(N*M)
-        static long ArrayManipulation(int n, int[][] queries)
+        private static long ArrayManipulation(int n, int[][] queries)
         {
             if (queries == null || !queries.Any()) return 0;
             if (n <= 0) return 0;
@@ -2250,20 +2349,18 @@ namespace CodeExercises
             return maxNumber;
         }
 
-        static int[] GradingStudents(int[] grades)
+        private static int[] GradingStudents(int[] grades)
         {
             if (grades == null || !grades.Any()) return new int[0];
             var result = new int[grades.Length];
             for (var i = 0; i < grades.Length; i++)
-            {
                 if (grades[i] < 38) result[i] = grades[i];
                 else result[i] = grades[i] % 5 >= 3 ? grades[i] + (5 - grades[i] % 5) : grades[i];
-            }
             return result;
         }
 
 
-        static int BirthdayCakeCandles(int[] ar)
+        private static int BirthdayCakeCandles(int[] ar)
         {
             //Base Case
             if (ar == null || !ar.Any()) return 0;
@@ -2283,14 +2380,12 @@ namespace CodeExercises
         }
 
 
-        static long AVeryBigSum(long[] ar)
+        private static long AVeryBigSum(long[] ar)
         {
             if (!ar.Any()) return 0;
             long result = 0;
             for (var i = 0; i < ar.Length; i++)
-            {
                 result += ar[i];
-            }
             return result;
         }
 
@@ -2654,63 +2749,6 @@ namespace CodeExercises
         {
             public int Val { get; set; }
             public int Max { get; set; }
-        }
-
-        #endregion
-
-        #region CARVANA
-
-        /*
-         * Carvana Online Exam (HackerRank)
-         */
-        static string Rev(string a)
-        {
-            //var str = string.Empty;
-            //for (var i = a.Length - 1; i >= 0; i--)
-            //{
-            //    str += a[i].ToString();
-            //}
-            //return str;
-            //1. Array
-            //var str = new char[a.Length];
-            //for (var i = 0; i < a.Length; i++)
-            //{
-            //    str[i] = a[a.Length - 1- i];
-            //}
-            //return string.Join(string.Empty, str);
-
-            //var stk = new Stack<string>();
-            //foreach (char t in a)
-            //{
-            //    stk.Push(t.ToString());
-            //}
-            //var result = string.Empty;
-            //while (stk.Count > 0)
-            //{
-            //    result += stk.Pop();
-            //}
-            //return result;
-
-            var index = a.Length - 1;
-            var array = a.ToCharArray();
-            for (var i = 0; i < a.Length; i++)
-            {
-                //swap in same string
-                //implementing a temporary variable
-                //we can use a different method say, 
-                // private method just for swap, but this
-                // is simply enough to demonstrate it.
-                if (index <= i)
-                {
-                    break;
-                }
-                var temp = array[i];
-                array[i] = array[index];
-                array[index] = temp;
-                index--;
-            }
-
-            return string.Join(string.Empty, array);
         }
 
         #endregion
