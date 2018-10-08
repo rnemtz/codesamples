@@ -12,12 +12,41 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var r = new Random();
-            for (var n = 0; n < 1000000; n++) Numbers.IncomingNumbers(r.Next(int.MinValue, int.MaxValue));
-            var i = 0;
-            foreach (var n in Numbers.List) Console.WriteLine($"{i++} - {n}");
+            //var r =NearestXsteakHouses(3, new [,] {{1, -3}, {1, 2}, {3, 4}}, 1);
+            var fl = new List<List<int>> {new List<int> {1, 8}, new List<int> {2, 7}, new List<int> {3, 14}};
+            var bl = new List<List<int>> {new List<int> {1, 5}, new List<int> {2, 10}, new List<int> {3, 14}};
+            var r = OptimalUtilization(20, fl, bl);
             Console.ReadKey();
         }
+
+        
+
+
+        #region FLEXPORT
+
+        /*
+         * mapping ={
+         *  '1', ['a','b']
+         *  '2', ['c','d']
+         * }
+            getWords('11', mapping) => ['ac', 'ad', 'bc', 'bd']
+            getWords('1', mapping) => ['a', 'b']
+            getWords('12', mapping) => ['ac', 'ad', 'bc', 'bd']
+            getWords('122', mapping) => ['acc', 'adc', 'bcc', 'bdc', 'acd', 'add', 'bcd', 'bdd']
+            getWords('', mapping) => ['']
+        */
+
+        //private static string[] GetWords(string number, Dictionary<string, string[]> mapping)
+        //{
+        //    var result = new List<string>();
+        //    int[,] tst = new int[3,2];
+        //    var map = new Dictionary<double, KeyValuePair<int, int>>();
+        //    map.OrderBy(x=> x.Key).Take()
+
+        //    return result.ToArray();
+        //}
+
+        #endregion
 
         #region CARVANA
 
@@ -2436,6 +2465,63 @@ namespace CodeExercises
         #endregion
 
         #region AMAZON
+
+        public static List<List<int>> OptimalUtilization(int deviceCapacity,
+            List<List<int>> foregroundAppList,
+            List<List<int>> backgroundAppList)
+        {
+
+            var dict = new Dictionary<List<int>, double>();
+            foreach (var fa in foregroundAppList)
+            { //O(f*b) <--
+                foreach (var ba in backgroundAppList)
+                {
+                    if (fa[1] + ba[1] > deviceCapacity) continue;
+                    dict.Add(new List<int> { fa[0], ba[0] }, fa[1] + ba[1]);
+                }
+            }
+
+            var result = new List<List<int>>();
+            if (dict.Count == 0) return result;
+
+            double lastValue = -1;
+            foreach (var item in dict.OrderByDescending(x => x.Value))
+            {
+                if (lastValue > 0 && item.Value < lastValue) break;
+                result.Add(item.Key);
+                lastValue = item.Value;
+            }
+
+            return result;
+        }
+
+
+        public static List<List<int>> NearestXsteakHouses(int totalSteakhouses,
+            int[,] allLocations,
+            int numSteakhouses)
+        {
+
+            if (allLocations == null
+                || allLocations.Length == 0
+                || numSteakhouses > totalSteakhouses)
+                return new List<List<int>>();
+
+            var map = new Dictionary<KeyValuePair<int, int>, double>();
+            for (var i = 0; i < totalSteakhouses; i++)
+            { //O(N)
+                var locationX = allLocations[i, 0];
+                var locationY = allLocations[i, 1];
+                var distance = Math.Sqrt((locationX * locationX)
+                                         + (locationY * locationY));
+                var kv = new KeyValuePair<int, int>(locationX, locationY);
+                if (map.ContainsKey(kv)) continue;
+                map.Add(kv, distance);
+            }
+
+            var closestSteakHouses = map.OrderBy(x => x.Value).Take(numSteakhouses); //O(N log N) <- Bottleneck
+            return closestSteakHouses.Select(x => new List<int> { x.Key.Key, x.Key.Value }).ToList();
+        }
+
 
         /*
          * Amazon AWS
