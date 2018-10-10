@@ -12,14 +12,31 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            //var r =NearestXsteakHouses(3, new [,] {{1, -3}, {1, 2}, {3, 4}}, 1);
-            var fl = new List<List<int>> {new List<int> {1, 8}, new List<int> {2, 7}, new List<int> {3, 14}};
-            var bl = new List<List<int>> {new List<int> {1, 5}, new List<int> {2, 10}, new List<int> {3, 14}};
-            var r = OptimalUtilization(20, fl, bl);
+            var node = new TreeNode
+            {
+                Value = 10,
+                Left = new TreeNode {Value = 5, Left = new TreeNode {Value = 6}},
+                Right = new TreeNode {Value = 5, Left = new TreeNode {Value = 6}}
+            };
+           var res = IsMirror(node);
             Console.ReadKey();
         }
 
-        
+        /*
+         * Determine if a tree is a mirror
+         */
+
+        public static bool IsMirror(TreeNode node)
+        {
+            return node == null || IsMirror(node.Left, node.Right);
+        }
+
+        public static bool IsMirror(TreeNode left, TreeNode right)
+        {
+            if (left == null && right == null) return true;
+            if (left == null || right == null || left.Value != right.Value) return false;
+            return IsMirror(left.Left, right.Left) && IsMirror(left.Right, right.Right);
+        }
 
 
         #region FLEXPORT
@@ -2121,6 +2138,7 @@ namespace CodeExercises
             private static bool _isPerfect = true;
             public TreeNode Left;
             public TreeNode Right;
+            public int Value;
 
             public static bool IsPerfect(TreeNode root)
             {
