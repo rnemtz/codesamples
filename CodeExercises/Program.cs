@@ -15,11 +15,92 @@ namespace CodeExercises
             var node = new TreeNode
             {
                 Value = 10,
-                Left = new TreeNode {Value = 5, Left = new TreeNode {Value = 6}},
-                Right = new TreeNode {Value = 5, Left = new TreeNode {Value = 6}}
+                Left = new TreeNode
+                {
+                    Value = 7,
+                    Left = new TreeNode {Value = 3}
+                }
             };
-           var res = IsMirror(node);
+            node.Left.Right = new TreeNode {Value = 8};
+            node.Right = new TreeNode
+            {
+                Value = 15,
+                Left = new TreeNode {Value = 13},
+                Right = new TreeNode {Value = 17}
+            };
+
+            var response = IsBst(node);
             Console.ReadKey();
+        }
+
+        /*
+         * Check if is BST or not
+         */
+
+        private static bool IsBst(TreeNode node, long min = long.MinValue, long max = long.MaxValue)
+        {
+            if (node == null) return true;
+            if (node.Value < min || node.Value > max) return false;
+            return IsBst(node.Left, min, node.Value) && IsBst(node.Right, node.Value, max);
+        }
+
+        /*
+         * Cartesian Product using Backtracking
+         *  
+            var m = new string[4][];
+            m[0] = new[] {"grey", "black"};
+            m[1] = new[] {"fox", "dog"};
+            m[2] = new[] {"pumped", "ran", "growled"};
+            m[3] = new[] { "oil", "speed", "air"};
+         */
+
+        private static List<string> GetC(string[][] m)
+        {
+            var result = new List<string>();
+            var product = m.Aggregate(1, (current, n) => current * n.Length);
+            Combine(m, 0, 0, string.Empty, result, ref product);
+            return result;
+        }
+
+        private static void Combine(IReadOnlyList<string[]> m, int r, int c, string current, ICollection<string> result, ref int prod)
+        {
+            if (result.Count == prod) return;
+            if (current.Split(' ').Length == m.Count)
+                result.Add(current);
+            else
+            {
+                for (var i = r; i < m.Count; i++)
+                {
+                    for (var j = c; j < m[r].Length; j++)
+                    {
+                        current += $" {m[r][j]}";
+                        Combine(m, r + 1, c, current.Trim(), result, ref prod);
+                        current = RemoveLastString(current);
+                    }
+                    current = RemoveLastString(current);
+                }
+            }
+        }
+
+        private static string RemoveLastString(string str)
+        {
+            var w = str.Split(' ');
+            str = string.Empty;
+            for (var k = 0; k < w.Length - 1; k++) str += $" {w[k]}";
+            return str.Trim();
+        }
+
+        private static long GetWays(long n, long[] c)
+        {
+            var map = new long[n + 1];
+            for (var i = 0; i < map.Length; i++) map[i] = 0;
+            map[0] = 1;
+
+            foreach (var t in c)
+                for (var j = t; j <= n; j++)
+                    map[j] += map[j - t];
+
+            return map[n];
         }
 
         /*
@@ -148,17 +229,18 @@ namespace CodeExercises
                 }
         }
 
-
         private static void Permutations(char[] array, int index, ICollection<string> list)
         {
             if (index >= array.Length) list.Add(string.Join(string.Empty, array));
             else
+            {
                 for (var i = index; i < array.Length; i++)
                 {
                     Swap(ref array, i, index);
                     Permutations(array, index + 1, list);
                     Swap(ref array, i, index);
                 }
+            }
         }
 
         public struct Interval
@@ -415,12 +497,23 @@ namespace CodeExercises
 
             foreach (var number in a)
             {
-                maxEndingHere = maxEndingHere + number;
+                maxEndingHere += number;
                 if (maxSoFar < maxEndingHere) maxSoFar = maxEndingHere;
                 if (maxEndingHere < 0) maxEndingHere = 0;
             }
 
             return maxSoFar;
+
+
+            //var maxH = 0;
+            //var maxS = int.MinValue;
+            //foreach (var n in a)
+            //{
+            //    maxH += n;
+            //    if (maxH < 0) maxH = 0;
+            //    if (maxH > maxS) maxS = maxH;
+            //}
+            //return maxS;
         }
 
         /*
