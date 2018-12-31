@@ -12,25 +12,79 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var node = new TreeNode
+            //var node = new TreeNode
+            //{
+            //    Value = 10,
+            //    Left = new TreeNode
+            //    {
+            //        Value = 7,
+            //        Left = new TreeNode {Value = 3}
+            //    }
+            //};
+            //node.Left.Right = new TreeNode {Value = 8};
+            //node.Right = new TreeNode
+            //{
+            //    Value = 15,
+            //    Left = new TreeNode {Value = 13},
+            //    Right = new TreeNode {Value = 17}
+            //};
+
+            //var response = IsBst(node);
+            var node = new LNode
             {
-                Value = 10,
-                Left = new TreeNode
+                Value = 1,
+                Next = new LNode
                 {
-                    Value = 7,
-                    Left = new TreeNode {Value = 3}
+                    Value = 2,
+                    Next = new LNode
+                    {
+                        Value = 3,
+                        Next = new LNode {Value = 4}
+                    }
                 }
             };
-            node.Left.Right = new TreeNode {Value = 8};
-            node.Right = new TreeNode
-            {
-                Value = 15,
-                Left = new TreeNode {Value = 13},
-                Right = new TreeNode {Value = 17}
-            };
+            node.Random = node.Next.Next;
+            node.Next.Random = node.Next.Next.Next;
+            node.Next.Next.Random = node;
+            node.Next.Next.Next.Random = node.Next;
 
-            var response = IsBst(node);
+            var n = CloneLinkedList(node);
+
+
             Console.ReadKey();
+        }
+
+        /*
+         * Clone a list with random pointer
+         */
+
+        private class LNode
+        {
+            public LNode Next { get; set; }
+            public LNode Random { get; set; }
+            public int Value { get; set; }
+        }
+
+        private static LNode CloneLinkedList(LNode node)
+        {
+            var h = new LNode();
+            while (node != null)
+            {
+                h.Next = new LNode
+                {
+                    Value = node.Value,
+                    Next = node.Next
+                };
+                node = node.Next;
+            }
+            node = h.Next;
+            while (h.Next != null)
+            {
+                node.Next = h.Next.Next;
+                h.Next.Random = node.Random;
+                h.Next = h.Next.Next;
+            }
+            return h.Next;
         }
 
         /*
