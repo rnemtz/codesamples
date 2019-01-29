@@ -39,7 +39,7 @@ namespace CodeExercises
                     Next = new LNode
                     {
                         Value = 3,
-                        Next = new LNode {Value = 4}
+                        Next = new LNode { Value = 4 }
                     }
                 }
             };
@@ -652,8 +652,8 @@ namespace CodeExercises
         {
             if (string.IsNullOrWhiteSpace(notation)) return false;
             var stk = new Stack<char>();
-            var openings = new Dictionary<char, char> {{'(', ')'}, {'[', ']'}, {'{', '}'}};
-            var closing = new Dictionary<char, char> {{')', '('}, {']', '['}, {'}', '{'}};
+            var openings = new Dictionary<char, char> { { '(', ')' }, { '[', ']' }, { '{', '}' } };
+            var closing = new Dictionary<char, char> { { ')', '(' }, { ']', '[' }, { '}', '{' } };
             foreach (var c in notation)
                 if (openings.ContainsKey(c)) stk.Push(c);
                 else if (closing.ContainsKey(c)) if (openings[stk.Pop()] != c) return false;
@@ -668,7 +668,7 @@ namespace CodeExercises
 
         public static int[] GetQuarts(int n)
         {
-            if (n < 4) return new[] {0};
+            if (n < 4) return new[] { 0 };
             var numbers = new int[4];
             var parts = n / 4;
             numbers[0] = parts;
@@ -1155,9 +1155,9 @@ namespace CodeExercises
         {
             return Convert.ToInt32(year % 100 > 0
                 // ReSharper disable once PossibleLossOfFraction
-                ? Math.Floor((decimal) (year / 100)) + 1
+                ? Math.Floor((decimal)(year / 100)) + 1
                 // ReSharper disable once PossibleLossOfFraction
-                : Math.Floor((decimal) (year / 100)));
+                : Math.Floor((decimal)(year / 100)));
         }
 
         public static int DuplicateCount(string str)
@@ -1174,12 +1174,12 @@ namespace CodeExercises
             var wordArray = words.Split(' ');
             var result = new string[wordArray.Length];
             foreach (var word in wordArray)
-            foreach (var letter in word.ToCharArray())
-            {
-                if (!char.IsNumber(letter)) continue;
-                result[int.Parse(letter.ToString()) - 1] = word;
-                break;
-            }
+                foreach (var letter in word.ToCharArray())
+                {
+                    if (!char.IsNumber(letter)) continue;
+                    result[int.Parse(letter.ToString()) - 1] = word;
+                    break;
+                }
             return string.Join(" ", result);
         }
 
@@ -1250,7 +1250,7 @@ namespace CodeExercises
                 catch (Exception)
                 {
                 }
-            var lines = new List<string> {"URL, Error Count, Percentage"};
+            var lines = new List<string> { "URL, Error Count, Percentage" };
             var total = urlList.Sum(x => x.Value);
             lines.AddRange(urlList.OrderByDescending(x => x.Value)
                 .Select(error => $"{error.Key},{error.Value},{Convert.ToDecimal(error.Value) * 100 / total}"));
@@ -1304,7 +1304,7 @@ namespace CodeExercises
                     .Aggregate(result, (current, word) => current.Replace($" {word} ", " ")
                         .Replace($"{word} ", " ")
                         .Replace($" {word}", " "));
-            var words = result.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            var words = result.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             var wordsGroup = words.ToLookup(x => x);
             var maxFrequency = wordsGroup.Max(x => x.Count());
             var resultWords = wordsGroup.Where(x => x.Count() == maxFrequency).ToList();
@@ -1327,7 +1327,7 @@ namespace CodeExercises
         public static int GetUnique(IEnumerable<int> numbers)
         {
             return numbers.GroupBy(x => x)
-                .Select(n => new {number = n.Key, value = n.Count()})
+                .Select(n => new { number = n.Key, value = n.Count() })
                 .OrderBy(n => n.value)
                 .First().number;
         }
@@ -1539,8 +1539,8 @@ namespace CodeExercises
                 {"--..--", ','}
             };
             return string.Join(" ",
-                morseCode.Split(new[] {"   "}, StringSplitOptions.None).Select(word => string.Join(string.Empty,
-                    word.Split(' ').Select(character => morse[character].ToString()))).ToList());
+                morseCode.Split(new[] { "   " }, StringSplitOptions.None).Select(word => string.Join(string.Empty,
+                      word.Split(' ').Select(character => morse[character].ToString()))).ToList());
         }
 
         public static string Accum(string s)
@@ -1603,7 +1603,7 @@ namespace CodeExercises
         public static int[] CountPositivesSumNegatives(int[] input)
         {
             if (input == null || input.Length == 0) return new int[] { };
-            return new[] {input.Where(x => x >= 0).Count(), input.Where(x => x < 0).Sum()};
+            return new[] { input.Where(x => x >= 0).Count(), input.Where(x => x < 0).Sum() };
         }
 
         public static int SumDiagonals(int[,] matrix)
@@ -1846,10 +1846,10 @@ namespace CodeExercises
         {
             //Non optimal Solution
             for (var p = 0; p < a.Length; p++)
-            for (var q = p; q < a.Length; q++)
-            for (var r = q; r < a.Length; r++)
-                if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
-                    return 1;
+                for (var q = p; q < a.Length; q++)
+                    for (var r = q; r < a.Length; r++)
+                        if (a[p] + a[q] > a[r] && a[q] + a[r] > a[p] && a[r] + a[p] > a[q])
+                            return 1;
             return 0;
         }
 
@@ -2135,7 +2135,7 @@ namespace CodeExercises
             {
                 if (!_itemsDictionary.TryGetValue(key, out var item))
                 {
-                    item = new Node {Key = key, Value = value};
+                    item = new Node { Key = key, Value = value };
                     if (_itemsDictionary.Count == _maxCacheSize)
                     {
                         _itemsDictionary.Remove(_tail.Key);
@@ -2215,19 +2215,19 @@ namespace CodeExercises
                 Count++;
                 if (Root == null)
                 {
-                    Root = new NNode(key, null) {Level = 1};
+                    Root = new NNode(key, null) { Level = 1 };
                 }
                 else
                 {
                     var node = Find(parent);
-                    if (node == null) Root.Children.Add(new NNode(key, Root) {Level = Root.Level + 1});
+                    if (node == null) Root.Children.Add(new NNode(key, Root) { Level = Root.Level + 1 });
                     else Add(node, key);
                 }
             }
 
             private void Add(NNode parent, string value)
             {
-                parent?.Children.Add(new NNode(value, parent) {Level = parent.Level + 1});
+                parent?.Children.Add(new NNode(value, parent) { Level = parent.Level + 1 });
             }
 
             public NNode Find(string key)
@@ -2564,7 +2564,7 @@ namespace CodeExercises
                 if (candle <= maxNumber) continue;
                 maxNumber = candle;
             }
-            var maxNumberValues = new Dictionary<int, int> {{maxNumber, 0}};
+            var maxNumberValues = new Dictionary<int, int> { { maxNumber, 0 } };
             foreach (var candle in ar)
             {
                 if (candle != maxNumber) continue;
@@ -2839,7 +2839,7 @@ namespace CodeExercises
             for (var c = 0; c < lText.Length; c++) //O(N)
                 if (!allowedCharacters.ContainsKey(lText[c])) lText[c] = ' '; //O(1) 
             var splitArray = string.Join(string.Empty, lText) //O(N**2) it seems <-- Bottleneck
-                .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var fqwords = new Dictionary<string, int>();
             var maxFrequency = 1;
             var wordsToExcludeDict = new Dictionary<string, int>();
@@ -2885,7 +2885,7 @@ namespace CodeExercises
                 if (!allowedCharacters.Contains(lText[c])) lText[c] = ' '; //O(1) since is a fixed array
             //Remove words to Exclude
             var splitArray = string.Join(string.Empty, lText) //O(N**2) ??
-                .Split(new[] {" "}, StringSplitOptions.RemoveEmptyEntries);
+                .Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries);
             var fqwords = new Dictionary<string, int>();
             var maxFrequency = 1;
             foreach (var word in splitArray) //O(N)
@@ -2952,7 +2952,7 @@ namespace CodeExercises
             public void Push(int val)
             {
                 //o(1)
-                var current = new InnerObject {Val = val};
+                var current = new InnerObject { Val = val };
                 if (IsEmpty())
                 {
                     current.Max = val;
