@@ -13,14 +13,34 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var a = new[] { 0, 0, 1, 1, 1, 2, 2, 3, 3, 4 };
-            var b= new ArrayExercises();
-            b.RemoveDuplicateNumbers(a);
+            var ll = new LinkedList();
+            ll.AddLast(5);
+            ll.AddLast(7);
+            ll.AddLast(9);
+            ll.Print();
 
-            foreach (var c in a)
-            {
-                Console.WriteLine(c);
-            }
+            ll.AddFirst(9);
+            ll.Print();
+
+            var t = ll.Find(7);
+            ll.Remove(t);
+            ll.Print();
+
+            t = ll.Find(5);
+            ll.AddAfter(t, 10);
+            ll.Print();
+
+            t = ll.Find(10);
+            ll.AddBefore(t, 15);
+            ll.Print();
+
+            ll.RemoveFirst();
+            ll.RemoveLast();
+            ll.Print();
+
+            ll.Clear();
+            ll.Print(); 
+
 
             Console.ReadKey();
         }
