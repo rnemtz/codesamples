@@ -36,23 +36,7 @@ namespace CodeExercises.Internal
 
         public void Add(int val)
         {
-            var node = new BstNode(val);
-            if (IsEmpty())
-            {
-                Root = node;
-            }
-            else
-            {
-                if (val <= Root.Value)
-                {
-                    //left
-
-                }
-                else
-                {
-                    //right
-                }
-            }
+           
         }
 
         public bool IsEmpty()

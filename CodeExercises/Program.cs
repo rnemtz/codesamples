@@ -13,16 +13,11 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var bst = new BsTree();
+            var bst = new Graph();
+            //bst.PrintBdf();
+            //Console.WriteLine();
 
-            bst.InOrder();
-            Console.WriteLine();
-
-            bst.PreOrder();
-            Console.WriteLine();
-
-            bst.PostOrder();
-
+            bst.PrintDfs();
 
             Console.ReadKey();
         }
