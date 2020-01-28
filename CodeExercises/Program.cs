@@ -13,34 +13,21 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var ll = new LinkedList();
-            ll.AddLast(5);
-            ll.AddLast(7);
-            ll.AddLast(9);
-            ll.Print();
+            var st = new Stack();
+            st.Push(10);
+            st.Push(5);
 
-            ll.AddFirst(9);
-            ll.Print();
+            var current = st.Pop();
+            Console.WriteLine(current);
+            Console.WriteLine(st.IsEmpty());
 
-            var t = ll.Find(7);
-            ll.Remove(t);
-            ll.Print();
+            current = st.Peek();
+            Console.WriteLine(current);
+            Console.WriteLine(st.IsEmpty());
 
-            t = ll.Find(5);
-            ll.AddAfter(t, 10);
-            ll.Print();
-
-            t = ll.Find(10);
-            ll.AddBefore(t, 15);
-            ll.Print();
-
-            ll.RemoveFirst();
-            ll.RemoveLast();
-            ll.Print();
-
-            ll.Clear();
-            ll.Print(); 
-
+            current = st.Pop();
+            Console.WriteLine(current);
+            Console.WriteLine(st.IsEmpty());
 
             Console.ReadKey();
         }
