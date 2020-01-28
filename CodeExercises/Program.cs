@@ -13,11 +13,11 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var st = new Stack();
-            st.Push(10);
-            st.Push(5);
+            var st = new Queue();
+            st.Add(10);
+            st.Add(5);
 
-            var current = st.Pop();
+            var current = st.Remove();
             Console.WriteLine(current);
             Console.WriteLine(st.IsEmpty());
 
@@ -25,7 +25,7 @@ namespace CodeExercises
             Console.WriteLine(current);
             Console.WriteLine(st.IsEmpty());
 
-            current = st.Pop();
+            current = st.Remove();
             Console.WriteLine(current);
             Console.WriteLine(st.IsEmpty());
 

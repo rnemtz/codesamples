@@ -38,7 +38,7 @@ namespace CodeExercises.Internal
 
         public bool IsEmpty()
         {
-            return head != null;
+            return head == null;
         }
     }
 

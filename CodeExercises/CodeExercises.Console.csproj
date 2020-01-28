@@ -65,6 +65,7 @@
     <Compile Include="DataStructures\Stack.cs" />
     <Compile Include="Internal\ArrayExercises.cs" />
     <Compile Include="Internal\LinkedList.cs" />
+    <Compile Include="Internal\Queue.cs" />
     <Compile Include="Internal\Stack.cs" />
     <Compile Include="ITree.cs" />
     <Compile Include="Program.cs" />
