@@ -13,21 +13,16 @@ namespace CodeExercises
     {
         private static void Main()
         {
-            var st = new Queue();
-            st.Add(10);
-            st.Add(5);
+            var bst = new BsTree();
 
-            var current = st.Remove();
-            Console.WriteLine(current);
-            Console.WriteLine(st.IsEmpty());
+            bst.InOrder();
+            Console.WriteLine();
 
-            current = st.Peek();
-            Console.WriteLine(current);
-            Console.WriteLine(st.IsEmpty());
+            bst.PreOrder();
+            Console.WriteLine();
 
-            current = st.Remove();
-            Console.WriteLine(current);
-            Console.WriteLine(st.IsEmpty());
+            bst.PostOrder();
+
 
             Console.ReadKey();
         }
