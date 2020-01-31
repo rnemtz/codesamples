@@ -47,12 +47,11 @@ namespace CoreExcercises
                     return current;
                 }
 
-                foreach (var e in current.Reports)
+                foreach (var employeeReport in current.Reports)
                 {
-                    q.Enqueue(e);
+                    q.Enqueue(employeeReport);
                 }
             }
-
             return null;
         }
 
