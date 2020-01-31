@@ -50,10 +50,13 @@
     <Compile Include="Abstract\Atlethe.cs" />
     <Compile Include="Abstract\Person.cs" />
     <Compile Include="AdjacentNumbers.cs" />
+    <Compile Include="Amazon.cs" />
     <Compile Include="Animals.cs" />
     <Compile Include="Arrays\ArrayList.cs" />
     <Compile Include="BinaryGap.cs" />
     <Compile Include="BinarySearch.cs" />
+    <Compile Include="Carvana.cs" />
+    <Compile Include="CodeWars.cs" />
     <Compile Include="CountDiv.cs" />
     <Compile Include="DataStructures\BinaryTree.cs" />
     <Compile Include="DataStructures\DoubleLinkedList.cs" />
@@ -63,13 +66,19 @@
     <Compile Include="DataStructures\PrefixTree.cs" />
     <Compile Include="DataStructures\Queue.cs" />
     <Compile Include="DataStructures\Stack.cs" />
+    <Compile Include="Flexport.cs" />
+    <Compile Include="HackerRank.cs" />
     <Compile Include="Internal\ArrayExercises.cs" />
     <Compile Include="Internal\BSTree.cs" />
+    <Compile Include="Internal\Exercises.cs" />
     <Compile Include="Internal\Graph.cs" />
     <Compile Include="Internal\LinkedList.cs" />
     <Compile Include="Internal\Queue.cs" />
     <Compile Include="Internal\Stack.cs" />
     <Compile Include="ITree.cs" />
+    <Compile Include="LeetCode.cs" />
+    <Compile Include="Lyft.cs" />
+    <Compile Include="Microsoft.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sealed\SealedPerson.cs" />
@@ -77,6 +86,7 @@
     <Compile Include="Sorting\MergeSort.cs" />
     <Compile Include="Sorting\QuickSort.cs" />
     <Compile Include="Trees.cs" />
+    <Compile Include="Wayfair.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
