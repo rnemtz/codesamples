@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CoreExcercises
 {
@@ -7,10 +8,131 @@ namespace CoreExcercises
         private static void Main(string[] args)
         {
            
-
-
             Console.ReadKey();
         }
+
+        #region Lowest Common Ancestor BST and BT
+        /**/
+        public static TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+        {
+            if (root == null) return null;
+
+            while (root != null)
+            {
+                if (p.Val < root.Val && q.Val < root.Val) root = root.Left;
+                else if (p.Val > root.Val && q.Val > root.Val) root = root.Right;
+                else return root;
+            }
+            return null;
+        }
+
+        public static int LowestCa(TreeNode node, TreeNode l, TreeNode m)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            while (node != null)
+            {
+                if (l.Val < node.Val && m.Val < node.Val)
+                {
+                    node = node.Left;
+                }
+                else if (l.Val > node.Val && m.Val > node.Val)
+                {
+                    node = node.Right;
+                }
+                else
+                {
+                    return node.Val;
+                }
+            }
+
+            return 0;
+        }
+
+        private static TreeNode result;
+
+        public static bool TraverseTree(TreeNode currentNode, TreeNode p, TreeNode q)
+        {
+            // If reached the end of a branch, return false.
+            if (currentNode == null)
+            {
+                return false;
+            }
+
+            // Left Recursion. If left recursion returns true, set left = 1 else 0
+            var left = TraverseTree(currentNode.Left, p, q) ? 1 : 0;
+
+            // Right Recursion
+            var right = TraverseTree(currentNode.Right, p, q) ? 1 : 0;
+
+            // If the current node is one of p or q
+            var mid = (currentNode == p || currentNode == q) ? 1 : 0;
+
+            // If any two of the flags left, right or mid become True
+            if (mid + left + right >= 2)
+            {
+                result = currentNode;
+            }
+
+            // Return true if any one of the three bool values is True.
+            return (mid + left + right > 0);
+        }
+        #endregion
+
+        #region Bottom View Binary Tree
+        /*  
+            var node = new TreeNode(20)
+            {
+                Left = new TreeNode(8)
+                {
+                    Left = new TreeNode(5),
+                    Right = new TreeNode(3)
+                    {
+                        Left = new TreeNode(10),
+                        Right = new TreeNode(14)
+                    }
+                },
+                Right = new TreeNode(22)
+                {
+                    Left = new TreeNode(4),
+                    Right = new TreeNode(25)
+                }
+            };
+            foreach (var c in BottomView(node))
+            {
+                Console.Write($"{c} ");
+            }
+         */
+
+        private static List<int> BottomView(TreeNode node)
+        {
+            var list = new List<int>();
+            GetList(node, list);
+            return list;
+        }
+
+        private static void GetList(TreeNode node, List<int> list)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            GetList(node.Left, list);
+
+            if (node.Left == null && node.Right == null)
+            {
+                list.Add(node.Val);
+                return;
+            } 
+
+            GetList(node.Right, list);
+        }
+
+        #endregion
 
         #region Max Path sum in a tree
         /*
@@ -35,12 +157,12 @@ namespace CoreExcercises
         {
             if (node == null)
             {
-                return 0 ;
+                return 0;
             }
 
             var left = MaximumSum(node.Left);
             var right = MaximumSum(node.Right);
-            
+
             max = Math.Max(max, left + right + node.Val);
 
             return Math.Max(node.Val + Math.Max(left, right), 0);
