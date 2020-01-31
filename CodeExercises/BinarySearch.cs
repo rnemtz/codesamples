@@ -52,7 +52,9 @@ namespace CodeExercises
             if (low > high) return -1;
             var mid = low + (high - low) / 2;
             if (a[mid] == x) return mid;
-            return x < a[mid] ? SearchBinaryRecursive(a, low, mid - 1, x) : SearchBinaryRecursive(a, mid + 1, high, x);
+            return x < a[mid] ? 
+                SearchBinaryRecursive(a, low, mid - 1, x) 
+                : SearchBinaryRecursive(a, mid + 1, high, x);
         }
     }
 }

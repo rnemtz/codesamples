@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace CoreExcercises
 {
@@ -7,9 +8,47 @@ namespace CoreExcercises
     {
         private static void Main(string[] args)
         {
-           
+            
             Console.ReadKey();
         }
+        #region BinarySearch
+        /*
+         *
+            var test = new[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+            var result = BinarySearch(test, 2);
+         *
+         */
+
+        public static bool BinarySearch(int[] array, int a)
+        {
+            var min = 0;
+            var max = array.Length - 1;
+
+            while (min <= max)
+            {
+                var mid = min + (max - min) / 2;
+
+                if (a == array[mid])
+                {
+                    return true;
+                }
+
+                if (a < array[mid])
+                {
+                    max = mid - 1;
+                }
+                else
+                {
+                    min = mid + 1;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
+
+
 
         #region Lowest Common Ancestor BST and BT
         /**/
