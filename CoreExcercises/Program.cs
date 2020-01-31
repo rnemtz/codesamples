@@ -7,8 +7,13 @@ namespace CoreExcercises
         private static void Main(string[] args)
         {
             var bfs = new BreadthFirstSearch();
-            bfs.Search("John");
             foreach (var c in bfs.GetEmployeeList())
+            {
+                Console.WriteLine(c);
+            }
+            Console.WriteLine("-------------------");
+            var dfs = new DepthFirstSearch();
+            foreach (var c in dfs.GetEmployeeList())
             {
                 Console.WriteLine(c);
             }
