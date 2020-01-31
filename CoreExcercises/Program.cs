@@ -6,9 +6,56 @@ namespace CoreExcercises
     {
         private static void Main(string[] args)
         {
+           
+
 
             Console.ReadKey();
         }
+
+        #region Max Path sum in a tree
+        /*
+         *
+            var node = new TreeNode(-10)
+            {
+                Left = new TreeNode(9),
+                Right = new TreeNode(20)
+                {
+                    Left = new TreeNode(15),
+                    Right = new TreeNode(7)
+                }
+            };
+            var maxSum = MaxSum(node); 
+            answer max = 42
+         *
+         *
+         */
+        private static int max = int.MinValue;
+
+        private static int MaximumSum(TreeNode node)
+        {
+            if (node == null)
+            {
+                return 0 ;
+            }
+
+            var left = MaximumSum(node.Left);
+            var right = MaximumSum(node.Right);
+            
+            max = Math.Max(max, left + right + node.Val);
+
+            return Math.Max(node.Val + Math.Max(left, right), 0);
+        }
+
+        private static int MaxSum(TreeNode node)
+        {
+            if (node == null) return 0;
+            var left = MaxSum(node.Left);
+            var right = MaxSum(node.Right);
+            max = Math.Max(max, left + right + node.Val);
+
+            return Math.Max(node.Val + Math.Max(left, right), 0);
+        }
+        #endregion
 
         #region TreeDepth
         /*
@@ -45,7 +92,7 @@ namespace CoreExcercises
         {
             return node == null ? -1 : Math.Max(FindMaximumDepth(node.Left), FindMaximumDepth(node.Right)) + 1;
         }
-        
+
         #endregion
     }
 }
